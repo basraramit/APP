@@ -1,2 +1,2 @@
 # Risk-App
-Risk game
+Risk is a game that is developed in Java using Swing and JGraphX API.
