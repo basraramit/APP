@@ -28,20 +28,21 @@ public class CountryMap extends JFrame
 			List<Country> country = new ArrayList<Country>();
 	        while (reader.hasNextLine()) {
 	            String line = reader.nextLine();
-	           
-	            String[] tokens = line.split(",");
-	            String CountryId= tokens[0];
+		    String[] tokens = line.split(",");
+	           String CountryId= tokens[0];
+	            String Continent= tokens[3];
 	             x= Integer.parseInt(tokens[1]);
 	             y= Integer.parseInt(tokens[2]);
 	            adjv1= tokens[4];
-	            
-	            Country c = new Country(CountryId, x,y,adjv1);
+	            String PlayerName="Roy";
+	            Country c = new Country(CountryId,Continent, x,y,adjv1,PlayerName);
 	            country.add(c);
 	            System.out.println(tokens[0]+" "+tokens[1]+" "+tokens[2]+" "+tokens[4]);
 	            c.setCountryId(CountryId);
-	            c.setCoordinateX(x);
-	            c.setCoordinateY(y);
-	            c.setadjv(adjv1);
+	               c.setContinent(Continent);
+	               c.setCoordinateX(x);
+	               c.setCoordinateY(y);
+	               c.setPlayerName(PlayerName);
 	            
 	     
 			/*Object v1 = graph.insertVertex(parent, null, "Territory1", 40,20, 80,
@@ -52,10 +53,13 @@ public class CountryMap extends JFrame
 	        
 	        for(Country c: country){
 	        	String id=c.getCountryId();
-	        	int x1= c.getCoordinateX();
-	        	int y1= c.getCoordinatey();
-	        	String adj=c.getadjv();
-	        	System.out.println("Afterinput "+id+" "+x1+" "+y1+" "+adj);
+	        	String Continent=c.getContinent();
+	        	  int x1= c.getCoordinateX();
+	        	  int y1= c.getCoordinatey();
+	        	  String adj=c.getadjv();
+	        	  String Pname=c.getPlayerName();
+	        	  
+	        	  System.out.println("Afterinput "+id+" "+Continent+" "+x1+" "+y1+" "+adj+" "+Pname);
 	        	Object v1 = graph.insertVertex(parent, null, id, x1,y1,60,
 						30);
 	        	Object v2 = graph.insertVertex(parent, null, "Territory2", 240, 150,
