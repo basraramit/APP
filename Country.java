@@ -68,7 +68,7 @@ return Continent;
 
    // public void setadjv(String adjv1) {
 	//this.adjv1= adjv1;
-}
+//}
 public void setPlayerName(String Continent) {
 	this.PlayerName=PlayerName;
 }
