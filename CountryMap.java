@@ -35,7 +35,7 @@ public class CountryMap extends JFrame
 	             y= Integer.parseInt(tokens[2]);
 	            adjv1= tokens[4];
 	            String PlayerName="Roy";
-	            Country c = new Country(CountryId,Continent, x,y,adjv1,PlayerName);
+	            Country c = new Country(CountryId,OwnerId,Continent, x,y,adjv1,PlayerName);
 	            country.add(c);
 	            System.out.println(tokens[0]+" "+tokens[1]+" "+tokens[2]+" "+tokens[4]);
 	            c.setCountryId(CountryId);
