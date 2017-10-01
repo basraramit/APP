@@ -1,12 +1,13 @@
 package Map;
 
 public class Country{
-	String CountryId,adjv1,Continent,PlayerName;
+	String CountryId,OwnerID,adjv1,Continent,PlayerName;
     int x,y;
    
-    Country(String CountryId,String Continent,int x,int y, String adjv1,String PlayerName){
+    Country(String CountryId,OwnerId,String Continent,int x,int y, String adjv1,String PlayerName){
     	
     	this.CountryId = CountryId;
+	this.OwnerId =   OwnerId;  
         this.x=x;
         this.y=y;
         this.adjv1= adjv1;
@@ -27,7 +28,19 @@ public class Country{
 	
 	public void setContinent(String Continent) {
 	this.Continent=Continent;
-}
+    }
+	
+    public void setOwnerId(String OwnerId) {
+	    this.OwnerId = OwnerId;
+    }
+
+
+    public String getOwnerId() {
+    	
+        return OwnerId;
+    }
+	
+
 
 /**
 * @return the continent
