@@ -1,46 +1,41 @@
 package Map;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
-public class Country{
-	String CountryId,OwnerID,adjv1,Continent,PlayerName;
+public class Country {
+	String CountryId,adjv1, Continent;
     int x,y;
+    int[] adj= new int[10];
+    int adjv2;
+    String PlayerName;
+    List<String> adjacent= new ArrayList<String>();
    
-    Country(String CountryId,OwnerId,String Continent,int x,int y, String adjv1,String PlayerName){
-    	
-    	this.CountryId = CountryId;
-	this.OwnerId =   OwnerId;  
-        this.x=x;
-        this.y=y;
-        this.adjv1= adjv1;
-	    this.Continent=Continent;
-	    this.PlayerName=PlayerName;
-       
-    }
- 
-    public void setCountryId(String CountryId) {
-	    this.CountryId = CountryId;
-    }
 
+    Country(String CountryId, String Continent,int x,int y, String PlayerName){
+       this.CountryId = CountryId;
+       this.x=x;
+       this.y=y;
+       this.Continent=Continent;
+       this.PlayerName=PlayerName;
+        
+   }
 
-    public String getCountryId() {
-    	
-        return CountryId;
-    }
-	
-	public void setContinent(String Continent) {
+  
+public void setCountryId(String CountryId) {
+	this.CountryId = CountryId;
+}
+
+/**
+* @return the countryID
+*/
+public String getCountryId() {
+return CountryId;
+}
+
+public void setContinent(String Continent) {
 	this.Continent=Continent;
-    }
-	
-    public void setOwnerId(String OwnerId) {
-	    this.OwnerId = OwnerId;
-    }
-
-
-    public String getOwnerId() {
-    	
-        return OwnerId;
-    }
-	
-
+}
 
 /**
 * @return the continent
@@ -50,38 +45,40 @@ return Continent;
 }
 
 
-    public void setCoordinateX(int x) {
-	    this.x=x;
-       
-    }
+public void setCoordinateX(int x) {
+	this.x=x;
+  // this.y=y;
+}
 
 
-    public int getCoordinateX() {
-        return x;
-    }
+public int getCoordinateX() {
+   return x;
+}
 
-    public void setCoordinateY(int y) {
+public void setCoordinateY(int y) {
 	
-        this.y=y;
-    }
+  this.y=y;
+}
 
-    public int getCoordinatey() {
-        return y;
-    }
+public int getCoordinatey() {
+   return y;
+}
+
+public void setAdjacent(List<String> a){
+    adjacent = a;
+}
+public List<String> getAdjacents(){
+	return adjacent;
+}
+
+public String getadjv() {
+   return adjv1;
+}
 
 
-    public String getadjv() {
-        return adjv1;
-    }
-
-
-    public void setadjv(String adjv1) {
-	    this.adjv1= adjv1;
-    }
-
-   // public void setadjv(String adjv1) {
-	//this.adjv1= adjv1;
-//}
+public void setadjv(String adjv1) {
+	this.adjv1= adjv1;
+}
 public void setPlayerName(String Continent) {
 	this.PlayerName=PlayerName;
 }
@@ -92,6 +89,14 @@ public void setPlayerName(String Continent) {
 public String getPlayerName() {
 return PlayerName;
 }
-}
-   
 
+
+
+}
+
+
+
+
+
+
+    
