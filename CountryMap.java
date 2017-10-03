@@ -33,6 +33,9 @@ public class CountryMap extends JFrame{
 			
 			while (reader.hasNextLine()){
 	               String line = reader.nextLine();
+	               if (line.equals("[Territories]")){
+	            	   while (reader.hasNextLine()){
+	            	   line = reader.nextLine();
 	               String[] tokens = line.split(",");
 	               String CountryId= tokens[0];
 	               String Continent= tokens[3];
@@ -56,8 +59,10 @@ public class CountryMap extends JFrame{
 	                  adjToken.add(tokens[i]);
 	                  
 	                 }
-	          
+	            	 
 	             c.setAdjacent(adjToken);
+	            	   }
+	               }
 	            } 
 	             for(Country c: country){
                   String id=c.getCountryId();
