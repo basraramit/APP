@@ -41,7 +41,8 @@ public class CountryMap extends JFrame{
 	               String Continent= tokens[3];
 	               x= Integer.parseInt(tokens[1]);
 	               y= Integer.parseInt(tokens[2]);
-	              // adjv1= tokens[4];
+
+				   // adjv1= tokens[4];
 	               String PlayerName="Roy";
 	               c = new Country(CountryId,Continent,x,y,PlayerName);
 	               country.add(c);
@@ -97,6 +98,28 @@ public class CountryMap extends JFrame{
 		}
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		getContentPane().add(graphComponent);
+	}
+	public void addVertex(){
+		  List<String> adjacents= new ArrayList<String>();
+		  Scanner sc=new Scanner(System.in);
+		  System.out.println("Enter Country Name: \n");
+		  String Countryid=sc.nextLine();
+		  System.out.println("Enter x coordinate: \n");
+		  int x=sc.nextInt();
+		  System.out.println("Enter y coordinate: \n");
+		  int y=sc.nextInt();
+		  
+		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,"defaultVertex;fillColor=lightblue");
+	      listVertex.put(Countryid, vertex);
+	      System.out.println("Enter no. of adjacent countries:");
+	      int noAdjacents=sc.nextInt();
+	      for(int i=1;i<=noAdjacents;i++){
+	    	  System.out.println("Enter adjacent countries"+i+":"+" \n");
+	    	  String adjacent=sc.nextLine();
+	          adjacents.add(adjacent);
+	          Object childVertex=listVertex.get(adjacents.get(i-1));
+				 graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+	      }
 	}
   
 	
