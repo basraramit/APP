@@ -28,7 +28,7 @@ public class CountryMap extends JFrame{
 		try{
 			int x,y;
 		    
-		     File filename1= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input2.txt");
+		     File filename1= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input.txt");
 		     Scanner reader = new Scanner(filename1);
 			
 			while (reader.hasNextLine()){
