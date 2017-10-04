@@ -28,7 +28,7 @@ public class CountryMap extends JFrame{
 		try{
 			int x,y;
 		    
-		     File filename1= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input.txt");
+		     File filename1= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input2.txt");
 		     Scanner reader = new Scanner(filename1);
 			
 			while (reader.hasNextLine()){
@@ -110,14 +110,14 @@ public class CountryMap extends JFrame{
 		  int y=sc.nextInt();
 		  
 		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,"defaultVertex;fillColor=lightblue");
-	      lstVertex.put(Countryid, vertex);
+	      listVertex.put(Countryid, vertex);
 	      System.out.println("Enter no. of adjacent countries:");
 	      int noAdjacents=sc.nextInt();
 	      for(int i=1;i<=noAdjacents;i++){
 	    	  System.out.println("Enter adjacent countries"+i+":"+" \n");
 	    	  String adjacent=sc.nextLine();
 	          adjacents.add(adjacent);
-	          Object childVertex=lstVertex.get(adjacents.get(i-1));
+	          Object childVertex=listVertex.get(adjacents.get(i-1));
 				 graph.insertEdge(parent, null, "New edges",vertex,childVertex);
 	      }
 	}
