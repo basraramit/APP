@@ -37,6 +37,7 @@ public class RiskGame extends JFrame {
 		lblPlayerNo.setFont(new Font("Tahoma", Font.PLAIN,15));
 		lblPlayerNo.setForeground(Color.GRAY);
 		
+
 		
 		String[] map= {"Map1","Map2", "Map3", "Map4"};
 		JComboBox comboMap= new JComboBox(map);
@@ -59,6 +60,16 @@ public class RiskGame extends JFrame {
 		
 		JButton btnAddCountry= new JButton("Add Country");
 		 btnAddCountry.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnAddCountry.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					a= new CountryMap();
+					a.addVertex();
+					a.setVisible(true);
+					
+				}
+					
+				}
+					);
 		 
 		 JButton btnRemoveCountry= new JButton("Remove Country");
 		 btnRemoveCountry.setFont(new Font("Tahoma", Font.PLAIN, 15));
