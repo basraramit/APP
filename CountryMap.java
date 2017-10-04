@@ -14,21 +14,21 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 import java.awt.Color;
 
-public class CountryMap extends JFrame{
+public class CountryMap{
 	
 	Country c;
-	List<Country> country = new ArrayList<Country>();
+	public List<Country> country = new ArrayList<Country>();
     Map<String,Object> lstVertex=new HashMap<String,Object>();
     mxGraph graph = new mxGraph();
 	Object parent = graph.getDefaultParent();
-	public CountryMap(){
+	public List<Country> init(){
 		
 
 		graph.getModel().beginUpdate();
 		try{
 			int x,y;
-		    
-		     File filename1= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input2.txt");
+		    System.out.println( System.getProperty("user.dir")+"/input2.txt");
+		     File filename1= new File( System.getProperty("user.dir")+"/input2.txt");
 		     Scanner reader = new Scanner(filename1);
 			
 			while (reader.hasNextLine()){
@@ -45,7 +45,7 @@ public class CountryMap extends JFrame{
 				   // adjv1= tokens[4];
 	               String PlayerName="Roy";
 	               c = new Country(CountryId,Continent,x,y,PlayerName);
-	               country.add(c);
+	               this.country.add(c);
 	               System.out.println(tokens[0]+" "+tokens[1]+" "+tokens[3]+" Adjacent{");
 	               c.setCountryId(CountryId);
 	               c.setContinent(Continent);
@@ -91,13 +91,17 @@ public class CountryMap extends JFrame{
 	            		
 	             }
 	                           
-	            			} catch(Exception ex){System.out.println("Error");
+	            			} catch(Exception ex){System.out.println(ex.getMessage());
 		}
 		finally{
 			graph.getModel().endUpdate();
 		}
+		
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
-		getContentPane().add(graphComponent);
+		return this.country;
+	}
+	public List<Country> getCountryList(){
+		return this.country;
 	}
 	public void addVertex(){
 		  List<String> adjacents= new ArrayList<String>();
@@ -110,23 +114,21 @@ public class CountryMap extends JFrame{
 		  int y=sc.nextInt();
 		  
 		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,"defaultVertex;fillColor=lightblue");
-	      listVertex.put(Countryid, vertex);
+	      lstVertex.put(Countryid, vertex);
 	      System.out.println("Enter no. of adjacent countries:");
 	      int noAdjacents=sc.nextInt();
 	      for(int i=1;i<=noAdjacents;i++){
 	    	  System.out.println("Enter adjacent countries"+i+":"+" \n");
 	    	  String adjacent=sc.nextLine();
 	          adjacents.add(adjacent);
-	          Object childVertex=listVertex.get(adjacents.get(i-1));
+	          Object childVertex=lstVertex.get(adjacents.get(i-1));
 				 graph.insertEdge(parent, null, "New edges",vertex,childVertex);
 	      }
 	}
   
-	
 	public static void main(String[] args){
 		CountryMap frame = new CountryMap();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(600, 600);
-		frame.setVisible(true);
+		
 		}
+	
  }
