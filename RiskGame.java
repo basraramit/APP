@@ -1,3 +1,4 @@
+
 package Map;
 
 import java.awt.BorderLayout;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 
 public class RiskGame extends JFrame {
 	RiskGame game;
+	CountryMap a;
 	public static void main(String[] args){
 		RiskGame game= new RiskGame();
 		game.setVisible(true);
