@@ -46,10 +46,8 @@ public class AdjacencyMatrixConnectedGraph
     	        }catch (FileNotFoundException e) {
     	           e.printStackTrace();
     	        }
+    	           	        	                 	        
     	        
-   	        	                 	        
-    	        
-
     	        //Filling the adjacency Matrix    
     	        System.out.println(lineNo);  
 	        int[][] adjMatrix = new int[lineNo][lineNo];
@@ -72,24 +70,6 @@ public class AdjacencyMatrixConnectedGraph
     	           	System.out.println();
     	            }
     	               	       	   
-    	
-  /*
-        int adjacencyMatrix[][] = {
-                {0 ,1 ,0 ,1 ,0},
-                {0 ,0 ,1 ,0 ,0},
-                {0 ,0 ,0 ,0 ,0},
-                {0 ,1 ,0 ,0 ,0},
-                {0 ,0 ,0 ,0 ,0}
-        };
-  */
-       
-        int adjacencyMatrix[][] = {
-        		{0, 1, 0 ,1 },
-        		{1, 0 ,1 ,1 },
-        		{0, 1, 0 ,0 },
-        		{1, 1, 0 ,0 }
-        };
-       
   
     boolean result = isConnected(adjMatrix);
   
