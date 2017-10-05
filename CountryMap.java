@@ -107,27 +107,57 @@ public class CountryMap{
 		return this.country;
 	}
 	public void addVertex(){
+		  String newLine = null;
 		  List<String> adjacents= new ArrayList<String>();
+		  
 		  Scanner sc=new Scanner(System.in);
 		  System.out.println("Enter Country Name: \n");
 		  String Countryid=sc.nextLine();
+		  
+		  newLine.concat(Countryid + ",");
+		  
 		  System.out.println("Enter x coordinate: \n");
 		  int x=sc.nextInt();
+		  
+		  newLine.concat(x + ",");
+		  
 		  System.out.println("Enter y coordinate: \n");
 		  int y=sc.nextInt();
 		  
+		  newLine.concat(y + ",");
+		  
+		  System.out.println("Enter continent: \n");
+		  int continent =sc.nextInt();
+		  
+		  newLine.concat(continent + ",");
+		  
 		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,"defaultVertex;fillColor=lightblue");
-	      lstVertex.put(Countryid, vertex);
-	      System.out.println("Enter no. of adjacent countries:");
-	      int noAdjacents=sc.nextInt();
-	      for(int i=1;i<=noAdjacents;i++){
+	      	  lstVertex.put(Countryid, vertex);
+	          System.out.println("Enter no. of adjacent countries:");
+	          int noAdjacents=sc.nextInt();
+	          for(int i=1;i<=noAdjacents;i++){
 	    	  System.out.println("Enter adjacent countries"+i+":"+" \n");
 	    	  String adjacent=sc.nextLine();
+	    	  newLine.concat( adjacent + ",");
+	    	 	    	  
 	          adjacents.add(adjacent);
 	          Object childVertex=lstVertex.get(adjacents.get(i-1));
-				 graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+		  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+				 			 				 
 	      }
-	}
+	      newLine = newLine.replace(newLine.substring(newLine.length()-1), "");	      
+			
+	      try{	    	      	
+	      	FileWriter fw = new FileWriter("input.txt",true);	      
+	      	BufferedWriter bw = new BufferedWriter(fw);
+	      	bw.write(newLine);	      	
+	      	bw.close();
+	  	System.out.println("Data successfully appended at the end of file");
+	        }catch(IOException ioe){
+	           System.out.println("Exception occurred:");
+	      	 ioe.printStackTrace();
+	         }
+	     }
   
 	public static void main(String[] args){
 		CountryMap frame = new CountryMap();
