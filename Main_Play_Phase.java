@@ -32,8 +32,8 @@ public class Main_Play_Phase {
 	 */
 	public int getCountriesOwned(Player player) {
 		int occupiedCountries = 0;
-		for(int i = 0; i < countryList.size(); i++) {
-			occupiedCountries += countryList.get(i).checkCountriesOwned(player);
+		for(int i = 0; i < continentList.size(); i++) {
+			occupiedCountries += continentList.get(i).checkCountriesOwned(player);
 		}
 		return occupiedCountries;
 	}
