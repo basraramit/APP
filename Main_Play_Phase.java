@@ -15,7 +15,7 @@ public class Main_Play_Phase {
 	public int calculateArmies(Player player) {
 		int NumOfArmies = 0;
 		NumOfArmies += getContinentBonus(player);
-		if(getContinentBonus(player) < 9) {
+		if(getCountriesOwned(player) < 9) {
 			NumOfArmies += 3;
 		}
 		else{
@@ -32,8 +32,8 @@ public class Main_Play_Phase {
 	 */
 	public int getCountriesOwned(Player player) {
 		int occupiedCountries = 0;
-		for(int i = 0; i < continentList.size(); i++) {
-			occupiedCountries += continentList.get(i).checkCountriesOwned(player);
+		for(int i = 0; i < countryList.size(); i++) {
+			occupiedCountries += countryList.get(i).checkCountriesOwned(player);
 		}
 		return occupiedCountries;
 	}
@@ -66,15 +66,41 @@ public class Main_Play_Phase {
 	}
 	
 	public void fortifyCountry(String oldCountry, String newCountry, int movedArmies) {
-		addArmies(newCountry, movedArmies);
-		removeArmies(oldCountry, movedArmies);
+		if(oldCountry.isAdjacent()==true){
+			addArmies(newCountry, movedArmies);
+			removeArmies(oldCountry, movedArmies);
+		}else{
+			system.out.println("Invalid path!");
+		}
+		
 	}
 	
 	public void addArmies(String name, int armies) {
 		
+		String countryName = new String();
+		for (int i = 0; i < continentList.size(); i++) {
+			for (int j = 0; j < continentList.get(i).getSize(); j++) {
+				countryName = continentList.get(i).getCountryName(j);
+				if (countryName.equalsIgnoreCase(name) == true) {
+					continentList.get(i).addArmies(j, armies);
+					break;
+				}
+			}
+		}
+		
 	}
 
 	public void removeArmies(String name, int armies) {
+		
+		String countryName = new String();
+		for (int i = 0; i < continentList.size(); i++) {
+			for (int j = 0; j < continentList.get(i).getSize(); j++) {
+				countryName = continentList.get(i).getCountryName(j);
+				if (countryName.equalsIgnoreCase(name) == true) {
+					continentList.get(i).removeArmies(j, armies);
+				}
+			}
+		}
 		
 	}
 	
