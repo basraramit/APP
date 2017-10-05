@@ -1,6 +1,6 @@
 package com.Risk;
 
-public class player{
+public class Player{
 
 	public String player_name;
 	String CountryID;
