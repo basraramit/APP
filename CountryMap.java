@@ -107,57 +107,67 @@ public class CountryMap{
 		return this.country;
 	}
 	public void addVertex(){
-		  String newLine = null;
+			
+		  String newLine = "";		  
 		  List<String> adjacents= new ArrayList<String>();
 		  
 		  Scanner sc=new Scanner(System.in);
 		  System.out.println("Enter Country Name: \n");
-		  String Countryid=sc.nextLine();
-		  
-		  newLine.concat(Countryid + ",");
-		  
+		  String Countryid=sc.nextLine();		
+		  newLine = newLine + Countryid + ",";
+		 
 		  System.out.println("Enter x coordinate: \n");
 		  int x=sc.nextInt();
 		  
-		  newLine.concat(x + ",");
+		  newLine = newLine + x + ",";
+		 
 		  
 		  System.out.println("Enter y coordinate: \n");
 		  int y=sc.nextInt();
 		  
-		  newLine.concat(y + ",");
+		  newLine = newLine + y + ",";
+		 
 		  
 		  System.out.println("Enter continent: \n");
-		  int continent =sc.nextInt();
+		  String continent =sc.next();
 		  
-		  newLine.concat(continent + ",");
+		  newLine = newLine + continent + ",";
 		  
 		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,"defaultVertex;fillColor=lightblue");
-	      	  lstVertex.put(Countryid, vertex);
-	          System.out.println("Enter no. of adjacent countries:");
-	          int noAdjacents=sc.nextInt();
-	          for(int i=1;i<=noAdjacents;i++){
-	    	  System.out.println("Enter adjacent countries"+i+":"+" \n");
-	    	  String adjacent=sc.nextLine();
-	    	  newLine.concat( adjacent + ",");
-	    	 	    	  
-	          adjacents.add(adjacent);
+	      lstVertex.put(Countryid, vertex);
+	      System.out.println("Enter no. of adjacent countries: \n");
+	      int noAdjacents=sc.nextInt();
+	      System.out.println("noAdjacents : " + noAdjacents );
+	      
+	      for(int i=1;i<=noAdjacents;i++){
+	    	  System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
+	    	  String adjacent=sc.next();
+	    	  System.out.println("adjacent : " + adjacent );
+	    	  newLine = newLine + adjacent + ",";
+	          adjacents.add(adjacent);	          	         
 	          Object childVertex=lstVertex.get(adjacents.get(i-1));
-		  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+			  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
 				 			 				 
-	      }
-	      newLine = newLine.replace(newLine.substring(newLine.length()-1), "");	      
+	      }	     	
+	      newLine = newLine.substring(0, newLine.length() - 1);
 			
-	      try{	    	      	
+	      try{
+	    	      	
 	      	FileWriter fw = new FileWriter("input.txt",true);	      
 	      	BufferedWriter bw = new BufferedWriter(fw);
-	      	bw.write(newLine);	      	
+	      	bw.write(newLine + "\n");	      	
 	      	bw.close();
+	      	
+	      	System.out.println("NewLine final : " + newLine );
 	  	System.out.println("Data successfully appended at the end of file");
+
 	        }catch(IOException ioe){
 	           System.out.println("Exception occurred:");
 	      	 ioe.printStackTrace();
 	         }
 	     }
+
+	      
   
 	public static void main(String[] args){
 		CountryMap frame = new CountryMap();
