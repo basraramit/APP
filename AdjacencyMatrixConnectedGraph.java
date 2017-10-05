@@ -19,8 +19,7 @@ public class AdjacencyMatrixConnectedGraph
     	        // this gives you a 2-dimensional array of strings
     	        List<List<String>> lines = new ArrayList<>();    
     	        List<List<String>> adjcencyMatrix = new ArrayList<>();
-    	        //int[][] adjMatrix = new int[4][4];
-    	        
+    	           	        
     	        Scanner inputStream;
 
     	        try{
@@ -29,17 +28,16 @@ public class AdjacencyMatrixConnectedGraph
     	            while(inputStream.hasNext()){
     	                String line= inputStream.next();
     	                if (line.equals("[Territories]")){
-    	                	inputStream.nextLine();
-    	                	 lineNo = 0;
-    	                	 while (inputStream.hasNextLine()){   
-    	                		
-    	  	            	   line = inputStream.nextLine();
-    	                String[] values = line.split(",");             
-    	                // this adds the currently parsed line to the 2-dimensional string array
-    	                lines.add(Arrays.asList(values));
-    	                //System.out.println(line);
-    	                lineNo++;
-    	            }
+    	                  inputStream.nextLine();
+    	                   lineNo = 0;
+    	                   while (inputStream.hasNextLine()){   	
+    	  	           	line = inputStream.nextLine();
+    	                    	String[] values = line.split(",");             
+    	                	// this adds the currently parsed line to the 2-dimensional string array
+    	                	lines.add(Arrays.asList(values));
+				//System.out.println(line);
+    	                	lineNo++;
+    	           	 }
     	                	   //lineNo++;
     	                }
     	            }
@@ -55,30 +53,22 @@ public class AdjacencyMatrixConnectedGraph
     	        //Filling the adjacency Matrix    
     	        System.out.println(lineNo);  
 	        int[][] adjMatrix = new int[lineNo][lineNo];
-    	        for(List<String> line: lines) {
-    	        	//System.out.println( "new line");       	
-    	           int id = Integer.valueOf(line.get(0));
-    	           //System.out.println(id);
-    	            
-    	           for (int i=4; i<line.size(); i++){	
-    	              // System.out.println(line.get(i));
+    	        for(List<String> line: lines) {	        	    	
+    	           int id = Integer.valueOf(line.get(0));  	              	            
+    	           for (int i=4; i<line.size(); i++){	 	              
     	                adjMatrix[id][Integer.valueOf(line.get(i))] = 1;
-    	                
-    	              
+    	                   	              
     	            }
     	            	           
-    	       }
+    	       	}
     	        
-    	        String mLine = "";
+    	        
     	        for (int i = 0; i< lineNo; i++){
     	            for (int j = 0; j < lineNo ; j++ ){
     	            	if (i == j)
-    	            	adjMatrix[i][j] = 0;
-    	            	//mLine +=  adjMatrix[i][j];    	            	          	   	            	
+    	            	adjMatrix[i][j] = 0;  	               	            	          	   	            	
     	            	System.out.print(adjMatrix[i][j] + " "); 
-    	            }
-    	           // System.out.print(mLine);
-    	            //adjcencyMatrix.add(Arrays.asList(mLine));
+    	            }    	        
     	           	System.out.println();
     	            }
     	               	       	   
