@@ -160,7 +160,7 @@ return PlayerName;
 	 */
 	public boolean isAdjacent(String adjacentCountry){
 		for(int i = 0; i < adjacent.size(); i++){
-			if(borderList.get(i).equalsIgnoreCase(adjacentCountry)){
+			if(adjacent.get(i).equalsIgnoreCase(adjacentCountry)){
 				return true;
 			}
 		}
