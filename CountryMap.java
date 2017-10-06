@@ -97,7 +97,7 @@ public class CountryMap{
 	              else if(Continent.equals("Left Escape Pod")){
 	            	  color= "fillColor=magenta";
 	              }
-	              Object vertex= graph.insertVertex(parent, null, id, x1,y1,60,20,"defaultVertex;fillColor=lightblue");
+	              Object vertex= graph.insertVertex(parent, null, id, x1,y1,60,20,color);
 	             listVertex.put(id, vertex);
 	           
 	           
