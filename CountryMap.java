@@ -88,7 +88,8 @@ public class CountryMap{
 			     else if(Continent.equals("Right Thruster")){
 	            	  color= "fillColor=lightgray";
 	              }
-	              else if(Continent.equals("Left Thruster")){
+
+			     else if(Continent.equals("Left Thruster")){
 	            	  color= "fillColor=cyan";
 	              }
 	              else if(Continent.equals("Right Escape Pod")){
@@ -130,6 +131,34 @@ public class CountryMap{
 		    //System.out.println(name+"");
 		    return name;
 		    }
+public String getColor(String Continent){
+		String color="fillColor=lightblue";
+		if(Continent.equals("Cockpit")){
+        	color= "fillColor=lightblue";
+        	}
+          else if(Continent.equals("Hyperdrive")){
+            	color= "fillColor=red";
+            	}
+          else if(Continent.equals("Left Cargo")||Continent.equals("LeftCargo")){
+        	  color= "fillColor=lightgreen";
+          }
+          else if(Continent.equals("Right Cargo")||Continent.equals("RightCargo")){
+        	  color= "fillColor=lightpink";
+          }
+          else if(Continent.equals("Right Thruster")||Continent.equals("RightThruster")){
+        	  color= "fillColor=lightgray";
+          }
+          else if(Continent.equals("Left Thruster")||Continent.equals("LeftThruster")){
+        	  color= "fillColor=cyan";
+          }
+          else if(Continent.equals("Right Escape Pod")||Continent.equals("RightEscapePod")){
+        	  color= "fillColor=orange";
+          }
+          else if(Continent.equals("Left Escape Pod")||Continent.equals("LeftEscapePod")){
+        	  color= "fillColor=magenta";
+          }
+		return color;
+	}
 	public void removeCountry(){
 	  Scanner sc=new Scanner(System.in);
 	  System.out.println("Enter Country Name: \n");
