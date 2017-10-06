@@ -22,13 +22,14 @@ public class CountryMap{
 	public List<Country> country = new ArrayList<Country>();
     Map<String,Object> listVertex=new HashMap<String,Object>();
     mxGraph graph = new mxGraph();
+	File filename;
 	Object parent = graph.getDefaultParent();
 	
 		graph.getModel().beginUpdate();
 		try{
 			int x,y;
-		    File filename1= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input.txt");
-		     Scanner reader = new Scanner(filename1);
+		    filename= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input.txt");
+		     Scanner reader = new Scanner(filename);
 			
 			while (reader.hasNextLine()){
 	               String line = reader.nextLine();
@@ -190,7 +191,7 @@ public String getColor(String Continent){
 			
 	      try{
 	    	      	
-	      	FileWriter fw = new FileWriter("input.txt",true);	      
+	      	FileWriter fw = new FileWriter(filename,true);	      
 	      	BufferedWriter bw = new BufferedWriter(fw);
 	      	bw.write("\n"+ newLine);	      	
 	      	bw.close();
