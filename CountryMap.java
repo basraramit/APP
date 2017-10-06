@@ -107,7 +107,7 @@ public class CountryMap{
 		  
 		  Scanner sc=new Scanner(System.in);
 		  System.out.println("Enter Country Name: \n");
-		  String Countryid=sc.nextLine();		
+		  String Countryid=sc.next();		
 		  newLine = newLine + Countryid + ",";
 		 
 		  System.out.println("Enter x coordinate: \n");
