@@ -66,7 +66,7 @@ public class RiskGame extends JFrame {
 		btnAddCountry.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					a= new CountryMap();
-					a.addVertex();
+					a.addCountry();
 					a.setVisible(true);
 					
 				}
@@ -79,7 +79,7 @@ public class RiskGame extends JFrame {
 		btnRemoveCountry.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					a= new CountryMap();
-					a.removeVertex();
+					a.removeCountry();
 					a.setVisible(true);
 					
 				}
