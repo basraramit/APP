@@ -71,13 +71,34 @@ public class CountryMap{
 	              int y1= c.getCoordinatey();
 	              String adj=c.getadjv();
 	              String Pname=c.getPlayerName();
-	              String style;
-	              
-	              
-	              
-	      //Color color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
-	             Object vertex= graph.insertVertex(parent, null, id, x1,y1,60,20,"defaultVertex;fillColor=lightblue");
+	              String color="fillColor=lightblue";
+	              if(Continent.equals("Cockpit")){
+	            	color= "fillColor=lightblue";
+	            	}
+	              else if(Continent.equals("Hyperdrive")){
+		            	color= "fillColor=red";
+		            	}
+	              else if(Continent.equals("Left Cargo")){
+	            	  color= "fillColor=lightgreen";
+	              }
+	              else if(Continent.equals("Right Cargo")){
+	            	  color= "fillColor=lightpink";
+	              }
+	              else if(Continent.equals("Right Thruster")){
+	            	  color= "fillColor=lightgray";
+	              }
+	              else if(Continent.equals("Left Thruster")){
+	            	  color= "fillColor=cyan";
+	              }
+	              else if(Continent.equals("Right Escape Pod")){
+	            	  color= "fillColor=orange";
+	              }
+	              else if(Continent.equals("Left Escape Pod")){
+	            	  color= "fillColor=magenta";
+	              }
+	              Object vertex= graph.insertVertex(parent, null, id, x1,y1,60,20,"defaultVertex;fillColor=lightblue");
 	             listVertex.put(id, vertex);
+	           
 	           
 	                }
 	             for(Country c: country){
