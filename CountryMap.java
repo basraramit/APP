@@ -20,7 +20,7 @@ public class CountryMap{
 	
 	Country c;
 	public List<Country> country = new ArrayList<Country>();
-    Map<String,Object> lstVertex=new HashMap<String,Object>();
+    Map<String,Object> listVertex=new HashMap<String,Object>();
     mxGraph graph = new mxGraph();
 	Object parent = graph.getDefaultParent();
 	
@@ -77,14 +77,14 @@ public class CountryMap{
 	              
 	      //Color color = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
 	             Object vertex= graph.insertVertex(parent, null, id, x1,y1,60,20,"defaultVertex;fillColor=lightblue");
-	             lstVertex.put(id, vertex);
+	             listVertex.put(id, vertex);
 	           
 	                }
 	             for(Country c: country){
 	            		 	 List<String> values =c.getAdjacents();
-	            			 Object parentVertex=lstVertex.get(c.getCountryId());
+	            			 Object parentVertex=listVertex.get(c.getCountryId());
 	            			for(int i = 0; i < values.size(); i++){
-	            				 Object childVertex=lstVertex.get(values.get(i));
+	            				 Object childVertex=listVertex.get(values.get(i));
 	            	 		 graph.insertEdge(parent, null, "",parentVertex,childVertex);
 	            			 }
 	            		
@@ -128,7 +128,7 @@ public class CountryMap{
 		  newLine = newLine + continent + ",";
 		  
 		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,"defaultVertex;fillColor=lightblue");
-	      lstVertex.put(Countryid, vertex);
+	      listVertex.put(Countryid, vertex);
 	      System.out.println("Enter no. of adjacent countries: \n");
 	      int noAdjacents=sc.nextInt();
 	      System.out.println("noAdjacents : " + noAdjacents );
@@ -139,7 +139,7 @@ public class CountryMap{
 	    	  System.out.println("adjacent : " + adjacent );
 	    	  newLine = newLine + adjacent + ",";
 	          adjacents.add(adjacent);	          	         
-	          Object childVertex=lstVertex.get(adjacents.get(i-1));
+	          Object childVertex=listVertex.get(adjacents.get(i-1));
 			  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
 				 			 				 
 	      }	     	
