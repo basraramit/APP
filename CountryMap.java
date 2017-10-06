@@ -42,7 +42,7 @@ public class CountryMap{
 	               y= Integer.parseInt(tokens[2]);
 
 				   // adjv1= tokens[4];
-	               String PlayerName="Roy";
+	               String PlayerName=NameGenerator();
 	               c = new Country(CountryId,Continent,x,y,PlayerName);
 	               this.country.add(c);
 	               System.out.println(tokens[0]+" "+tokens[1]+" "+tokens[3]+" Adjacent{");
@@ -84,7 +84,8 @@ public class CountryMap{
 	              else if(Continent.equals("Right Cargo")){
 	            	  color= "fillColor=lightpink";
 	              }
-	              else if(Continent.equals("Right Thruster")){
+
+			     else if(Continent.equals("Right Thruster")){
 	            	  color= "fillColor=lightgray";
 	              }
 	              else if(Continent.equals("Left Thruster")){
@@ -120,6 +121,15 @@ public class CountryMap{
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		return this.country;
 	}
+              public String NameGenerator() {
+	  
+		    String[] peoples = {"Bob", "Jill", "Tom", "Brandon"};
+		    List<String> names = Arrays.asList(peoples);
+		    int index = new Random().nextInt(names.size());
+		    String name = names.get(index);
+		    //System.out.println(name+"");
+		    return name;
+		    }
 	
 	public void addVertex(){
 			
@@ -147,6 +157,7 @@ public class CountryMap{
 		  String continent =sc.next();
 		  
 		  newLine = newLine + continent + ",";
+		String PlayerName=NameGenerator();
 		  
 		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,"defaultVertex;fillColor=lightblue");
 	      listVertex.put(Countryid, vertex);
