@@ -44,6 +44,7 @@ public class RiskGame extends JFrame {
 		String[] map= {"Map1","Map2", "Map3", "Map4"};
 		JComboBox comboMap= new JComboBox(map);
 		
+
 		String[] PlayersNumber= {"2", "3","4","5","6"};
 		JComboBox comboPlayersNo= new JComboBox(PlayersNumber);
 		
@@ -75,6 +76,16 @@ public class RiskGame extends JFrame {
 		 
 		 JButton btnRemoveCountry= new JButton("Remove Country");
 		 btnRemoveCountry.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnRemoveCountry.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					a= new CountryMap();
+					a.removeVertex();
+					a.setVisible(true);
+					
+				}
+					
+				}
+					);
 		
 		
 		GroupLayout groupLayout= new GroupLayout(Panel);
