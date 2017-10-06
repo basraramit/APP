@@ -23,9 +23,7 @@ public class CountryMap{
     Map<String,Object> lstVertex=new HashMap<String,Object>();
     mxGraph graph = new mxGraph();
 	Object parent = graph.getDefaultParent();
-	public List<Country> init(){
-		
-
+	
 		graph.getModel().beginUpdate();
 		try{
 			int x,y;
@@ -101,9 +99,7 @@ public class CountryMap{
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		return this.country;
 	}
-	public List<Country> getCountryList(){
-		return this.country;
-	}
+	
 	public void addVertex(){
 			
 		  String newLine = "";		  
