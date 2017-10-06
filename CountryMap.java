@@ -30,8 +30,7 @@ public class CountryMap{
 		graph.getModel().beginUpdate();
 		try{
 			int x,y;
-		    System.out.println( System.getProperty("user.dir")+"/input2.txt");
-		     File filename1= new File( System.getProperty("user.dir")+"/input2.txt");
+		    File filename1= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input.txt");
 		     Scanner reader = new Scanner(filename1);
 			
 			while (reader.hasNextLine()){
