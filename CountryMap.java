@@ -155,7 +155,7 @@ public class CountryMap{
 	    	      	
 	      	FileWriter fw = new FileWriter("input.txt",true);	      
 	      	BufferedWriter bw = new BufferedWriter(fw);
-	      	bw.write(newLine + "\n");	      	
+	      	bw.write("\n"+ newLine);	      	
 	      	bw.close();
 	      	
 	      	System.out.println("NewLine final : " + newLine );
