@@ -167,9 +167,10 @@ public String getColor(String Continent){
 		  String continent =sc.next();
 		  
 		  newLine = newLine + continent + ",";
+		String color=getColor(continent);
 		String PlayerName=NameGenerator();
 		  
-		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,"defaultVertex;fillColor=lightblue");
+		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,color);
 	      listVertex.put(Countryid, vertex);
 	      System.out.println("Enter no. of adjacent countries: \n");
 	      int noAdjacents=sc.nextInt();
