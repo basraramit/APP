@@ -130,8 +130,14 @@ public class CountryMap{
 		    //System.out.println(name+"");
 		    return name;
 		    }
-	
-	public void addVertex(){
+	public void removeCountry(){
+	  Scanner sc=new Scanner(System.in);
+	  System.out.println("Enter Country Name: \n");
+	  String Countryid=sc.nextLine();
+	 Object vertex=listVertex.get(Countryid);
+	  graph.removeCells(new Object[]{vertex});
+  }
+	public void addCountry(){
 			
 		  String newLine = "";		  
 		  List<String> adjacents= new ArrayList<String>();
