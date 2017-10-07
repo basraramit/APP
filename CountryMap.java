@@ -18,7 +18,7 @@ import java.awt.Color;
 import java.util.Random;
 import java.util.Arrays;
 
-public class CountryMap{
+public class CountryMap extends JFrame{
 	
 	Country c;
 	public List<Country> country = new ArrayList<Country>();
@@ -27,7 +27,7 @@ public class CountryMap{
 	File filename;
 	Object parent = graph.getDefaultParent();
 	public CountryMap(){
-		super("Risk Game Map");
+		
 		graph.getModel().beginUpdate();
 		try{
 			int x,y;
