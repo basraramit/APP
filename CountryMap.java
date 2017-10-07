@@ -142,6 +142,39 @@ public String getColor(String Continent){
 	  String Countryid=sc.nextLine();
 	 Object vertex=listVertex.get(Countryid);
 	  graph.removeCells(new Object[]{vertex});
+		
+		
+	try{
+		File inputFile = new File("input.txt");
+	        File tempFile = new File("TempFile.txt");
+
+	        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+	        String lineToRemove = "";
+	        String currentLine;
+	        int position = 0 ;
+	        while((currentLine = reader.readLine()) != null) {
+	        	
+	        if(currentLine.contains(Countryid) && (currentLine.indexOf(Countryid)  == 0))
+	            lineToRemove = currentLine;	        	        	
+	            // trim newline when comparing with lineToRemove
+	        	
+	            String trimmedLine = currentLine.trim();
+	            if(trimmedLine.equals(lineToRemove)) continue;
+	            writer.write(currentLine + System.getProperty("line.separator"));
+	        }
+	        writer.close(); 
+	        reader.close(); 
+	        boolean successful = tempFile.renameTo(inputFile);
+	        System.out.println(successful);
+
+	        }catch(IOException ioe){
+	           System.out.println("Exception occurred:");
+	      	 ioe.printStackTrace();
+	      }
+		
+		
   }
 	public void addCountry(){
 			
