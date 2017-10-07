@@ -55,7 +55,7 @@ public class RiskGame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				CountryMap a= new CountryMap();
 				a.setVisible(true);
-				game.dispose();
+				a.setSize(800, 800);
 			}
 				
 			}
@@ -68,6 +68,7 @@ public class RiskGame extends JFrame {
 					a= new CountryMap();
 					a.addCountry();
 					a.setVisible(true);
+					a.setSize(800, 800);
 					
 				}
 					
@@ -81,7 +82,7 @@ public class RiskGame extends JFrame {
 					a= new CountryMap();
 					a.removeCountry();
 					a.setVisible(true);
-					
+					a.setSize(800, 800);
 				}
 					
 				}
