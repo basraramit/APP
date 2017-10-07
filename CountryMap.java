@@ -144,8 +144,8 @@ public String getColor(String Continent){
 	  graph.removeCells(new Object[]{vertex});
 		
 		
-	try{
-		File inputFile = new File("input.txt");
+	 try{
+		  File inputFile = new File("input.txt");
 	        File tempFile = new File("TempFile.txt");
 
 	        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -154,11 +154,16 @@ public String getColor(String Continent){
 	        String lineToRemove = "";
 	        String currentLine;
 	        int position = 0 ;
+	        String RemoveString = Countryid + ",";
 	        while((currentLine = reader.readLine()) != null) {
 	        	
-	        if(currentLine.contains(Countryid) && (currentLine.indexOf(Countryid)  == 0))
-	            lineToRemove = currentLine;	        	        	
-	            // trim newline when comparing with lineToRemove
+	        	if(currentLine.contains(RemoveString) && (currentLine.indexOf(Countryid)  == 0))
+	        		lineToRemove = currentLine;	
+	        	else if(currentLine.contains(RemoveString) && (currentLine.indexOf(Countryid)  != 0))
+	        	currentLine = currentLine.replace(RemoveString,"");
+	        	else if (currentLine.contains(Countryid) && (currentLine.indexOf(Countryid)  != 0))
+	        	currentLine = currentLine.replace("," + Countryid,"");
+	        	
 	        	
 	            String trimmedLine = currentLine.trim();
 	            if(trimmedLine.equals(lineToRemove)) continue;
@@ -172,7 +177,7 @@ public String getColor(String Continent){
 	        }catch(IOException ioe){
 	           System.out.println("Exception occurred:");
 	      	 ioe.printStackTrace();
-	      }
+	         }
 		
 		
   }
