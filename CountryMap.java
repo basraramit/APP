@@ -98,7 +98,7 @@ public class CountryMap extends JFrame{
 		}
 		
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
-		return this.country;
+		getContentPane().add(graphComponent);
 	}
               public String NameGenerator() {
 	  
