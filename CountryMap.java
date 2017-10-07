@@ -27,6 +27,7 @@ public class CountryMap{
 	File filename;
 	Object parent = graph.getDefaultParent();
 	public CountryMap(){
+		super("Risk Game Map");
 		graph.getModel().beginUpdate();
 		try{
 			int x,y;
