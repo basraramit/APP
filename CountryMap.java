@@ -15,6 +15,8 @@ import java.util.Map;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 import java.awt.Color;
+import java.util.Random;
+import java.util.Arrays;
 
 public class CountryMap{
 	
@@ -24,7 +26,7 @@ public class CountryMap{
     mxGraph graph = new mxGraph();
 	File filename;
 	Object parent = graph.getDefaultParent();
-	
+	public CountryMap(){
 		graph.getModel().beginUpdate();
 		try{
 			int x,y;
@@ -42,7 +44,7 @@ public class CountryMap{
 	               x= Integer.parseInt(tokens[1]);
 	               y= Integer.parseInt(tokens[2]);
 
-				   // adjv1= tokens[4];
+				   
 	               String PlayerName=NameGenerator();
 	               c = new Country(CountryId,Continent,x,y,PlayerName);
 	               this.country.add(c);
@@ -70,7 +72,6 @@ public class CountryMap{
 	              String Continent=c.getContinent();
 	              int x1= c.getCoordinateX();
 	              int y1= c.getCoordinatey();
-	              String adj=c.getadjv();
 	              String Pname=c.getPlayerName();
 	             String color=getColor(Continent);
 	              
