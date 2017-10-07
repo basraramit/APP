@@ -210,7 +210,9 @@ public String getColor(String Continent){
   
 	public static void main(String[] args){
 		CountryMap frame = new CountryMap();
-		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(600, 600);
+		frame.setVisible(true);
 		}
 	
  }
