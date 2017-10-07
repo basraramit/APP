@@ -75,7 +75,7 @@ public class CountryMap{
 	              String Pname=c.getPlayerName();
 	             String color=getColor(Continent);
 	              
-	              Object vertex= graph.insertVertex(parent, null, id, x1,y1,60,20,color);
+	              Object vertex= graph.insertVertex(parent, null, id+" "+Pname, x1,y1,60,20,color);
 	             listVertex.put(id, vertex);
 	           
 	           
@@ -172,7 +172,7 @@ public String getColor(String Continent){
 		String color=getColor(continent);
 		String PlayerName=NameGenerator();
 		  
-		  Object vertex= graph.insertVertex(parent, null, Countryid, x,y,60,20,color);
+		  Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName, x,y,60,20,color);
 	      listVertex.put(Countryid, vertex);
 	      System.out.println("Enter no. of adjacent countries: \n");
 	      int noAdjacents=sc.nextInt();
