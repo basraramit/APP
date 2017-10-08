@@ -31,7 +31,7 @@ public class CountryMap extends JFrame{
 		graph.getModel().beginUpdate();
 		try{
 			int x,y;
-		    filename= new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input.txt");
+		    filename=setFilename();
 		     Scanner reader = new Scanner(filename);
 			
 			while (reader.hasNextLine()){
@@ -109,6 +109,25 @@ public class CountryMap extends JFrame{
 		    //System.out.println(name+"");
 		    return name;
 		    }
+	public File setFilename(){
+		  Scanner sc=new Scanner(System.in);
+
+		  System.out.println("Select map \n");
+
+		  String map=sc.next();	
+		  if(map.equals("1")){
+			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/mapInput.txt");
+		  }
+		  else if(map.equals("2")){
+			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input3.txt"); 
+		  }
+		  else{
+			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/input4.txt"); 
+		  }
+			 
+		  return this.filename;
+		  
+	  }
 public String getColor(String Continent){
 		String color="fillColor=lightblue";
 		if(Continent.equals("Cockpit")){
