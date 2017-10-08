@@ -138,24 +138,28 @@ public String getColor(String Continent){
           else if(Continent.equals("Hyperdrive")){
             	color= "fillColor=red";
             	}
-          else if(Continent.equals("Left Cargo")||Continent.equals("LeftCargo")){
+          else if(Continent.equals("Left Cargo")||Continent.equals("LeftCargo")||Continent.equals("Left Wing")||Continent.equals("LeftWing")||Continent.equals("Kala")){
         	  color= "fillColor=lightgreen";
           }
-          else if(Continent.equals("Right Cargo")||Continent.equals("RightCargo")){
+          else if(Continent.equals("Right Cargo")||Continent.equals("RightCargo")||Continent.equals("Right Wing")||Continent.equals("RightWing")||Continent.equals("Enevim")){
         	  color= "fillColor=lightpink";
           }
-          else if(Continent.equals("Right Thruster")||Continent.equals("RightThruster")){
+          else if(Continent.equals("Right Thruster")||Continent.equals("RightThruster")||Continent.equals("Tail")||Continent.equals("Nova")){
         	  color= "fillColor=lightgray";
           }
-          else if(Continent.equals("Left Thruster")||Continent.equals("LeftThruster")){
+          else if(Continent.equals("Left Thruster")||Continent.equals("LeftThruster")||Continent.equals("Engine")||Continent.equals("BarakLos")||Continent.equals("Barak Los")){
         	  color= "fillColor=cyan";
           }
-          else if(Continent.equals("Right Escape Pod")||Continent.equals("RightEscapePod")){
+          else if(Continent.equals("Right Escape Pod")||Continent.equals("RightEscapePod")||Continent.equals("Fuselage")||Continent.equals("Neimaach")){
         	  color= "fillColor=orange";
           }
-          else if(Continent.equals("Left Escape Pod")||Continent.equals("LeftEscapePod")){
+          else if(Continent.equals("Left Escape Pod")||Continent.equals("LeftEscapePod")||Continent.equals("Barba Moya")||Continent.equals("BarbaMoya")){
         	  color= "fillColor=magenta";
           }
+          else{
+        	  color="fillColor=Pink";
+          }
+        	 
 		return color;
 	}
 	public void removeCountry(){
