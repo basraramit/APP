@@ -240,8 +240,6 @@ public String getColor(String Continent){
 	      listVertex.put(Countryid, vertex);
 	      System.out.println("Enter no. of adjacent countries: \n");
 	      int noAdjacents=sc.nextInt();
-	      System.out.println("noAdjacents : " + noAdjacents );
-	      
 	      for(int i=1;i<=noAdjacents;i++){
 	    	  System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
 	    	  String adjacent=sc.next();
