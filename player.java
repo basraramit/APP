@@ -5,6 +5,17 @@ public class player{
 	public String player_name;
 	String CountryID;
 	int infantry,cavalry,artillery;
+	public int i;
+	
+
+	public int getArmy(){
+		return i;
+	}
+	
+	public int setArmy(int i){
+		this.i=i;
+		return i;
+	}
 	
 	public String GetplayerName(String PlayerName){ 
 	 this.player_name=PlayerName;
