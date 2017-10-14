@@ -5,14 +5,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import src.Country;
+import src.CountryMap;
+import src.player;
+
 public class RoundRobin{
-	private ArrayList<> players;
-	private ArrayList<Country> countries;
+	private ArrayList<player> players;
+	private List<Country> countries;
 	CountryMap map;
-	private Player curPlayer=new Player();
+	private player curPlayer=new player();
 	private int gameState;
 	
-	public void RoundRobin(ArrayList<Player> PlayerList){
+	public void RoundRobin(ArrayList<player> PlayerList){
 
 		players=PlayerList;
 		countries=map.getCountryList();
@@ -25,10 +29,10 @@ public class RoundRobin{
 		curPlayer=players.get(0);
 	}
 
-	getCurrentPlayer(){
+	public player getCurrentPlayer(){
 		return curPlayer;
 	}
-	public ArrayList<Player> getPlayers(){
+	public ArrayList<player> getPlayers(){
         return players;
     }
     public int getState(){
@@ -39,7 +43,7 @@ public class RoundRobin{
         gameState = state;
     }
 
-	void placeArmy(int CountryID){
+	void placeArmy(String CountryID){
 		for(int i=0;i<countries.size();i++){
 			Country temp=countries.get(i);
 			if(temp.getCountryId()==CountryID && temp.getPlayerName()==curPlayer.SetPlayerName()){
