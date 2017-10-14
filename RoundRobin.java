@@ -42,10 +42,11 @@ public class RoundRobin{
 	void placeArmy(int CountryID){
 		for(int i=0;i<countries.size();i++){
 			Country temp=countries.get(i);
-			if(temp.getCountryId()==CountryID && temp.getPlayerName()==curPlayer.GetplayerName()){
+			if(temp.getCountryId()==CountryID && temp.getPlayerName()==curPlayer.SetPlayerName()){
 				if(curPlayer.getArmy()>0){
 					temp.addArmies(1);
-					curPlayer.setArmy(curPlayer.getArmy()--);		
+					int temp1=curPlayer.getArmy();
+					curPlayer.setArmy(temp1--);		
 				}else{
 					System.out.println("You have no army left");
 
