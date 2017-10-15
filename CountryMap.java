@@ -305,12 +305,12 @@ public void addContinent(){
 			  newContinentLine = newCountryLine + Continentid + "=";
 			 
 			  System.out.println("Enter no. of countries for this continent: \n");
-		      int nocountries=sc.nextInt();
+		      	  int nocountries=sc.nextInt();
 		      
-		      for(int j=1;j<=nocountries;j++){
+		      	  for(int j=1;j<=nocountries;j++){
 		    	  
-		      newCountryLine = "";
-		      List<String> adjacents= new ArrayList<String>();
+		      	  newCountryLine = "";
+		          List<String> adjacents= new ArrayList<String>();
 			  System.out.println("Enter Country Name: \n");
 			  String Countryid=sc.next();		
 			  newCountryLine = newCountryLine + Countryid + ",";
@@ -332,11 +332,11 @@ public void addContinent(){
 			  String PlayerName=NameGenerator();
 			  
 			  Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+Continentid, x,y,80,30,color);
-		      listVertex.put(Countryid, vertex);
+		          listVertex.put(Countryid, vertex);
 		      
-		      System.out.println("Enter no. of adjacent countries: \n");
-		      int noAdjacents=sc.nextInt();
-		      for(int i=1;i<=noAdjacents;i++){
+		          System.out.println("Enter no. of adjacent countries: \n");
+		          int noAdjacents=sc.nextInt();
+		          for(int i=1;i<=noAdjacents;i++){
 		    	  System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
 		    	  String adjacent=sc.next();
 		    	  System.out.println("adjacent : " + adjacent );
