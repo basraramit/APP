@@ -470,14 +470,14 @@ public void deleteContinentWithoutCountries(){
 	        String RemoveString = Continentid + "=";
 	        while((currentLine = reader.readLine()) != null) {
 	        	
-	        	if(currentLine.contains(RemoveString) )
-	        		lineToRemove = currentLine;	
-	        	else if(currentLine.contains(Continentid)) 	        					
-	        		currentLine = currentLine.replace(Continentid,"");	        		        		        	
-	            String trimmedLine = currentLine.trim();
-	            if(trimmedLine.equals(lineToRemove)) continue;
-	            writer.write(currentLine + System.getProperty("line.separator"));
-	        }
+	           if(currentLine.contains(RemoveString) )
+	           lineToRemove = currentLine;	
+	           else if(currentLine.contains(Continentid)) 	        					
+	           currentLine = currentLine.replace(Continentid,"");	        		        		        	
+	           String trimmedLine = currentLine.trim();
+	           if(trimmedLine.equals(lineToRemove)) continue;
+	           writer.write(currentLine + System.getProperty("line.separator"));
+	    }
 	        writer.close(); 
 	        reader.close(); 
 	        boolean successful = tempFile.renameTo(filename);
@@ -486,7 +486,7 @@ public void deleteContinentWithoutCountries(){
 	        }catch(IOException ioe){
 	           System.out.println("Exception occurred:");
 	      	 ioe.printStackTrace();
-	         }		
+	        }		
 	}
 
 	
