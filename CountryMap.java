@@ -476,7 +476,7 @@ public void deleteContinentWithoutCountries(){
 	           String trimmedLine = currentLine.trim();
 	           if(trimmedLine.equals(lineToRemove)) continue;
 	           writer.write(currentLine + System.getProperty("line.separator"));
-	    }
+	        }
 	        writer.close(); 
 	        reader.close(); 
 	        boolean successful = tempFile.renameTo(filename);
