@@ -296,6 +296,203 @@ try{
        }
 
 }
+public void addContinent(){
+			
+			  String newContinentLine = "";	
+			  String newCountryLine = "";
+			 		  
+			  Scanner sc=new Scanner(System.in);
+			  
+			  System.out.println("Enter Continent Name: \n");
+			  String Continentid=sc.next();		
+			  newContinentLine = newCountryLine + Continentid + "=";
+			 
+			  System.out.println("Enter no. of countries for this continent: \n");
+		      int nocountries=sc.nextInt();
+		      
+		      for(int j=1;j<=nocountries;j++){
+		    	  
+		      newCountryLine = "";
+		      List<String> adjacents= new ArrayList<String>();
+			  System.out.println("Enter Country Name: \n");
+			  String Countryid=sc.next();		
+			  newCountryLine = newCountryLine + Countryid + ",";
+			 
+			  System.out.println("Enter x coordinate: \n");
+			  int x=sc.nextInt();
+			  
+			  newCountryLine = newCountryLine + x + ",";
+			 
+			  
+			  System.out.println("Enter y coordinate: \n");
+			  int y=sc.nextInt();
+			  
+			  newCountryLine = newCountryLine + y + ",";
+			 		
+			  
+			  newCountryLine = newCountryLine + Continentid + ",";
+			  String color=getColor(Continentid);
+			  String PlayerName=NameGenerator();
+			  
+			  Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+Continentid, x,y,80,30,color);
+		      listVertex.put(Countryid, vertex);
+		      
+		      System.out.println("Enter no. of adjacent countries: \n");
+		      int noAdjacents=sc.nextInt();
+		      for(int i=1;i<=noAdjacents;i++){
+		    	  System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
+		    	  String adjacent=sc.next();
+		    	  System.out.println("adjacent : " + adjacent );
+		    	  newCountryLine = newCountryLine + adjacent + ",";
+		          adjacents.add(adjacent);	          	         
+		          Object childVertex=listVertex.get(adjacents.get(i-1));
+				  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+					 			 				 
+		      }	     	
+		      newCountryLine = newCountryLine.substring(0, newCountryLine.length() - 1);
+				
+		      try{
+		    	      	
+		      	FileWriter fw = new FileWriter(filename,true);	      
+		      	BufferedWriter bw = new BufferedWriter(fw);
+		      	bw.write("\n"+ newCountryLine);	      	
+		      	bw.close();
+		      	
+		      	System.out.println("NewLine final : " + newCountryLine );
+		      	System.out.println("Data successfully appended at the end of file");
+
+		        }catch(IOException ioe){
+		           System.out.println("Exception occurred:");
+		      	 ioe.printStackTrace();
+		         }
+		      
+		      }
+		      
+		      try{
+		    	  		    	 
+			        File tempFile = new File("TempFile.txt");
+
+			        BufferedReader reader = new BufferedReader(new FileReader(filename));
+			        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+			       
+			        String ContinentsBlock = "";
+			        String currentLine;
+			        int position = 0 ;			       
+			        while((currentLine = reader.readLine()) != null) {
+			        	
+			        	if(currentLine.contains("[Continents]") ){
+			        		
+			        		
+			        		writer.write(currentLine + System.getProperty("line.separator"));
+			        		writer.write(newContinentLine + System.getProperty("line.separator"));
+			        	}
+			        	
+			        	else 
+			        		writer.write(currentLine + System.getProperty("line.separator"));
+			        					        					            				            			            
+			        }
+			        writer.close(); 
+			        reader.close(); 
+			        boolean successful = tempFile.renameTo(filename);
+			        System.out.println(successful);
+
+			        }catch(IOException ioe){
+			           System.out.println("Exception occurred:");
+			      	 ioe.printStackTrace();
+			        }
+			            	   		      		      		      
+		     }
+		
+	
+	
+	public void deleteContinentWithCountries(){
+		
+		  	String newContinentLine = "";	
+		  	String newCountryLine = "";
+		  	List<String> countries= new ArrayList<String>();
+		 		  
+		  	Scanner sc=new Scanner(System.in);
+		  
+		  	System.out.println("Enter Continentttt Name: \n");
+		  	String Continentid=sc.next();		
+									
+			 try{
+				    File tempFile = new File("TempFile.txt");
+
+			        BufferedReader reader = new BufferedReader(new FileReader(filename));
+			        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+			        String lineToRemove = "";
+			        String currentLine;
+			        int position = 0 ;
+			        String RemoveString = Continentid;
+			        while((currentLine = reader.readLine()) != null) {
+			        	
+			        	if(currentLine.contains(RemoveString) ){			        					        					        
+			        		lineToRemove = currentLine;	
+			        		String[] tokens = lineToRemove.split(",");
+				            String CountryId= tokens[0];
+				            Object vertex=listVertex.get(CountryId);
+							graph.removeCells(new Object[]{vertex});
+			        		
+			        	}
+			        	
+			            String trimmedLine = currentLine.trim();
+			            if(trimmedLine.equals(lineToRemove)) continue;
+			            writer.write(currentLine + System.getProperty("line.separator"));
+			        }
+			        writer.close(); 
+			        reader.close(); 
+			        boolean successful = tempFile.renameTo(filename);
+			        System.out.println(successful);
+
+			        }catch(IOException ioe){
+			           System.out.println("Exception occurred:");
+			      	 ioe.printStackTrace();
+			         }
+				
+		
+	}
+	
+public void deleteContinentWithoutCountries(){
+	
+	 Scanner sc=new Scanner(System.in);
+	 System.out.println("Enter Continent Name: \n");
+	 String Continentid=sc.nextLine();
+					
+	 try{
+		  	
+	        File tempFile = new File("TempFile.txt");
+
+	        BufferedReader reader = new BufferedReader(new FileReader(filename));
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+	        String lineToRemove = "";
+	        String currentLine;
+	        int position = 0 ;
+	        String RemoveString = Continentid + "=";
+	        while((currentLine = reader.readLine()) != null) {
+	        	
+	        	if(currentLine.contains(RemoveString) )
+	        		lineToRemove = currentLine;	
+	        	else if(currentLine.contains(Continentid)) 	        					
+	        		currentLine = currentLine.replace(Continentid,"");	        		        		        	
+	            String trimmedLine = currentLine.trim();
+	            if(trimmedLine.equals(lineToRemove)) continue;
+	            writer.write(currentLine + System.getProperty("line.separator"));
+	        }
+	        writer.close(); 
+	        reader.close(); 
+	        boolean successful = tempFile.renameTo(filename);
+	        System.out.println(successful);
+
+	        }catch(IOException ioe){
+	           System.out.println("Exception occurred:");
+	      	 ioe.printStackTrace();
+	         }		
+	}
+
+	
 public static void main(String[] args){
 		CountryMap frame = new CountryMap();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
