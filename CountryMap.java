@@ -413,7 +413,7 @@ public void addContinent(){
 		  	String Continentid=sc.next();		
 									
 			 try{
-				    File tempFile = new File("TempFile.txt");
+			        File tempFile = new File("TempFile.txt");
 
 			        BufferedReader reader = new BufferedReader(new FileReader(filename));
 			        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -424,14 +424,14 @@ public void addContinent(){
 			        String RemoveString = Continentid;
 			        while((currentLine = reader.readLine()) != null) {
 			        	
-			        	if(currentLine.contains(RemoveString) ){			        					        					        
-			        		lineToRemove = currentLine;	
-			        		String[] tokens = lineToRemove.split(",");
-				            String CountryId= tokens[0];
-				            Object vertex=listVertex.get(CountryId);
-							graph.removeCells(new Object[]{vertex});
+			           if(currentLine.contains(RemoveString) ){			        					        					        
+			        	lineToRemove = currentLine;	
+			        	String[] tokens = lineToRemove.split(",");
+				        String CountryId= tokens[0];
+				        Object vertex=listVertex.get(CountryId);
+					graph.removeCells(new Object[]{vertex});
 			        		
-			        	}
+			           }
 			        	
 			            String trimmedLine = currentLine.trim();
 			            if(trimmedLine.equals(lineToRemove)) continue;
@@ -445,7 +445,7 @@ public void addContinent(){
 			        }catch(IOException ioe){
 			           System.out.println("Exception occurred:");
 			      	 ioe.printStackTrace();
-			         }
+			        }
 				
 		
 	}
