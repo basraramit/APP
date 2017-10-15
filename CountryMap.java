@@ -109,12 +109,9 @@ public class CountryMap extends JFrame{
 		  String Countryid=sc.nextLine();
 		 Object vertex=listVertex.get(Countryid);
 		  graph.removeCells(new Object[]{vertex});
-			
-			
-		 try{
-			
+						
+		 try{			
 		        File tempFile = new File("TempFile.txt");
-
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
 		        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
@@ -144,10 +141,9 @@ public class CountryMap extends JFrame{
 		        }catch(IOException ioe){
 		           System.out.println("Exception occurred:");
 		      	 ioe.printStackTrace();
-		        }
-			
-			
+		        }						
 	  }
+	
 	 public String NameGenerator() {
 		  
 		    String[] peoples = {"Bob", "Jill", "Tom", "Brandon"};
