@@ -267,24 +267,20 @@ public class CountryMap extends JFrame{
 				 			 				 
 
 	      }	     	
-    newLine = newLine.substring(0, newLine.length() - 1);
-try{
-
+    	  newLine = newLine.substring(0, newLine.length() - 1);
+	  try{
   	      	
+    	 FileWriter fw = new FileWriter(filename,true);	      
 
-    	FileWriter fw = new FileWriter(filename,true);	      
+    	 BufferedWriter bw = new BufferedWriter(fw);
 
-    	BufferedWriter bw = new BufferedWriter(fw);
+    	 bw.write("\n"+ newLine);	      	
 
-    	bw.write("\n"+ newLine);	      	
+    	 bw.close();
 
-    	bw.close();
+    	 System.out.println("NewLine final : " + newLine );
 
-    	
-
-    	System.out.println("NewLine final : " + newLine );
-
-	System.out.println("Data successfully appended at the end of file");
+	 System.out.println("Data successfully appended at the end of file");
 
 
 
