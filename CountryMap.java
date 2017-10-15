@@ -344,10 +344,10 @@ public void addContinent(){
 		          Object childVertex=listVertex.get(adjacents.get(i-1));
 				  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
 					 			 				 
-		      }	     	
-		      newCountryLine = newCountryLine.substring(0, newCountryLine.length() - 1);
+		        }	     	
+		        newCountryLine = newCountryLine.substring(0, newCountryLine.length() - 1);
 				
-		      try{
+		        try{
 		    	      	
 		      	FileWriter fw = new FileWriter(filename,true);	      
 		      	BufferedWriter bw = new BufferedWriter(fw);
@@ -366,27 +366,27 @@ public void addContinent(){
 		      
 		      try{
 		    	  		    	 
-			        File tempFile = new File("TempFile.txt");
+			    File tempFile = new File("TempFile.txt");
 
-			        BufferedReader reader = new BufferedReader(new FileReader(filename));
-			        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+			    BufferedReader reader = new BufferedReader(new FileReader(filename));
+			    BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 			       
-			        String ContinentsBlock = "";
-			        String currentLine;
-			        int position = 0 ;			       
-			        while((currentLine = reader.readLine()) != null) {
+			    String ContinentsBlock = "";
+			    String currentLine;
+			    int position = 0 ;			       
+			    while((currentLine = reader.readLine()) != null) {
 			        	
-			        	if(currentLine.contains("[Continents]") ){
+			    if(currentLine.contains("[Continents]") ){
 			        		
 			        		
-			        		writer.write(currentLine + System.getProperty("line.separator"));
-			        		writer.write(newContinentLine + System.getProperty("line.separator"));
-			        	}
+			        writer.write(currentLine + System.getProperty("line.separator"));
+			        writer.write(newContinentLine + System.getProperty("line.separator"));
+			     }
 			        	
-			        	else 
-			        		writer.write(currentLine + System.getProperty("line.separator"));
+			     else 
+			        writer.write(currentLine + System.getProperty("line.separator"));
 			        					        					            				            			            
-			        }
+			     }
 			        writer.close(); 
 			        reader.close(); 
 			        boolean successful = tempFile.renameTo(filename);
