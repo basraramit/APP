@@ -210,58 +210,59 @@ public class CountryMap extends JFrame{
 	}
 	
 	public void addCountry(){
-		String newLine = "";		  
+		
+	   String newLine = "";		  
 
-		  List<String> adjacents= new ArrayList<String>();
+	   List<String> adjacents= new ArrayList<String>();
 
-		  Scanner sc=new Scanner(System.in);
+	   Scanner sc=new Scanner(System.in);
 
-		  System.out.println("Enter Country Name: \n");
+	   System.out.println("Enter Country Name: \n");
 
-		  String Countryid=sc.nextLine();		
+	   String Countryid=sc.nextLine();		
 
-		  newLine = newLine + Countryid + ",";
+	   newLine = newLine + Countryid + ",";
            System.out.println("Enter x coordinate: \n");
 
-		  int x=sc.nextInt();
-          newLine = newLine + x + ",";
-          System.out.println("Enter y coordinate: \n");
+	   int x=sc.nextInt();
+           newLine = newLine + x + ",";
+           System.out.println("Enter y coordinate: \n");
 
-		  int y=sc.nextInt();
-          newLine = newLine + y + ",";
-          System.out.println("Enter continent: \n");
+	   int y=sc.nextInt();
+           newLine = newLine + y + ",";
+           System.out.println("Enter continent: \n");
 
-		  String continent =sc.next();
-		  String color=getColor(continent);
-		  String PlayerName=NameGenerator();
-		  c.setPlayerName(PlayerName);
-		  c = new Country(Countryid,continent,x,y,PlayerName);
+	   String continent =sc.next();
+	   String color=getColor(continent);
+	   String PlayerName=NameGenerator();
+	   c.setPlayerName(PlayerName);
+	   c = new Country(Countryid,continent,x,y,PlayerName);
 
-		  newLine = newLine + continent + ",";
+	   newLine = newLine + continent + ",";
 		  
-          Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+continent, x,y,80,30,color);
+           Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+continent, x,y,80,30,color);
 
-	      listVertex.put(Countryid, vertex);
+	   listVertex.put(Countryid, vertex);
 
-	      System.out.println("Enter no. of adjacent countries: \n");
+	   System.out.println("Enter no. of adjacent countries: \n");
 
-	      int noAdjacents=sc.nextInt();
+	   int noAdjacents=sc.nextInt();
 
-	      for(int i=1;i<=noAdjacents;i++){
+	   for(int i=1;i<=noAdjacents;i++){
 
-	    	  System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
+	    	System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
 
-	    	  String adjacent=sc.next();
+	    	String adjacent=sc.next();
 
-	    	  System.out.println("adjacent : " + adjacent );
+	    	System.out.println("adjacent : " + adjacent );
 
-	    	  newLine = newLine + adjacent + ",";
+	    	newLine = newLine + adjacent + ",";
 
-	          adjacents.add(adjacent);	          	         
+	        adjacents.add(adjacent);	          	         
 
-	          Object childVertex=listVertex.get(adjacents.get(i-1));
+	        Object childVertex=listVertex.get(adjacents.get(i-1));
 
-			  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+		graph.insertEdge(parent, null, "New edges",vertex,childVertex);
 
 				 			 				 
 
