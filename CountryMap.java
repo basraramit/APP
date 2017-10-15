@@ -401,10 +401,8 @@ public void addContinent(){
 		
 		  	String newContinentLine = "";	
 		  	String newCountryLine = "";
-		  	List<String> countries= new ArrayList<String>();
-		 		  
-		  	Scanner sc=new Scanner(System.in);
-		  
+		  	List<String> countries= new ArrayList<String>();	 		  
+		  	Scanner sc=new Scanner(System.in);		  
 		  	System.out.println("Enter Continentttt Name: \n");
 		  	String Continentid=sc.next();		
 									
@@ -441,8 +439,7 @@ public void addContinent(){
 			        }catch(IOException ioe){
 			           System.out.println("Exception occurred:");
 			      	 ioe.printStackTrace();
-			        }
-				
+			        }				
 		
 	}
 	
