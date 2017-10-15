@@ -144,7 +144,7 @@ public class CountryMap extends JFrame{
 		        }catch(IOException ioe){
 		           System.out.println("Exception occurred:");
 		      	 ioe.printStackTrace();
-		         }
+		        }
 			
 			
 	  }
@@ -424,18 +424,18 @@ public void addContinent(){
 			        String RemoveString = Continentid;
 			        while((currentLine = reader.readLine()) != null) {
 			        	
-			           if(currentLine.contains(RemoveString) ){			        					        					        
+			        if(currentLine.contains(RemoveString) ){			        					        					        
 			        	lineToRemove = currentLine;	
 			        	String[] tokens = lineToRemove.split(",");
 				        String CountryId= tokens[0];
 				        Object vertex=listVertex.get(CountryId);
 					graph.removeCells(new Object[]{vertex});
 			        		
-			           }
+			        }
 			        	
-			            String trimmedLine = currentLine.trim();
-			            if(trimmedLine.equals(lineToRemove)) continue;
-			            writer.write(currentLine + System.getProperty("line.separator"));
+			        String trimmedLine = currentLine.trim();
+			        if(trimmedLine.equals(lineToRemove)) continue;
+			           writer.write(currentLine + System.getProperty("line.separator"));
 			        }
 			        writer.close(); 
 			        reader.close(); 
