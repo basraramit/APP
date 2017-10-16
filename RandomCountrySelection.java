@@ -1,6 +1,8 @@
 package com.Risk;
 
 import java.util.Scanner;
+import java.awt.*;
+import javax.swing.*;
 
 import Map.Country;
 import Map.CountryMap;
@@ -12,7 +14,9 @@ import java.util.Collections;
 
 public class RandomCountrySelection {
 	
-	public static void main(String args[]){
+	
+public static void main(String args[]){
+		
 		
 	//choose player number
 		Scanner pn = new Scanner(System.in);
@@ -51,13 +55,15 @@ public class RandomCountrySelection {
 		    {
 		        if(CountryIds.size()>=(x+Playerno))
 		       
-		            sublist = new ArrayList<String>(CountryIds.subList(x, x+Playerno));
+		            sublist = new ArrayList<String>(CountryIds.subList(x,GetIndex-1));
 		        NewList[i]=sublist;
 		        
 		    }	
 		        }
 		      
-		            x+=Playerno;
+		            x=GetIndex+1;
+		            GetIndex=2*GetIndex-1;
+		            
 		        }
 	}
 
