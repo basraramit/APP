@@ -1,0 +1,6 @@
+Kala,6,Forgoth,Rove,Jer,Ssag,Fali,Unbecom,Spora
+	Enevim,3,Lurd,Evor,Evim,Valinor
+	Nova,5,Eritus,Obar,Arvi,Inve,Polaris,Aqualia
+	Barak Los,2,Pierco,San Funander,Marakas,Tocko
+	Neimaach,6,Lankia,Asturmina,Teor,Nurta,Engel,Kasten,Friedartika,Kalthausen,Unterkan,Horkan,Clokan,Larkan
+	Barba Moya,7,Lo,Kinsha,Farla,Blanki Vista,Mittenmoth,Esgarpok,Batan,Bilon,Har,
