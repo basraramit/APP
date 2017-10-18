@@ -29,6 +29,7 @@ public class CountryMap extends JFrame{
 	List<Continent> continent = new ArrayList<Continent>();
     Map<String,Object> listVertex=new HashMap<String,Object>();
     Map<String,String> listContinent=new HashMap<String,String>();
+	List<String> memberCountries= new ArrayList<String>();
     List<String> ContinentList= new ArrayList<String>();
     mxGraph graph = new mxGraph();
 	Object parent = graph.getDefaultParent();
