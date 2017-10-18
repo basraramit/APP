@@ -136,10 +136,10 @@ public class CountryMap extends JFrame{
 			
 			
 		 try{
-			  File inputFile = new File("input.txt");
+			
 		        File tempFile = new File("TempFile.txt");
 
-		        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+		        BufferedReader reader = new BufferedReader(new FileReader(filename));
 		        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
 		        String lineToRemove = "";
@@ -162,7 +162,7 @@ public class CountryMap extends JFrame{
 		        }
 		        writer.close(); 
 		        reader.close(); 
-		        boolean successful = tempFile.renameTo(inputFile);
+		        boolean successful = tempFile.renameTo(filename);
 		        System.out.println(successful);
 
 		        }catch(IOException ioe){
