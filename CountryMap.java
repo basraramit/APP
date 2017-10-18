@@ -557,15 +557,15 @@ public void makeMatrixFile(){
 		        		System.out.println("in 1");
 		        		String[] tokens = currentLine.split(",");
 		        		for (int i=0 ; i< tokens.length; i++){
-		        		  System.out.println("in 2");
-		        		  System.out.println(tokens[i]);
+		        		  //System.out.println("in 2");
+		        		  //System.out.println(tokens[i]);
 		        			
 		        		for(Country c: country){
-		        		  System.out.println("in 3");
-		                    String id=c.getCountryId();
-		                    int CID=c.getCID();
-		                    System.out.println(tokens[i]);
-		                    System.out.println(id);
+		        		System.out.println("in 3");
+		                   	String id=c.getCountryId();
+		                    	int CID=c.getCID();
+		                    	//System.out.println(tokens[i]);
+		                    	//System.out.println(id);
 		                    	            		                    		                    
 		                    if (  id.equals(tokens[i])   ) {
 		                	  
