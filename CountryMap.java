@@ -53,6 +53,7 @@ public class CountryMap extends JFrame{
 				while (reader.hasNextLine()){
 		               String line = reader.nextLine();
 		               if (line.equals("[Territories]")){
+				   int CountLine = 0;
 		            	   while (reader.hasNextLine()){
 		            	   line = reader.nextLine();
 		               String[] tokens = line.split(",");
@@ -65,6 +66,7 @@ public class CountryMap extends JFrame{
 		               country.add(c);
 		               System.out.println(tokens[0]+" "+tokens[1]+" "+tokens[3]+" Adjacent{");
 		               c.setCountryId(CountryId);
+			       c.setCID(CountLine);
 		               c.setContinent(Continent);
 		               c.setCoordinateX(x);
 		               c.setCoordinateY(y);
@@ -79,6 +81,7 @@ public class CountryMap extends JFrame{
 		                 }
 		            	 
 		             c.setAdjacent(adjToken);
+			     CountLine++;
 		            	   }
 		               }
 		            } 
