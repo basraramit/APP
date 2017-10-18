@@ -26,6 +26,7 @@ public class CountryMap extends JFrame{
 	
 	Country c;
 	List<Country> country = new ArrayList<Country>();
+	List<Continent> continent = new ArrayList<Continent>();
     Map<String,Object> listVertex=new HashMap<String,Object>();
     Map<String,String> listContinent=new HashMap<String,String>();
     List<String> ContinentList= new ArrayList<String>();
