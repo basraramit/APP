@@ -1,6 +1,7 @@
 package Map;
 
 import Map.Country;
+import Map.Continent;
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
