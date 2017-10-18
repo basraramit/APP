@@ -86,7 +86,8 @@ public class CountryMap extends JFrame{
 		               }
 		            } 
 		             for(Country c: country){
-	                  String id=c.getCountryId();
+	                     String id=c.getCountryId();
+		             int CID=c.getCID();
 		              String Continent=c.getContinent();
 		              int x1= c.getCoordinateX();
 		              int y1= c.getCoordinatey();
