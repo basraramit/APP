@@ -37,7 +37,7 @@ public class AdjacencyMatrixConnectedGraph
     	                  //System.out.println(line);
     	                  lineNo++;
     	            }
-    	                	   //lineNo++;
+    	                	   
     	                }
     	            }
 
@@ -65,7 +65,7 @@ public class AdjacencyMatrixConnectedGraph
     	            }    	          
     	           	//System.out.println();
     	            }   	               	       	           
-    boolean result = isConnected(adjMatrix);
+        boolean result = isConnected(adjMatrix);
   
         if (result)
         {
@@ -74,7 +74,7 @@ public class AdjacencyMatrixConnectedGraph
         {
             System.out.println("The graph is disconnected");
         }
-    }
+     }
   
     private static boolean isConnected(int[][] adjacencyMatrix) 
     {
