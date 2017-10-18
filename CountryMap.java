@@ -536,6 +536,71 @@ public class CountryMap extends JFrame{
 		      	 ioe.printStackTrace();
 		        }		
 		}
+	
+public void makeMatrixFile(){
+	  
+		
+	 try{
+		  
+	        File tempFile = new File("MatrixFile.txt");
+
+	        BufferedReader reader = new BufferedReader(new FileReader(filename));	       
+	        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+	        String currentLine;
+	
+		        while((currentLine = reader.readLine()) != null) {
+		        	
+		        	if(currentLine.equals("[Territories]") ){
+		        		writer.write(currentLine + System.getProperty("line.separator"));
+		        		
+		        	
+		        		while((currentLine = reader.readLine()) != null) {
+		        			
+		        		
+		        		System.out.println("in 1");
+		        		String[] tokens = currentLine.split(",");
+		        		for (int i=0 ; i< tokens.length; i++){
+		        			System.out.println("in 2");
+		        			System.out.println(tokens[i]);
+		        			
+		        		for(Country c: country){
+		        			System.out.println("in 3");
+		                    String id=c.getCountryId();
+		                    int CID=c.getCID();
+		                    System.out.println(tokens[i]);
+		                    System.out.println(id);
+		                    	            		                    		                    
+		                    if (  id.equals(tokens[i])   ) {
+		                	  
+		                	  System.out.println("in 4");
+		                	  System.out.println(String.valueOf(CID));		                	  
+		                	  currentLine = currentLine.replace(id, String.valueOf(CID));	                	
+		                	  break;
+		                     
+		                  }	
+		                  continue;
+		  	                }// for country
+		        		
+		        	     }//for tokens
+		        		writer.write(currentLine + System.getProperty("line.separator"));
+	
+		        }
+		        			        
+		        					        					            				            			            
+		        }
+		        }
+		        writer.close(); 
+		        reader.close(); 	    
+
+		        }catch(IOException ioe){
+		           System.out.println("Exception occurred:");
+		      	 ioe.printStackTrace();
+		        }
+	        
+
+		
+}
 
 
 	public static void main(String[] args){
