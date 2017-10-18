@@ -12,32 +12,31 @@ public class AdjacencyMatrixConnectedGraph
 {
      
     	    public static void main(String[] args) {
-    	        String fileName= "adjacency.txt";
+    	        String fileName= "MatrixFile.txt";
     	        int lineNo = 0;
     	        File file= new File(fileName);
 
     	        // this gives you a 2-dimensional array of strings
     	        List<List<String>> lines = new ArrayList<>();    
-    	        List<List<String>> adjcencyMatrix = new ArrayList<>();
-    	           	        
+    	        List<List<String>> adjcencyMatrix = new ArrayList<>();    	          	        
     	        Scanner inputStream;
-
+    	        
     	        try{
     	            inputStream = new Scanner(file);
 
     	            while(inputStream.hasNext()){
     	                String line= inputStream.next();
     	                if (line.equals("[Territories]")){
-    	                  inputStream.nextLine();
-    	                   lineNo = 0;
-    	                   while (inputStream.hasNextLine()){   	
-    	  	           	line = inputStream.nextLine();
-    	                    	String[] values = line.split(",");             
-    	                	// this adds the currently parsed line to the 2-dimensional string array
-    	                	lines.add(Arrays.asList(values));
-				//System.out.println(line);
-    	                	lineNo++;
-    	           	 }
+    	                	inputStream.nextLine();
+    	                	 lineNo = 0;
+    	                	 while (inputStream.hasNextLine()){       	                		
+    	  	            	 line = inputStream.nextLine();
+    	                String[] values = line.split(",");             
+    	                // this adds the currently parsed line to the 2-dimensional string array
+    	                lines.add(Arrays.asList(values));
+    	                //System.out.println(line);
+    	                lineNo++;
+    	            }
     	                	   //lineNo++;
     	                }
     	            }
@@ -46,31 +45,26 @@ public class AdjacencyMatrixConnectedGraph
     	        }catch (FileNotFoundException e) {
     	           e.printStackTrace();
     	        }
-    	           	        	                 	        
-    	        
+    	          	        	                 	           	        
     	        //Filling the adjacency Matrix    
-    	        System.out.println(lineNo);  
-	        int[][] adjMatrix = new int[lineNo][lineNo];
-    	        for(List<String> line: lines) {	        	    	
-    	           int id = Integer.valueOf(line.get(0));  	              	            
-    	           for (int i=4; i<line.size(); i++){	 	              
-    	                adjMatrix[id][Integer.valueOf(line.get(i))] = 1;
-    	                   	              
-    	            }
-    	            	           
-    	       	}
+    	        //System.out.println(lineNo);  
+    	        int[][] adjMatrix = new int[lineNo][lineNo];
+    	        for(List<String> line: lines) {    	        	       	
+    	           int id = Integer.valueOf(line.get(0));    	        	            
+    	           for (int i=4; i<line.size(); i++){	    	              
+    	                adjMatrix[id][Integer.valueOf(line.get(i))] = 1;    	                    	              
+    	            }    	            	           
+    	       }
     	        
-    	        
+    	        String mLine = "";
     	        for (int i = 0; i< lineNo; i++){
     	            for (int j = 0; j < lineNo ; j++ ){
     	            	if (i == j)
-    	            	adjMatrix[i][j] = 0;  	               	            	          	   	            	
-    	            	System.out.print(adjMatrix[i][j] + " "); 
-    	            }    	        
-    	           	System.out.println();
-    	            }
-    	               	       	   
-  
+    	            	adjMatrix[i][j] = 0;   	            	    	            	          	   	            	
+    	            	//System.out.print(adjMatrix[i][j] + " "); 
+    	            }    	          
+    	           	//System.out.println();
+    	            }   	               	       	           
     boolean result = isConnected(adjMatrix);
   
         if (result)
@@ -90,14 +84,13 @@ public class AdjacencyMatrixConnectedGraph
         {
             for(int col=0; col < adjacencyMatrix.length; col++)
             {
-            	System.out.print(adjacencyMatrix[row][col]);
+            	//System.out.print(adjacencyMatrix[row][col]);
                 if(adjacencyMatrix[row][col]==1 && visited[row]==0)
                 {
                     visited[row] = 1;
-                }
-  
+                }  
             }
-            System.out.println();
+            //System.out.println();
         }
   
         boolean connected = false;
