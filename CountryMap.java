@@ -600,6 +600,64 @@ public void makeMatrixFile(){
 
 		
 }
+	
+public void findMainPartsInFile(){
+		
+		
+		try{
+			  
+		        BufferedReader reader = new BufferedReader(new FileReader(filename));
+		        		      
+		        String currentLine;
+		        int  position = 0 ;
+		        int  MapPart = 0;		        
+		        int  ContinentPart = 0;
+		        int  CountryPart = 0;
+		        
+		       
+		        while((currentLine = reader.readLine()) != null) {
+		        	System.out.println("in while");
+		        	
+		        	if(currentLine.equals("[Map]") ) {
+		        		System.out.println("in in map");
+		        		
+		        		MapPart = 1;
+		        		continue;		        		
+		        	}
+		        	else if(currentLine.equals("[Continents]") ){
+		        		System.out.println("in in cont");
+		        		
+		        		ContinentPart = 1;
+		        		continue;			        		
+		        
+		        	}		        	
+		        	else if (currentLine.equals("[Territories]") ){
+		        		System.out.println("in in county");
+		        		CountryPart = 1;
+		        		continue;	
+		        	}	
+		            
+		        }
+		      
+		        reader.close(); 
+		        
+		        if ( (MapPart == 1) && (ContinentPart == 1) && (CountryPart == 1)  ){
+		        	
+		        	System.out.println("Format File is Correct");
+		        	
+		        }
+		        else 
+		        	System.out.println("Format File is  not Correct");
+		        
+		        		        
+
+		        }catch(IOException ioe){
+		           System.out.println("Exception occurred:");
+		      	 ioe.printStackTrace();
+		         }
+		
+		
+	}
 
 
 	public static void main(String[] args){
