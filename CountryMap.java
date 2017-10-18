@@ -636,6 +636,97 @@ public void findMainPartsInFile(){
 	
 	
 }
+	
+public void makeContinetFile(){
+		
+		  
+	 Continent con;
+	 
+		  String currentLine;				  
+		  for (int i=0 ; i<(ContinentList.size()) -1 ; i++){//forcontinentsize			  
+			  //memberCountries.clear();
+			  memberCountries = new ArrayList<>();
+			  try{				  
+				  File tempFile = new File("continents.txt");
+				  BufferedReader reader = new BufferedReader(new FileReader(filename));	       
+				  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+				  while((currentLine = reader.readLine()) != null) {//while2
+		      	
+		         if(currentLine.equals("[Territories]") ){
+		      			        				        	
+				   while((currentLine = reader.readLine()) != null) {//while1
+		      					        				      	
+		      		String[] tokens = currentLine.split(",");		      		
+		      		
+		      		if (ContinentList.get(i).equals(tokens[3])){		      					      			
+		      			memberCountries.add(tokens[0]);			      					      					      			      				      					      			
+		      		}		      				      				      		
+				   }//while1				   				   
+		      					        					            				            			            
+		      }//if
+		      }//while2
+				  System.out.println(memberCountries);  
+				  con = new Continent(ContinentList.get(i), 0, memberCountries);				  
+				  continent.add(con);
+				  con.setMemberCountries(memberCountries);
+				  con.setName(ContinentList.get(i));				  				  				  	      			          
+				  
+		      writer.close(); 
+		      reader.close(); 	    
+
+		      }catch(IOException ioe){
+		         System.out.println("Exception occurred:");
+		    	 ioe.printStackTrace();
+		      }
+			  			  		  			  	
+		  }//forcontinentsize
+		  		
+		  try{				  		 
+			  BufferedReader reader = new BufferedReader(new FileReader(filename));	       
+			
+			  while((currentLine = reader.readLine()) != null) {//while2
+	      	
+	         if(currentLine.equals("[Continents]") ){
+	      			        				        	
+			   while((currentLine = reader.readLine()) != null) {//while1
+	      					        				      	
+	      		String[] tokens = currentLine.split("=");		      		
+	      			      		   
+	      		 for(Continent con2: continent){
+	      			 if (tokens[0].equals(con2.getName())){
+	      					 con2.setBonusArmies(Integer.parseInt(tokens[1]));
+	      			}
+	   			     			  
+	   		  }
+	      		   	      		   	      			      				      				      		
+			   }//while1				   				   
+	      					        					            				            			            
+	      }//if
+	      }//while2			  					  				  				  	      			          			  	    
+	      reader.close(); 	    
+	      }catch(IOException ioe){
+	         System.out.println("Exception occurred:");
+	    	 ioe.printStackTrace();
+	      } 
+		 		
+		  
+		  try{				  
+			  File tempFile = new File("continents.txt");
+			       
+			  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));			  		  			    			 
+			  for(Continent con3: continent){
+				  writer.write("\n"+ con3.getName() + "," + con3.getBonusArmies()  + "," + con3.getMemberCountries().toString().replace("[", "").replace("]", ""));	
+	      			
+	   		  }	         			  				  				  	      			          			  
+	      writer.close(); 	      	    
+	      }catch(IOException ioe){
+	         System.out.println("Exception occurred:");
+	    	 ioe.printStackTrace();
+	      }
+		  			  		  		       
+	
+}
+	
 public static void main(String[] args){
 		CountryMap frame = new CountryMap();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
