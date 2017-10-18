@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class AdjacencyMatrixConnectedGraph 
 {
      
     	    public static void main(String[] args) {
+              
     	        String fileName= "MatrixFile.txt";
     	        int lineNo = 0;
     	        File file= new File(fileName);
@@ -27,15 +27,15 @@ public class AdjacencyMatrixConnectedGraph
     	            while(inputStream.hasNext()){
     	                String line= inputStream.next();
     	                if (line.equals("[Territories]")){
-    	                	inputStream.nextLine();
-    	                	 lineNo = 0;
-    	                	 while (inputStream.hasNextLine()){       	                		
-    	  	            	 line = inputStream.nextLine();
-    	                String[] values = line.split(",");             
-    	                // this adds the currently parsed line to the 2-dimensional string array
-    	                lines.add(Arrays.asList(values));
-    	                //System.out.println(line);
-    	                lineNo++;
+    	                   inputStream.nextLine();
+    	                   lineNo = 0;
+    	                   while (inputStream.hasNextLine()){       	                		
+    	  	              line = inputStream.nextLine();
+    	                   String[] values = line.split(",");             
+    	                   // this adds the currently parsed line to the 2-dimensional string array
+    	                   lines.add(Arrays.asList(values));
+    	                  //System.out.println(line);
+    	                  lineNo++;
     	            }
     	                	   //lineNo++;
     	                }
