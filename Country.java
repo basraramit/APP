@@ -16,7 +16,7 @@ public class Country {
 	public static String CountryId;
 	String adjv1;
 	String Continent;
-    int x,y;
+    int x,y,CID;
     
     int[] adj= new int[10];
     int adjv2;
@@ -37,12 +37,17 @@ public class Country {
 public void setCountryId(String CountryId) {
 	this.CountryId = CountryId;
 }
-
+public void setCID(int CID) {
+	this.CID = CID;
+}
 /**
 * @return the countryID
 */
 public String getCountryId() {
 return CountryId;
+}
+public int getCID() {
+return CID;
 }
 
 public void setContinent(String Continent) {
