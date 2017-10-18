@@ -538,8 +538,7 @@ public class CountryMap extends JFrame{
 		}
 	
 public void makeMatrixFile(){
-	  
-		
+	  		
 	 try{
 		  
 	        File tempFile = new File("MatrixFile.txt");
@@ -551,13 +550,10 @@ public void makeMatrixFile(){
 	
 		        while((currentLine = reader.readLine()) != null) {
 		        	
-		        	if(currentLine.equals("[Territories]") ){
-		        		writer.write(currentLine + System.getProperty("line.separator"));
-		        		
-		        	
-		        		while((currentLine = reader.readLine()) != null) {
-		        			
-		        		
+		           if(currentLine.equals("[Territories]") ){
+		        	writer.write(currentLine + System.getProperty("line.separator"));		        				        	
+				   while((currentLine = reader.readLine()) != null) {
+		        					        		
 		        		System.out.println("in 1");
 		        		String[] tokens = currentLine.split(",");
 		        		for (int i=0 ; i< tokens.length; i++){
