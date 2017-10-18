@@ -21,6 +21,12 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 import java.awt.Color;
 
+/**This class adds selects map, adds countries, remove countries, adds continents, remove continents
+ * 
+ * @author USER
+ *
+ */
+
 
 public class CountryMap extends JFrame{
 		
@@ -30,7 +36,10 @@ public class CountryMap extends JFrame{
 	    mxGraph graph = new mxGraph();
 		Object parent = graph.getDefaultParent();
 		 File filename;
-		 
+
+/* This constructor updates country class from file input
+ * 
+ */
 		public CountryMap(){
 			graph.getModel().beginUpdate();
 			  try{
