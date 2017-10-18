@@ -1,11 +1,23 @@
 package Map;
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Vector;
 
+
+/** This class creates country object. 
+ * Country has CountryID, adjacency vector, continent and x & y coordinate
+ * getter & setter for parameters 
+ * @author USER
+ *
+ */
+
 public class Country {
-	String CountryId, Continent;
+	public static String CountryId;
+	String adjv1;
+	String Continent;
     int x,y;
+    
     int[] adj= new int[10];
     int adjv2;
     String PlayerName;
@@ -71,6 +83,14 @@ public List<String> getAdjacents(){
 	return adjacent;
 }
 
+public String getadjv() {
+   return adjv1;
+}
+
+
+public void setadjv(String adjv1) {
+	this.adjv1= adjv1;
+}
 public void setPlayerName(String Continent) {
 	this.PlayerName=PlayerName;
 }
@@ -85,6 +105,7 @@ return PlayerName;
 
 
 }
+
 
 
 
