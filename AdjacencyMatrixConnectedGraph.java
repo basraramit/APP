@@ -1,4 +1,4 @@
-package map;
+package Map;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,19 +6,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import Map.CountryMap;
 
 public class AdjacencyMatrixConnectedGraph 
-{
-     
-    	    public static void main(String[] args) {
-              
-    	        String fileName= "MatrixFile.txt";
+{            public boolean checkAdjacency(){
+    	    	String fileName= "MatrixFile.txt";
     	        int lineNo = 0;
     	        File file= new File(fileName);
 
     	        // this gives you a 2-dimensional array of strings
     	        List<List<String>> lines = new ArrayList<>();    
-    	        List<List<String>> adjcencyMatrix = new ArrayList<>();    	          	        
+    	        List<List<String>> adjcencyMatrix = new ArrayList<>();         
     	        Scanner inputStream;
     	        
     	        try{
@@ -66,6 +64,7 @@ public class AdjacencyMatrixConnectedGraph
     	           	//System.out.println();
     	            }   	               	       	           
         boolean result = isConnected(adjMatrix);
+       
   
         if (result)
         {
@@ -74,6 +73,7 @@ public class AdjacencyMatrixConnectedGraph
         {
             System.out.println("The graph is disconnected");
         }
+        return result;
      }
   
     private static boolean isConnected(int[][] adjacencyMatrix) 
