@@ -23,128 +23,143 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 import java.awt.Color;
 
+/**This class adds selects map, adds countries, remove countries, adds continents, remove continents
+ * 
+ * @author USER
+ *
+ */
+
 public class CountryMap extends JFrame{
 	
 	Country c;
 	List<Country> country = new ArrayList<Country>();
 	List<Continent> continent = new ArrayList<Continent>();
-    Map<String,Object> listVertex=new HashMap<String,Object>();
-    Map<String,String> listContinent=new HashMap<String,String>();
+        Map<String,Object> listVertex=new HashMap<String,Object>();
+        Map<String,String> listContinent=new HashMap<String,String>();
 	List<String> memberCountries= new ArrayList<String>();
-    List<String> ContinentList= new ArrayList<String>();
-    mxGraph graph = new mxGraph();
+        List<String> ContinentList= new ArrayList<String>();
+        mxGraph graph = new mxGraph();
 	Object parent = graph.getDefaultParent();
 	File filename;
 	AdjacencyMatrixConnectedGraph adjMatrix=new AdjacencyMatrixConnectedGraph(); 
-	 
+	
+/** This constructor takes input from map file selected
+  * and convert it into connected graph
+  * seperates territories and continent
+  * sets adjacency to graph
+  * update graph model
+*/
+	
 	public CountryMap(){
 		super("Risk Game Map");
 		 int count=0;
 		 int CountLine = 0;
-	
-		graph.getModel().beginUpdate();
-		try{
+	            graph.getModel().beginUpdate();
+		       try{
 			int x,y;
-		    filename=setFilename();
-		     Scanner reader = new Scanner(filename);
-		   while (reader.hasNextLine()){
-	               String line = reader.nextLine();
-	               if (line.equals("[Continents]")){
-	            	   while (reader.hasNextLine()&& !(line.equals("[Territories]"))){
-	            	   line = reader.nextLine();
-	            	   if(!(line.equals("[Territories]"))){
-	            	   String[] tokensC = line.split("=");
-	            	   String Continent=tokensC[0];
-	            	   ContinentList.add(Continent);
-	            	   System.out.println(Continent);
-	            	   }
-	            	   }
-	            	   }
-	               if (line.equals("[Territories]")){
-	            	   
-	            	   while (reader.hasNextLine()){
-	            	   line = reader.nextLine();
-	               String[] tokens = line.split(",");
-	               String CountryId= tokens[0];
-	               String Continent= tokens[3];
-	               x= Integer.parseInt(tokens[1]);
-	               y= Integer.parseInt(tokens[2]);
-	               String PlayerName=NameGenerator();
-	               c = new Country(CountryId,Continent,x,y,PlayerName);
-	               country.add(c);
-	             //  System.out.println(tokens[0]+" "+tokens[1]+" "+tokens[3]+" Adjacent{");
-	               c.setCountryId(CountryId);
-	               c.setCID(CountLine);
-	               c.setContinent(Continent);
-	               c.setCoordinateX(x);
-	               c.setCoordinateY(y);
-	               c.setPlayerName(PlayerName);
-	               int length= tokens.length;
-	               //count++;
-	               List<String> adjToken= new ArrayList<String>();
+		        filename=setFilename();
+		        Scanner reader = new Scanner(filename);
+		           while (reader.hasNextLine())
+			   {
+	                          String line = reader.nextLine();
+	                              if (line.equals("[Continents]"))
+				      {
+	            	                  while (reader.hasNextLine()&& !(line.equals("[Territories]")))
+					  {
+	            	                  line = reader.nextLine();
+	            	                  if(!(line.equals("[Territories]")))
+					    {
+	            	                      String[] tokensC = line.split("=");
+	            	                      String Continent=tokensC[0];
+	            	                      ContinentList.add(Continent);
+	            	   		      System.out.println(Continent);
+	            	                     }
+	            	                   }
+	            	                }
+	                             if (line.equals("[Territories]"))
+					  {
+	            	   		      while (reader.hasNextLine())
+					      {
+	            	   		      line = reader.nextLine();
+	                                      String[] tokens = line.split(",");
+	               			      String CountryId= tokens[0];
+	               			      String Continent= tokens[3];
+	              			      x= Integer.parseInt(tokens[1]);
+	              			      y= Integer.parseInt(tokens[2]);
+	               			      String PlayerName=NameGenerator();
+	               			      c = new Country(CountryId,Continent,x,y,PlayerName);
+	               			      country.add(c);
+					      c.setCountryId(CountryId);
+					      c.setCID(CountLine);
+					      c.setContinent(Continent);
+					      c.setCoordinateX(x);
+					      c.setCoordinateY(y);
+					      c.setPlayerName(PlayerName);
+					      int length= tokens.length;
+	               			      List<String> adjToken= new ArrayList<String>();
 	
-	                for(int i = 4; i < tokens.length; i++){
+	                			for(int i = 4; i < tokens.length; i++){
 	
-	                  adjToken.add(tokens[i]);
+	                                             adjToken.add(tokens[i]);
 	                  
-	                 }
+	                                         }
 	            	 
-	             c.setAdjacent(adjToken);
-	             CountLine++;
+	                              c.setAdjacent(adjToken);
+	                              CountLine++;
 	            	   }
 	               }
 	               
 	            } 
 		   System.out.println("No.of territories: "+CountLine);
-	             for(Country c: country){
-                  String id=c.getCountryId();
-                  int CID=c.getCID();
-	              String Continent=c.getContinent();
-	              int x1= c.getCoordinateX();
-	              int y1= c.getCoordinatey();
-	             
-	              String Pname=c.getPlayerName();
-	              String color=getColor(Continent);
-	              
-	              Object vertex= graph.insertVertex(parent, null, id+" "+Pname+"\n"+Continent, x1,y1,80,30,color);
-	             listVertex.put(id, vertex);
-	           
-	                }
-	             for(Country c: country){
+	                  for(Country c: country){
+                                 String id=c.getCountryId();
+                                 int CID=c.getCID();
+	                         String Continent=c.getContinent();
+	                         int x1= c.getCoordinateX();
+	                         int y1= c.getCoordinatey();
+	                         String Pname=c.getPlayerName();
+	                         String color=getColor(Continent);
+	                         Object vertex= graph.insertVertex(parent, null, id+" "+Pname+"\n"+Continent, x1,y1,80,30,color);
+	                         listVertex.put(id, vertex);
+	                     }
+	                    for(Country c: country){
 	            		 	 List<String> values =c.getAdjacents();
 	            			 Object parentVertex=listVertex.get(c.getCountryId());
-	            			for(int i = 0; i < values.size(); i++){
+	            			     for(int i = 0; i < values.size(); i++){
 	            				 Object childVertex=listVertex.get(values.get(i));
-	            	 		 graph.insertEdge(parent, null, "",parentVertex,childVertex);
-	            			 }
+	            	 		         graph.insertEdge(parent, null, "",parentVertex,childVertex);
+					      }
 	            		
-	             }
+	                             }
 	                           
-	            			} catch(Exception ex){System.out.println("Error");
+	        } catch(Exception ex){System.out.println("Error");
 		}
 		finally{
 			graph.getModel().endUpdate();
-				
-			}
+		        }
 		boolean result=adjMatrix.checkAdjacency(); 
 		boolean resultTwo=findMainPartsInFile();
-		if ((CountLine%3==0)&&(result==true)&&(resultTwo==true)){
-			mxGraphComponent graphComponent = new mxGraphComponent(graph);
-			getContentPane().add(graphComponent);}
-			else{
-				System.out.println("Incorrect map type");
+		    if ((CountLine%3==0)&&(result==true)&&(resultTwo==true))
+		         {
+			  mxGraphComponent graphComponent = new mxGraphComponent(graph);
+			  getContentPane().add(graphComponent);
+		         }
+		    else{
+		          System.out.println("Incorrect map type");
 			}
-		}
+	}
+	
+/** This method removes country from map graph
+ */
 	public void removeCountry(){
 		  Scanner sc=new Scanner(System.in);
 		  System.out.println("Enter Country Name: \n");
 		  String Countryid=sc.nextLine();
-		 Object vertex=listVertex.get(Countryid);
+		  Object vertex=listVertex.get(Countryid);
 		  graph.removeCells(new Object[]{vertex});
 			
 			
 		 try{
-			  //File inputFile = new File("input.txt");
 		        File tempFile = new File("TempFile.txt");
 
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -154,20 +169,19 @@ public class CountryMap extends JFrame{
 		        String currentLine;
 		        int position = 0 ;
 		        String RemoveString = Countryid + ",";
-		        while((currentLine = reader.readLine()) != null) {
-		        	
+		            while((currentLine = reader.readLine()) != null) 
+			    {
 		        	if(currentLine.contains(RemoveString) && (currentLine.indexOf(Countryid)  == 0))
-		        		lineToRemove = currentLine;	
+		        	lineToRemove = currentLine;	
 		        	else if(currentLine.contains(RemoveString) && (currentLine.indexOf(Countryid)  != 0))
 		        	currentLine = currentLine.replace(RemoveString,"");
 		        	else if (currentLine.contains(Countryid) && (currentLine.indexOf(Countryid)  != 0))
 		        	currentLine = currentLine.replace("," + Countryid,"");
-		        	
-		        	
-		            String trimmedLine = currentLine.trim();
-		            if(trimmedLine.equals(lineToRemove)) continue;
-		            writer.write(currentLine + System.getProperty("line.separator"));
-		        }
+		        	String trimmedLine = currentLine.trim();
+		                if(trimmedLine.equals(lineToRemove)) 
+					continue;
+		                    writer.write(currentLine + System.getProperty("line.separator"));
+		             }
 		        writer.close(); 
 		        reader.close(); 
 		        boolean successful = tempFile.renameTo(filename);
@@ -180,15 +194,24 @@ public class CountryMap extends JFrame{
 			
 			
 	  }
+	
+/** This method generates random name from a given list
+ * 
+ * @return random Player name
+ */
 	 public String NameGenerator() {
 		  
 		    String[] peoples = {"Bob", "Jill", "Tom", "Brandon"};
 		    List<String> names = Arrays.asList(peoples);
 		    int index = new Random().nextInt(names.size());
 		    String name = names.get(index);
-		    //System.out.println(name+"");
 		    return name;
 		    }
+	
+/** This method selects one map out of three given
+* 	 
+* @return File selected
+*/
 	 public File setFilename(){
 		  Scanner sc=new Scanner(System.in);
 
@@ -214,6 +237,11 @@ public class CountryMap extends JFrame{
 		  return this.filename;
 		  
 	  }
+	
+	
+/** This method sets different colors to different continents, r
+  *countries under same continent gets the same color
+  */
 	 public String getColor(String Continent){
 			String color="fillColor=lightblue";
 			if(Continent.equals(ContinentList.get(0))){
@@ -248,41 +276,29 @@ public class CountryMap extends JFrame{
 		String newLine = "";		  
 
 		  List<String> adjacents= new ArrayList<String>();
-
 		  Scanner sc=new Scanner(System.in);
-
 		  System.out.println("Enter Country Name: \n");
-
-		  String Countryid=sc.nextLine();		
-
+	          String Countryid=sc.nextLine();		
 		  newLine = newLine + Countryid + ",";
-           System.out.println("Enter x coordinate: \n");
-
+                  System.out.println("Enter x coordinate: \n");
 		  int x=sc.nextInt();
-          newLine = newLine + x + ",";
-          System.out.println("Enter y coordinate: \n");
-
+                  newLine = newLine + x + ",";
+                  System.out.println("Enter y coordinate: \n");
 		  int y=sc.nextInt();
-          newLine = newLine + y + ",";
-          System.out.println("Enter continent: \n");
-
+                  newLine = newLine + y + ",";
+                  System.out.println("Enter continent: \n");
 		  String continent =sc.next();
 		  String color=getColor(continent);
 		  String PlayerName=NameGenerator();
 		  c.setPlayerName(PlayerName);
 		  c = new Country(Countryid,continent,x,y,PlayerName);
-
 		  newLine = newLine + continent + ",";
-		  
-          Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+continent, x,y,80,30,color);
-
-	      listVertex.put(Countryid, vertex);
-
-	      System.out.println("Enter no. of adjacent countries: \n");
-
-	      int noAdjacents=sc.nextInt();
-
-	      for(int i=1;i<=noAdjacents;i++){
+		  Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+continent, x,y,80,30,color);
+		  listVertex.put(Countryid, vertex);
+	          System.out.println("Enter no. of adjacent countries: \n");
+		  int noAdjacents=sc.nextInt();
+	      
+		  for(int i=1;i<=noAdjacents;i++){
 
 	    	  System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
 
@@ -297,10 +313,10 @@ public class CountryMap extends JFrame{
 	          Object childVertex=listVertex.get(adjacents.get(i-1));
 
 			  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
-
+		}
 				 			 				 
 
-	      }	     	
+	      	     	
     newLine = newLine.substring(0, newLine.length() - 1);
 try{
 
