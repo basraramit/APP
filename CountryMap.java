@@ -1,6 +1,7 @@
 package Map;
 
 import Map.Country;
+import Map.Country;
 import Map.Continent;
 import java.io.File;
 import java.util.Scanner;
@@ -34,11 +35,12 @@ public class CountryMap extends JFrame{
     mxGraph graph = new mxGraph();
 	Object parent = graph.getDefaultParent();
 	File filename;
-	 
+	AdjacencyMatrixConnectedGraph adjMatrix=new AdjacencyMatrixConnectedGraph(); 
 	 
 	public CountryMap(){
 		super("Risk Game Map");
-		 int count=0; 
+		 int count=0;
+		 int CountLine = 0;
 	
 		graph.getModel().beginUpdate();
 		try{
@@ -59,7 +61,7 @@ public class CountryMap extends JFrame{
 	            	   }
 	            	   }
 	               if (line.equals("[Territories]")){
-	            	   int CountLine = 0;
+	            	   
 	            	   while (reader.hasNextLine()){
 	            	   line = reader.nextLine();
 	               String[] tokens = line.split(",");
@@ -70,7 +72,7 @@ public class CountryMap extends JFrame{
 	               String PlayerName=NameGenerator();
 	               c = new Country(CountryId,Continent,x,y,PlayerName);
 	               country.add(c);
-	               System.out.println(tokens[0]+" "+tokens[1]+" "+tokens[3]+" Adjacent{");
+	             //  System.out.println(tokens[0]+" "+tokens[1]+" "+tokens[3]+" Adjacent{");
 	               c.setCountryId(CountryId);
 	               c.setCID(CountLine);
 	               c.setContinent(Continent);
@@ -78,7 +80,7 @@ public class CountryMap extends JFrame{
 	               c.setCoordinateY(y);
 	               c.setPlayerName(PlayerName);
 	               int length= tokens.length;
-	               count++;
+	               //count++;
 	               List<String> adjToken= new ArrayList<String>();
 	
 	                for(int i = 4; i < tokens.length; i++){
@@ -93,7 +95,7 @@ public class CountryMap extends JFrame{
 	               }
 	               
 	            } 
-		   System.out.println("No.of territories: "+count);
+		   System.out.println("No.of territories: "+CountLine);
 	             for(Country c: country){
                   String id=c.getCountryId();
                   int CID=c.getCID();
@@ -121,14 +123,17 @@ public class CountryMap extends JFrame{
 	            			} catch(Exception ex){System.out.println("Error");
 		}
 		finally{
-			if (count%3==0){
-				graph.getModel().endUpdate();}
-				else{
-					System.out.println("Incorrect map type");
-				}
+			graph.getModel().endUpdate();
+				
 			}
+		boolean result=adjMatrix.checkAdjacency(); 
+		boolean resultTwo=findMainPartsInFile();
+		if ((CountLine%3==0)&&(result==true)&&(resultTwo==true)){
 			mxGraphComponent graphComponent = new mxGraphComponent(graph);
-			getContentPane().add(graphComponent);
+			getContentPane().add(graphComponent);}
+			else{
+				System.out.println("Incorrect map type");
+			}
 		}
 	public void removeCountry(){
 		  Scanner sc=new Scanner(System.in);
@@ -139,7 +144,7 @@ public class CountryMap extends JFrame{
 			
 			
 		 try{
-			
+			  //File inputFile = new File("input.txt");
 		        File tempFile = new File("TempFile.txt");
 
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -194,10 +199,13 @@ public class CountryMap extends JFrame{
 			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/mapInput.txt");
 		  }
 		  else if(map.equals("2")){
-			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/IncorrectMap/input3.txt"); 
+			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/IncorrectMap/input5.txt"); 
 		  }
 		  else if(map.equals("3")){
-			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/input2.txt"); 
+			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/input4.txt"); 
+		  }
+		  else if(map.equals("4")){
+			  filename=new File("TempFile.txt"); 
 		  }
 		  else{
 			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/Aden.map"); 
@@ -361,19 +369,21 @@ try{
 		  String color=getColor(Continentid);
 		  String PlayerName=NameGenerator();
 		  
-		  Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+Continentid, x,y,80,30,color);
-	          listVertex.put(Countryid, vertex);
+		  //Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+Continentid, x,y,80,30,color);
+	          //listVertex.put(Countryid, vertex);
 	      
 	          System.out.println("Enter no. of adjacent countries: \n");
 	          int noAdjacents=sc.nextInt();
+	          
 	          for(int i=1;i<=noAdjacents;i++){
 	    	  System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
 	    	  String adjacent=sc.next();
 	    	  System.out.println("adjacent : " + adjacent );
 	    	  newCountryLine = newCountryLine + adjacent + ",";
 	          adjacents.add(adjacent);	          	         
-	          Object childVertex=listVertex.get(adjacents.get(i-1));
-			  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+	       //   Object childVertex=listVertex.get(adjacents.get(i-1));
+			//  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+			 
 				 			 				 
 	        }	     	
 	        newCountryLine = newCountryLine.substring(0, newCountryLine.length() - 1);
@@ -422,7 +432,7 @@ try{
 		        reader.close(); 
 		        boolean successful = tempFile.renameTo(filename);
 		        System.out.println(successful);
-
+		       
 		        }catch(IOException ioe){
 		           System.out.println("Exception occurred:");
 		      	 ioe.printStackTrace();
@@ -440,7 +450,7 @@ public void deleteContinentWithCountries(){
 	  	String newCountryLine = "";
 	  	List<String> countries= new ArrayList<String>();	 		  
 	  	Scanner sc=new Scanner(System.in);		  
-	  	System.out.println("Enter Continentttt Name: \n");
+	  	System.out.println("Enter Continent Name: \n");
 	  	String Continentid=sc.next();		
 								
 		 try{
@@ -546,7 +556,7 @@ try{
       		  //System.out.println(tokens[i]);
       			
       		for(Country c: country){
-      		System.out.println("in 3");
+      		//System.out.println("in 3");
                  	String id=c.getCountryId();
                   	int CID=c.getCID();
                   	//System.out.println(tokens[i]);
@@ -554,8 +564,8 @@ try{
                   	            		                    		                    
                   if (  id.equals(tokens[i])   ) {
               	  
-              	  System.out.println("in 4");
-              	  System.out.println(String.valueOf(CID));		                	  
+              	 // System.out.println("in 4");
+              //	  System.out.println(String.valueOf(CID));		                	  
               	  currentLine = currentLine.replace(id, String.valueOf(CID));	                	
               	  break;
                    
@@ -582,154 +592,142 @@ try{
 
 
 }
-public void findMainPartsInFile(){
-	
-	
-	try{
-		  
-	        BufferedReader reader = new BufferedReader(new FileReader(filename));
-	        		      
-	        String currentLine;
-	        int  position = 0 ;
-	        int  MapPart = 0;		        
-	        int  ContinentPart = 0;
-	        int  CountryPart = 0;
-	        
-	       
-	        while((currentLine = reader.readLine()) != null) {
-	        	System.out.println("in while");
-	        	
-	        	if(currentLine.equals("[Map]") ) {
-	        		System.out.println("in in map");
-	        		
-	        		MapPart = 1;
-	        		continue;		        		
-	        	}
-	        	else if(currentLine.equals("[Continents]") ){
-	        		System.out.println("in in cont");
-	        		
-	        		ContinentPart = 1;
-	        		continue;			        		
-	        
-	        	}		        	
-	        	else if (currentLine.equals("[Territories]") ){
-	        		System.out.println("in in county");
-	        		CountryPart = 1;
-	        		continue;	
-	        	}	
-	            
-	        }
-	      
-	        reader.close(); 
-	        
-	        if ( (MapPart == 1) && (ContinentPart == 1) && (CountryPart == 1)  ){
-	        	
-	        	System.out.println("Format File is Correct");
-	        	
-	        }
-	        else 
-	        	System.out.println("Format File is  not Correct");
-	        
-	        		        
-
-	        }catch(IOException ioe){
-	           System.out.println("Exception occurred:");
-	      	 ioe.printStackTrace();
-	         }
-	
-	
-}
-	
-public void makeContinetFile(){
+public boolean findMainPartsInFile(){
+	  boolean result=true;
+      try{
+         BufferedReader reader = new BufferedReader(new FileReader(filename));
+		      
+          String currentLine;
+          int  position = 0 ;
+          int  MapPart = 0;		        
+          int  ContinentPart = 0;
+          int  CountryPart = 0;
+          while((currentLine = reader.readLine()) != null) {
+	           if(currentLine.equals("[Map]") ) {
 		
-		  
-	 Continent con;
-	 
-		  String currentLine;				  
-		  for (int i=0 ; i<(ContinentList.size()) -1 ; i++){//forcontinentsize			  
-			  //memberCountries.clear();
-			  memberCountries = new ArrayList<>();
-			  try{				  
-				  File tempFile = new File("continents.txt");
-				  BufferedReader reader = new BufferedReader(new FileReader(filename));	       
-				  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-				  while((currentLine = reader.readLine()) != null) {//while2
-		      	
-		         if(currentLine.equals("[Territories]") ){
-		      			        				        	
-				   while((currentLine = reader.readLine()) != null) {//while1
-		      					        				      	
-		      		String[] tokens = currentLine.split(",");		      		
-		      		
-		      		if (ContinentList.get(i).equals(tokens[3])){		      					      			
-		      			memberCountries.add(tokens[0]);			      					      					      			      				      					      			
-		      		}		      				      				      		
-				   }//while1				   				   
-		      					        					            				            			            
-		      }//if
-		      }//while2
-				  System.out.println(memberCountries);  
-				  con = new Continent(ContinentList.get(i), 0, memberCountries);				  
-				  continent.add(con);
-				  con.setMemberCountries(memberCountries);
-				  con.setName(ContinentList.get(i));				  				  				  	      			          
-				  
-		      writer.close(); 
-		      reader.close(); 	    
+		         MapPart = 1;
+		         continue;		        		
+	              }
+	         else if(currentLine.equals("[Continents]") ){
+		           ContinentPart = 1;
+		           continue;			        		
+                }		        	
+	         else if (currentLine.equals("[Territories]") ){
+		           CountryPart = 1;
+		           continue;	
+	               }	
+  
+             }
 
-		      }catch(IOException ioe){
-		         System.out.println("Exception occurred:");
-		    	 ioe.printStackTrace();
-		      }
-			  			  		  			  	
-		  }//forcontinentsize
-		  		
-		  try{				  		 
-			  BufferedReader reader = new BufferedReader(new FileReader(filename));	       
-			
-			  while((currentLine = reader.readLine()) != null) {//while2
-	      	
-	         if(currentLine.equals("[Continents]") ){
-	      			        				        	
-			   while((currentLine = reader.readLine()) != null) {//while1
-	      					        				      	
-	      		String[] tokens = currentLine.split("=");		      		
-	      			      		   
-	      		 for(Continent con2: continent){
-	      			 if (tokens[0].equals(con2.getName())){
-	      					 con2.setBonusArmies(Integer.parseInt(tokens[1]));
-	      			}
-	   			     			  
-	   		  }
-	      		   	      		   	      			      				      				      		
-			   }//while1				   				   
-	      					        					            				            			            
-	      }//if
-	      }//while2			  					  				  				  	      			          			  	    
-	      reader.close(); 	    
-	      }catch(IOException ioe){
-	         System.out.println("Exception occurred:");
-	    	 ioe.printStackTrace();
-	      } 
-		 		
-		  
-		  try{				  
-			  File tempFile = new File("continents.txt");
-			       
-			  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));			  		  			    			 
-			  for(Continent con3: continent){
-				  writer.write("\n"+ con3.getName() + "," + con3.getBonusArmies()  + "," + con3.getMemberCountries().toString().replace("[", "").replace("]", ""));	
-	      			
-	   		  }	         			  				  				  	      			          			  
-	      writer.close(); 	      	    
-	      }catch(IOException ioe){
-	         System.out.println("Exception occurred:");
-	    	 ioe.printStackTrace();
-	      }
-		  			  		  		       
+reader.close(); 
+
+
+if ( (MapPart == 1) && (ContinentPart == 1) && (CountryPart == 1)  ){
+	result=true;
+	System.out.println("Format File is Correct");
 	
 }
+else {
+	result=false;
+	System.out.println("Format File is  not Correct");}
+
+      }catch(IOException ioe){
+ System.out.println("Exception occurred:");
+ ioe.printStackTrace();
+}
+   return result;
+}
+
+public void makeContinetFile(){
+
+
+Continent con;
+
+String currentLine;				  
+for (int i=0 ; i<(ContinentList.size()) -1 ; i++){//forcontinentsize			  
+//memberCountries.clear();
+memberCountries = new ArrayList<>();
+try{				  
+	  File tempFile = new File("continents.txt");
+	  BufferedReader reader = new BufferedReader(new FileReader(filename));	       
+	  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+	  while((currentLine = reader.readLine()) != null) {//while2
 	
+   if(currentLine.equals("[Territories]") ){
+			        				        	
+	   while((currentLine = reader.readLine()) != null) {//while1
+					        				      	
+		String[] tokens = currentLine.split(",");		      		
+		
+		if (ContinentList.get(i).equals(tokens[3])){		      					      			
+			memberCountries.add(tokens[0]);			      					      					      			      				      					      			
+		}		      				      				      		
+	   }//while1				   				   
+					        					            				            			            
+}//if
+}//while2
+	  System.out.println(memberCountries);  
+	  con = new Continent(ContinentList.get(i), 0, memberCountries);				  
+	  continent.add(con);
+	  con.setMemberCountries(memberCountries);
+	  con.setName(ContinentList.get(i));				  				  				  	      			          
+	  
+writer.close(); 
+reader.close(); 	    
+
+}catch(IOException ioe){
+   System.out.println("Exception occurred:");
+	 ioe.printStackTrace();
+}
+			  		  			  	
+}//forcontinentsize
+	
+try{				  		 
+BufferedReader reader = new BufferedReader(new FileReader(filename));	       
+
+while((currentLine = reader.readLine()) != null) {//while2
+
+if(currentLine.equals("[Continents]") ){
+		        				        	
+ while((currentLine = reader.readLine()) != null) {//while1
+				        				      	
+	String[] tokens = currentLine.split("=");		      		
+		      		   
+	 for(Continent con2: continent){
+		 if (tokens[0].equals(con2.getName())){
+				 con2.setBonusArmies(Integer.parseInt(tokens[1]));
+		}
+		     			  
+	  }
+	   	      		   	      			      				      				      		
+ }//while1				   				   
+				        					            				            			            
+}//if
+}//while2			  					  				  				  	      			          			  	    
+reader.close(); 	    
+}catch(IOException ioe){
+System.out.println("Exception occurred:");
+ioe.printStackTrace();
+} 
+	
+
+try{				  
+File tempFile = new File("continents.txt");
+     
+BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));			  		  			    			 
+for(Continent con3: continent){
+	  writer.write("\n"+ con3.getName() + "," + con3.getBonusArmies()  + "," + con3.getMemberCountries().toString().replace("[", "").replace("]", ""));	
+		
+	  }	         			  				  				  	      			          			  
+writer.close(); 	      	    
+}catch(IOException ioe){
+System.out.println("Exception occurred:");
+ioe.printStackTrace();
+}
+		  		  		       
+
+}
+
 public static void main(String[] args){
 		CountryMap frame = new CountryMap();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
