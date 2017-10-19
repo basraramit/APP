@@ -271,11 +271,13 @@ public class CountryMap extends JFrame{
 	       
 			return color;
 		}
+/** This method adds new country to 
+*   user selected map and saves it to a file
+*/
 	
 	public void addCountry(){
 		String newLine = "";		  
-
-		  List<String> adjacents= new ArrayList<String>();
+		List<String> adjacents= new ArrayList<String>();
 		  Scanner sc=new Scanner(System.in);
 		  System.out.println("Enter Country Name: \n");
 	          String Countryid=sc.nextLine();		
@@ -297,56 +299,34 @@ public class CountryMap extends JFrame{
 		  listVertex.put(Countryid, vertex);
 	          System.out.println("Enter no. of adjacent countries: \n");
 		  int noAdjacents=sc.nextInt();
-	      
-		  for(int i=1;i<=noAdjacents;i++){
+	           for(int i=1;i<=noAdjacents;i++){
+			System.out.println("Enter adjacent countries" + i + ":"+" \n");
+	    	  	String adjacent=sc.next();    	  	  	    	  
+			System.out.println("adjacent : " + adjacent );
+	    	        newLine = newLine + adjacent + ",";
+			adjacents.add(adjacent);
+	    	        Object childVertex=listVertex.get(adjacents.get(i-1));
+			graph.insertEdge(parent, null, "New edges",vertex,childVertex);
+	    	     }
+		     newLine = newLine.substring(0, newLine.length() - 1);
+         try{
+		FileWriter fw = new FileWriter(filename,true);
+		BufferedWriter bw = new BufferedWriter(fw); 	      	
+		bw.write("\n"+ newLine);
+		bw.close();    		      
+		System.out.println("NewLine final : " + newLine );
+		System.out.println("Data successfully appended at the end of file");    	
 
-	    	  System.out.println("Enter adjacent countries" + i + ":"+" \n");	    	  	  	    	  
+    	     }catch(IOException ioe){
+				System.out.println("Exception occurred:");
+				ioe.printStackTrace();
+    	          }
+	}
 
-	    	  String adjacent=sc.next();
-
-	    	  System.out.println("adjacent : " + adjacent );
-
-	    	  newLine = newLine + adjacent + ",";
-
-	          adjacents.add(adjacent);	          	         
-
-	          Object childVertex=listVertex.get(adjacents.get(i-1));
-
-			  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
-		}
-				 			 				 
-
-	      	     	
-    newLine = newLine.substring(0, newLine.length() - 1);
-try{
-
-  	      	
-
-    	FileWriter fw = new FileWriter(filename,true);	      
-
-    	BufferedWriter bw = new BufferedWriter(fw);
-
-    	bw.write("\n"+ newLine);	      	
-
-    	bw.close();
-
-    	
-
-    	System.out.println("NewLine final : " + newLine );
-
-	System.out.println("Data successfully appended at the end of file");
-
-
-
-      }catch(IOException ioe){
-
-         System.out.println("Exception occurred:");
-
-    	 ioe.printStackTrace();
-
-       }
-
-}
+/* This method adds new continent 
+ * to user selected map
+*/
+	
 	public void addContinent(){
 		
 		  String newContinentLine = "";	
@@ -383,11 +363,7 @@ try{
 		  
 		  newCountryLine = newCountryLine + Continentid + ",";
 		  String color=getColor(Continentid);
-		  String PlayerName=NameGenerator();
-		  
-		  //Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+Continentid, x,y,80,30,color);
-	          //listVertex.put(Countryid, vertex);
-	      
+		  String PlayerName=NameGenerator();      
 	          System.out.println("Enter no. of adjacent countries: \n");
 	          int noAdjacents=sc.nextInt();
 	          
@@ -396,10 +372,7 @@ try{
 	    	  String adjacent=sc.next();
 	    	  System.out.println("adjacent : " + adjacent );
 	    	  newCountryLine = newCountryLine + adjacent + ",";
-	          adjacents.add(adjacent);	          	         
-	       //   Object childVertex=listVertex.get(adjacents.get(i-1));
-			//  graph.insertEdge(parent, null, "New edges",vertex,childVertex);
-			 
+	          adjacents.add(adjacent);	          	        
 				 			 				 
 	        }	     	
 	        newCountryLine = newCountryLine.substring(0, newCountryLine.length() - 1);
@@ -548,6 +521,8 @@ try{
       }		
 }
 
+/** This method makes adjacency matrix for countries
+*/
 public void makeMatrixFile(){
 	
 try{
@@ -562,39 +537,22 @@ try{
       while((currentLine = reader.readLine()) != null) {
       	
          if(currentLine.equals("[Territories]") ){
-      	writer.write(currentLine + System.getProperty("line.separator"));		        				        	
+      	 writer.write(currentLine + System.getProperty("line.separator"));		        				        	
 		   while((currentLine = reader.readLine()) != null) {
-      					        		
-      		System.out.println("in 1");
-      		String[] tokens = currentLine.split(",");
-      		for (int i=0 ; i< tokens.length; i++){
-      		  //System.out.println("in 2");
-      		  //System.out.println(tokens[i]);
-      			
-      		for(Country c: country){
-      		//System.out.println("in 3");
-                 	String id=c.getCountryId();
-                  	int CID=c.getCID();
-                  	//System.out.println(tokens[i]);
-                  	//System.out.println(id);
-                  	            		                    		                    
-                  if (  id.equals(tokens[i])   ) {
-              	  
-              	 // System.out.println("in 4");
-              //	  System.out.println(String.valueOf(CID));		                	  
-              	  currentLine = currentLine.replace(id, String.valueOf(CID));	                	
-              	  break;
-                   
-                }	
-                continue;
-	                }// for country
-      		
-      	     }//for tokens
+      			     System.out.println("in 1");
+			     String[] tokens = currentLine.split(",");
+				for (int i=0 ; i< tokens.length; i++){
+					for(Country c: country){
+					    String id=c.getCountryId();
+					    int CID=c.getCID();
+						if (  id.equals(tokens[i])) {
+						currentLine = currentLine.replace(id, String.valueOf(CID));	                	
+						break;}	
+                   continue;
+	   }
       		writer.write(currentLine + System.getProperty("line.separator"));
 
-      }
-      			        
-      					        					            				            			            
+      }			        		      				            			            
       }
       }
       writer.close(); 
@@ -604,10 +562,11 @@ try{
          System.out.println("Exception occurred:");
     	 ioe.printStackTrace();
       }
-  
 
-
-}
+} 
+/* * This method validates map file
+* searches for mappart, continent and territories
+*/
 public boolean findMainPartsInFile(){
 	  boolean result=true;
       try{
@@ -654,14 +613,17 @@ else {
    return result;
 }
 
+/**This class makes continent file
+*
+*/
 public void makeContinetFile(){
 
 
 Continent con;
 
 String currentLine;				  
-for (int i=0 ; i<(ContinentList.size()) -1 ; i++){//forcontinentsize			  
-//memberCountries.clear();
+for (int i=0 ; i<(ContinentList.size()) -1 ; i++){			  
+
 memberCountries = new ArrayList<>();
 try{				  
 	  File tempFile = new File("continents.txt");
