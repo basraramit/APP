@@ -2,7 +2,7 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import Map.RiskGame;
 import Model.Risk_Model;
 import View.PlayerCount_View;
 import View.Risk_Start_View;
@@ -17,6 +17,7 @@ public class Start_View_Controller implements ActionListener {
 	private Risk_Start_View view;
 	private Risk_Model model;
 	private PlayerCount_View playerCountDialog;
+	RiskGame a;
 	
 	public Start_View_Controller(Risk_Model model, Risk_Start_View view) {
 		
@@ -42,7 +43,10 @@ public class Start_View_Controller implements ActionListener {
 			playerCountDialog.setVisible(true);
 		
 		}else if (actionEvent.equals("loadGameBtn")) {
-			
+			RiskGame a= new RiskGame();
+			a.setVisible(true);
+			//a.setSize(500,500);
+			a.setBounds(250, 250, 400,400);
 		}else if (actionEvent.equals("quitBtn")) {
 			model.quitGame();
 		} else {
