@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import Model.Risk_Model;
-import View.BoardView;
+import View.Board_View;
 import View.PlayerSetting_View;
 
 /**
@@ -64,10 +64,10 @@ public class PlayerSettingsController implements ActionListener {
 			if (isLoaded == true) {
 				System.out.println("Game setup complete!\nLoading BoardView...");
 				
-				BoardView boardView = new BoardView(view, true, model);
+				Board_View boardView = new Board_View(view, true, model);
 				boardView.addActionListeners(new BoardViewController(model, boardView), new RiskListController(model, boardView));
 				
-				// boardView.addListSelectionListeners(new BoardViewListSelectionController(model, boardView));
+				//boardView.addListSelectionListeners(new BoardViewListSelectionController(model, boardView));
 				boardView.setVisible(true);
 			}
 			

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Model.Risk_Model;
-import View.BoardView;
+import View.Board_View;
 import View.MenuView;
 
 /**
@@ -15,10 +15,10 @@ import View.MenuView;
 public class BoardViewController implements ActionListener {
 
 	private Risk_Model model;
-	private BoardView view;
+	private Board_View view;
 	private MenuView menuDialog;
 	
-	public BoardViewController(Risk_Model model, BoardView view) {		
+	public BoardViewController(Risk_Model model, Board_View view) {		
 		this.model = model;
 		this.view = view;
 		model.startGame();
