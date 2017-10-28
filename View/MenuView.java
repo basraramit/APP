@@ -27,7 +27,7 @@ public class MenuView extends JDialog {
 	private String saveBtnName = "saveBtn";
 	private String quitBtnName = "quitBtn";
 	
-	public MenuView(BoardView view, boolean modality)
+	public MenuView(Board_View view, boolean modality)
 	{
 		super(view, modality);
 		setTitle("Java-Risk");

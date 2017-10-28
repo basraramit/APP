@@ -42,7 +42,7 @@ public class PlayerCount_View extends JDialog {
 	 * @param start_view
 	 * @param modality
 	 */
-	public PlayerCount_View(Risk_Start_View start_view, boolean modality)
+	public PlayerCount_View(LoadMap_View start_view, boolean modality)
 	{
 		super(start_view, modality);
 		setTitle("Java-Risk");
