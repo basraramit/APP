@@ -1,0 +1,43 @@
+Forgoth,Rove,Spora
+	Rove,Jer,Spora,Forgoth,Polaris
+	Jer,Ssag,Fali,Unbecom,Spora,Rove
+	Ssag,Lurd,Fali,Jer
+	Fali,Ssag,Jer,Unbecom
+	Unbecom,Lankia,Fali,Farla,Kinsha,Spora,Jer
+	Spora,Forgoth,Rove,Jer,Unbecom,Kinsha
+	Lurd,Evor,Ssag
+	Evor,Valinor,Evim,Lurd
+	Evim,Valinor,Eritus,Evor
+	Valinor,Evor,Evim
+	Eritus,Evim,Lankia,Obar
+	Obar,Arvi,Inve,Eritus
+	Arvi,Polaris,Inve,Obar
+	Inve,Arvi,Obar,Aqualia
+	Polaris,Arvi,Rove
+	Aqualia,Inve,Larkan,Pierco
+	Pierco,Aqualia,San Funander,Marakas,Tocko
+	San Funander,Pierco,Marakas
+	Marakas,Pierco,San Funander,Tocko
+	Tocko,Pierco,Marakas,Blanki Vista
+	Lo,Kinsha,Blanki Vista
+	Kinsha,Spora,Unbecom,Lo,Blanki Vista,Mittenmoth,Farla
+	Farla,Kinsha,Unbecom,Asturmina,Teor,Nurta,Esgarpok,Mittenmoth
+	Blanki Vista,Lo,Kinsha,Mittenmoth,Bilon,Batan,Tocko
+	Mittenmoth,Kinsha,Farla,Esgarpok,Har,Bilon,Blanki Vista
+	Esgarpok,Farla,Mittenmoth,Har
+	Batan,Blanki Vista,Bilon
+	Bilon,Batan,Blanki Vista,Mittenmoth,Har
+	Har,Bilon,Mittenmoth,Esgarpok,Friedartika
+	Lankia,Eritus,Asturmina,Unbecom
+	Asturmina,Lankia,Clokan,Teor,Farla
+	Teor,Asturmina,Farla,Nurta,Engel
+	Nurta,Farla,Teor,Engel,Kasten
+	Engel,Teor,Nurta,Kasten,Kalthausen
+	Kasten,Friedartika,Nurta,Engel,Kalthausen,Unterkan
+	Friedartika,Har,Kasten
+	Kalthausen,Engel,Clokan,Kasten,Unterkan,Horkan
+	Unterkan,Kasten,Kalthausen,Horkan
+	Horkan,Kalthausen,Unterkan
+	Clokan,Asturmina,Kalthausen,Larkan
+	Larkan,Clokan,Aqualia
+	
