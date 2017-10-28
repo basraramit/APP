@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Allows the creation of Risk Country objects.
@@ -15,6 +16,12 @@ public class Country {
     public String name;
     public Player occupant;
     public ArrayList<Country> adjacencies;
+	private List<String> adjacent;
+	private String Continent;
+	private int x;
+	private int y;
+	private int CID;
+	private String playerName;
 
     public Country(String name) {
 	
@@ -97,5 +104,60 @@ public class Country {
      */
 	public boolean hasPlayer() {
 		return hasPlayer;
+	}
+	
+	public void setAdjacent(List<String> a){
+	    adjacent = a;
+	}
+	public List<String> getAdjacents(){
+		return adjacent;
+	}
+	
+	public void setContinent(String Continent) {
+		this.Continent=Continent;
+	}
+	public void setCID(int CID) {
+    	this.CID = CID;
+    }
+	public void setPlayerName(String playerName) {
+		this.playerName=playerName;
+	}
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	/**
+	* @return the continent
+	*/
+	public String getContinent() {
+	return Continent;
+	}
+	
+	public void setCoordinateX(int x) {
+		this.x=x;
+	  // this.y=y;
+	}
+	
+	public void setCountryName(String name) {
+    	this.name = name;
+    }
+
+
+	public int getCoordinateX() {
+	   return x;
+	}
+
+	public void setCoordinateY(int y) {
+		
+	  this.y=y;
+	}
+
+	public int getCoordinatey() {
+	   return y;
+	}
+
+	public int getCID() {
+		// TODO Auto-generated method stub
+		return CID;
 	}
 }

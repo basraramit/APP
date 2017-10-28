@@ -2,12 +2,16 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 import java.lang.StringBuilder;
 import java.lang.NumberFormatException;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
@@ -22,6 +26,8 @@ import javax.swing.JOptionPane;
  */
 public class Risk_Model extends Observable {
 
+	private static String CountryName;
+	private static String AdajenciesName;
 	public boolean canTurnInCards;
 	public boolean canReinforce;
 	public boolean canFortify;
@@ -36,12 +42,13 @@ public class Risk_Model extends Observable {
 	public int noArmiesCount;
 	public int turnInCount;
 	public int armies;
-	public String countriesFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/countries.txt";
-	public String continentsFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/continents.txt";
-	public String adjacenciesFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/adjacencies.txt";
+	public static String countriesFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/countries.txt";
+	public static String continentsFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/continents.txt";
+	public static String adjacenciesFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/adajencies.txt";
 	public String line;
 	public String input;
 	public String countryASelection;
+	public String mapToLoad;
 	
 	public String[] countriesArray;
 	public String[] continentsArray;
@@ -56,6 +63,10 @@ public class Risk_Model extends Observable {
 	public Player currentPlayer;
 	public Country countryA;
 	public Country countryB;
+	
+	public Country[] countries;
+	public Player[] player;
+	
 	
 	/**
 	 * This is the constructor for the RiskModel object.
@@ -73,6 +84,23 @@ public class Risk_Model extends Observable {
 	 */
 	public void quitGame() {
 		System.exit(0);
+	}
+	
+	/**
+	 * set the map file path
+	 * @param mapToLoad
+	 */
+	public void setMapFilePath(String mapToLoad) {
+		this.mapToLoad = mapToLoad;
+	}
+	
+	/**
+	 * get the map's file path
+	 * @return
+	 */
+	public String getMapFilePath(){
+		return mapToLoad;
+		
 	}
 	
 	/**
@@ -114,7 +142,7 @@ public class Risk_Model extends Observable {
 			System.out.println("Input from " + countriesFile + ": " + input);
 			// Splits the text in the file into an array
 			countriesArray = input.split("\t");
-			System.out.println("Loading board...");
+			System.out.println("Load Board");
 			
 			// Reads adjacencies file
 			reader = new BufferedReader(new FileReader(adjacenciesFile));			
@@ -140,7 +168,7 @@ public class Risk_Model extends Observable {
 			System.out.println("Input from " + continentsFile + ": " + input);
 			
 			continentsArray = input.split("\t");
-			
+			System.out.println("Numbers of Continents:" + continentsArray.length);
 			// Creates game board object
 			isLoaded = board.loadBoard(countriesArray, adjacenciesArray, continentsArray);
 			
@@ -150,6 +178,8 @@ public class Risk_Model extends Observable {
 			
 			// Creates ArrayList of players
 			System.out.println("Preparing players...");
+			System.out.println("Numbers of Countries:" + countriesArray.length);
+			System.out.println("Numbers of Continents:" + continentsArray.length);
 			players = new ArrayList<Player>();
 			
 			// Players are created here
@@ -158,7 +188,7 @@ public class Risk_Model extends Observable {
 			}
 			
 			System.out.println("Starting deploy phase...");
-			
+
 			deployTurn = -1;
 			deployPhase = true;
 			deployed = true;
@@ -173,7 +203,9 @@ public class Risk_Model extends Observable {
 			System.out.println(error.getMessage());
 		}
 		return isLoaded;
-	}
+	}	
+	
+	
 	
 	/**
 	 * Starts the game and prints out welcome messages.
@@ -206,7 +238,7 @@ public class Risk_Model extends Observable {
 			if (cardsToRemove.length == 3) {
 			
 				if (currentPlayer.getHand().get(cardsToRemove[0]).getCountry().getOccupant().equals(currentPlayer) || currentPlayer.getHand().get(cardsToRemove[1]).getCountry().getOccupant().equals(currentPlayer) || currentPlayer.getHand().get(cardsToRemove[2]).getCountry().getOccupant().equals(currentPlayer)) {
-				// Checks if player owns a country on the cards to remove
+					// Checks if player owns a country on the cards to remove
 					currentPlayer.incrementArmies(2);
 					
 					setChanged();
@@ -216,7 +248,7 @@ public class Risk_Model extends Observable {
 				turnInCount = currentPlayer.getTurnInCount();
 				
 				if (turnInCount <= 5) {
-				// Increments armies according to how many turn-ins have occurred
+					// Increments armies according to how many turn-ins have occurred
 					currentPlayer.incrementArmies(2 + (2 * turnInCount));
 					
 					setChanged();
@@ -256,7 +288,7 @@ public class Risk_Model extends Observable {
 		
 			if (countryA.hasPlayer() == false || currentPlayer.equals(countryA.getOccupant())) {
 			// If countryA is occupied by player or unoccupied
-				if (deployTurn >= 42) {
+				if (deployTurn >= board.countriesList.size()) {
 					// If all countries have been claimed
 					
 					isInt = false;
@@ -379,9 +411,9 @@ public class Risk_Model extends Observable {
 	public void nextPlayer() {
 	
 		if (players.size() > 1) {
-		// If at least one player remains
+			// If at least one player remains
 			if (deployed == true) {
-			// Prevents players from skipping turns during the deploy phase
+				// Prevents players from skipping turns during the deploy phase
 				// Prevents actions between turn transitions
 				canTurnInCards = false;
 				canReinforce = false;
@@ -535,4 +567,168 @@ public class Risk_Model extends Observable {
 	public Board getBoard() {
 		return board;
 	}
+	
+	/**
+	 * Parse the selected mapfile into Countries file  
+	 * @param filePath
+	 */
+	public static void parseCountry(String filePath){
+  	  
+  	  try {
+            // read file content from file
+            StringBuffer sb= new StringBuffer("");
+           
+            FileReader reader = new FileReader(filePath);
+            BufferedReader br = new BufferedReader(reader);
+           
+            String str = null;
+           
+            while((str = br.readLine()) != null) {
+            	if (str.equals("[Territories]")){
+            		while((str = br.readLine()) != null){
+            			String[] tokens = str.split(",");
+            			CountryName= tokens[0];
+            			sb.append(CountryName + "\n"+"\t");
+                 
+            			//System.out.println(CountryName);
+            			}
+            		} 
+            }
+
+            br.close();
+            reader.close();
+           
+            // write string to file
+            FileWriter writerCountry = new FileWriter(countriesFile);
+            BufferedWriter bw = new BufferedWriter(writerCountry);
+            bw.write(sb.toString());
+           
+            bw.close();
+            writerCountry.close();
+      }
+      catch(FileNotFoundException e) {
+                  e.printStackTrace();
+            }
+            catch(IOException e) {
+                  e.printStackTrace();
+            }
+  	  
+  	  
+    }
+	
+	/**
+	 * Parse the selected mapfile into Continents file
+	 * @param filePath
+	 */
+	public static void parseContinents(String filePath){
+		/*Firstly, read the map.txt.*/
+		List<String> mapContent = ReadWriteFileUtil.read(filePath);
+		/* Secondly, get the needed contents.*/
+		List<Continent> continents = new ArrayList<>();
+		Iterator<String> it = mapContent.iterator();
+		while (it.hasNext()) {
+			String tmp = it.next().trim();
+			if (tmp.equalsIgnoreCase("[Continents]")) {
+				while (it.hasNext()) {
+					String tmpC = it.next().trim();
+					if (tmpC!= "" && tmpC.contains("=")) {
+						String nameC = tmpC.split("=")[0];
+						int bonus = Integer.parseInt(tmpC.split("=")[1]);
+						Continent oneC = new Continent();
+						oneC.setName(nameC);
+						oneC.setBonusArmies(bonus);
+						continents.add(oneC);
+					} else {break;}
+				}
+			} else if (tmp.equalsIgnoreCase("[Territories]")) {
+				while (it.hasNext()) {
+					String tmpT = it.next().trim();
+					if (tmpT != "" && tmpT.contains(",")) {
+						String tName = tmpT.split(",")[0];
+						String cName = tmpT.split(",")[3];
+						for (int i = 0; i < continents.size(); i++) {
+							if (cName.equalsIgnoreCase(continents.get(i).getName())) {
+								continents.get(i).getMemberCountry().add(tName);
+							}
+						}
+					} else {break;}
+				}
+			}
+		}
+		/*Thirdly, write the conyinents.txt file.*/
+		String writeString = "";
+		for (int i =0; i < continents.size(); i++) {
+			Continent node = continents.get(i);
+			if (i == 0) {
+				writeString += node.getName() + "," + node.getBonusArmies();			
+			} else {
+				writeString += "\t" + node.getName() + "," + node.getBonusArmies();
+			}
+			for (String t : node.getMemberCountry()) {
+				writeString += "," + t;
+			}
+			if (i != continents.size() - 1) {
+				writeString += "\r\n";
+			}
+		}
+		
+		ReadWriteFileUtil.write(continentsFile, writeString);
+	
+	}
+	
+	/**
+	 * Parse the selected mapfile into Adajencies file
+	 * @param filePath
+	 */
+	public static void parseAdajencies(String filePath){
+  	  
+  	  try {
+            // read file content from file
+            StringBuffer sb= new StringBuffer("");
+           
+            FileReader reader = new FileReader(filePath);
+            BufferedReader br = new BufferedReader(reader);
+           
+            String str = null;
+           
+            while((str = br.readLine()) != null) {
+            	if (str.equals("[Territories]")){
+            		while((str = br.readLine()) != null){
+            			String[] tokens = str.split(",");
+            			AdajenciesName= tokens[0];
+            			sb.append(AdajenciesName + ",");
+            			for(int i = 4; i < tokens.length-1; i++){
+            				
+            				sb.append(tokens[i] + ",");
+    	                  
+    	                 }
+            			sb.append(tokens[tokens.length-1] + "\n" + "\t");
+            			
+                 
+            			//System.out.println(AdajenciesName);
+            			}
+            		}  
+            }
+
+            br.close();
+            reader.close();
+           
+            // write string to file
+            FileWriter writerAdajencies = new FileWriter(adjacenciesFile);
+            BufferedWriter bw = new BufferedWriter(writerAdajencies);
+            bw.write(sb.toString());
+           
+            bw.close();
+            writerAdajencies.close();
+      }
+      catch(FileNotFoundException e) {
+                  e.printStackTrace();
+            }
+            catch(IOException e) {
+                  e.printStackTrace();
+            }
+  	  
+    }
+
+	
 }
