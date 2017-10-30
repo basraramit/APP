@@ -127,12 +127,12 @@ public class CountryMap extends JFrame{
 		boolean result=adjMatrix.checkAdjacency(); 
 		boolean resultTwo=findMainPartsInFile();
 		if ((CountLine%3==0)&&(result==true)&&(resultTwo==true)){
+			System.out.println("Correct number of countries");
 			mxGraphComponent graphComponent = new mxGraphComponent(graph);
 			getContentPane().add(graphComponent);}
 			else{
-				mxGraphComponent graphComponent = new mxGraphComponent(graph);
-				getContentPane().add(graphComponent);
-				System.out.println("Incorrect map type");
+				
+				System.out.println("Incorrect number of countries");
 			}
 		}
 	     
@@ -217,6 +217,9 @@ public class CountryMap extends JFrame{
 		  }
 		  else if(map.equals("3")){
 			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/input2.txt"); 
+		  }
+		 else if(map.equals("4")){
+			  filename=new File("TempFile.txt"); 
 		  }
 		  else{
 			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/Aden.map"); 
