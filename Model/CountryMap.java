@@ -582,8 +582,8 @@ public class CountryMap extends JFrame{
                   	            		                    		                    
 								if (  id.equals(tokens[i])   ) {
               	  
-									System.out.println("in 4");
-									System.out.println(String.valueOf(CID));		                	  
+									//System.out.println("in 4");
+									//System.out.println(String.valueOf(CID));		                	  
 									currentLine = currentLine.replace(id, String.valueOf(CID));	                	
 									break;
                    
