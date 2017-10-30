@@ -123,6 +123,7 @@ public class CountryMap extends JFrame{
 			graph.getModel().endUpdate();
 				
 			}
+		makeMatrixFile();
 		boolean result=adjMatrix.checkAdjacency(); 
 		boolean resultTwo=findMainPartsInFile();
 		if ((CountLine%3==0)&&(result==true)&&(resultTwo==true)){
