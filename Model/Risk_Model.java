@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 
 import javax.swing.JOptionPane;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class is the model for the Risk program.
  * It contains the data, methods, and functions that are required to manipulate the data of 
@@ -26,46 +27,132 @@ import javax.swing.JOptionPane;
  */
 public class Risk_Model extends Observable {
 
+	/** The Country name. */
 	private static String CountryName;
+	
+	/** The Adajencies name. */
 	private static String AdajenciesName;
+	
+	/** The can turn in cards. */
 	public boolean canTurnInCards;
+	
+	/** The can reinforce. */
 	public boolean canReinforce;
+	
+	/** The can fortify. */
 	public boolean canFortify;
+	
+	/** The deploy phase. */
 	public boolean deployPhase;
+	
+	/** The deployed. */
 	public boolean deployed;
+	
+	/** The is int. */
 	public boolean isInt;
+	
+	/** The is loaded. */
 	public boolean isLoaded;
+	
+	/** The i. */
 	public int i;
+	
+	/** The player count. */
 	public int playerCount;
+	
+	/** The player index. */
 	public int playerIndex;
+	
+	/** The deploy turn. */
 	public int deployTurn;
+	
+	/** The no armies count. */
 	public int noArmiesCount;
+	
+	/** The turn in count. */
 	public int turnInCount;
+	
+	/** The armies. */
 	public int armies;
+	
+	/** The countries file. */
 	public static String countriesFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/countries.txt";
+	
+	/** The continents file. */
 	public static String continentsFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/continents.txt";
+	
+	/** The adjacencies file. */
 	public static String adjacenciesFile = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/adajencies.txt";
+	
+	/** The line. */
 	public String line;
+	
+	/** The input. */
 	public String input;
+	
+	/** The country A selection. */
 	public String countryASelection;
+	
+	/** The map to load. */
 	public String mapToLoad;
 	
+	/** The countries array. */
 	public String[] countriesArray;
+	
+	/** The continents array. */
 	public String[] continentsArray;
+	
+	/** The adjacencies array. */
 	public String[] adjacenciesArray;
+	
+	/** The list. */
 	public ArrayList<String> list;
+	
+	/** The players. */
 	public ArrayList<Player> players;
 	
+	/** The string builder. */
 	public StringBuilder stringBuilder;
+	
+	/** The reader. */
 	public BufferedReader reader;
+	
+	/** The board. */
 	public Board board;
+	
+	/** The deck. */
 	public Deck deck;
+	
+	/** The current player. */
 	public Player currentPlayer;
+	
+	/** The country A. */
 	public Country countryA;
+	
+	/** The country B. */
 	public Country countryB;
 	
+	/** The countries. */
 	public Country[] countries;
+	
+	/** The player. */
 	public Player[] player;
+
+	public boolean canAttack;
+
+	private Dice dice;
+
+	private int attackerLosses;
+
+	private int defenderLosses;
+
+	private int attackerDice;
+
+	private int defenderDice;
+
+	private int[] attackerRolls;
+
+	private int[] defenderRolls;
 	
 	
 	/**
@@ -75,6 +162,9 @@ public class Risk_Model extends Observable {
 		super();
 	}
 	
+	/**
+	 * Save game.
+	 */
 	public void saveGame() {
 	
 	}
@@ -87,16 +177,18 @@ public class Risk_Model extends Observable {
 	}
 	
 	/**
-	 * set the map file path
-	 * @param mapToLoad
+	 * set the map file path.
+	 *
+	 * @param mapToLoad the new map file path
 	 */
 	public void setMapFilePath(String mapToLoad) {
 		this.mapToLoad = mapToLoad;
 	}
 	
 	/**
-	 * get the map's file path
-	 * @return
+	 * get the map's file path.
+	 *
+	 * @return the map file path
 	 */
 	public String getMapFilePath(){
 		return mapToLoad;
@@ -121,9 +213,10 @@ public class Risk_Model extends Observable {
 	
 	/**
 	 * Sets up the Risk game.
+	 *
 	 * @param playerNames is an ArrayList of the player names.
-	 * @param playerTypes is an ArrayList of the player teams.
 	 * @return true if the game was successfully initialized
+	 * @throws FileNotFoundException the file not found exception
 	 */
 	public boolean initializeGame(ArrayList<String> playerNames) throws FileNotFoundException {
 		
@@ -195,7 +288,8 @@ public class Risk_Model extends Observable {
 			
 			canTurnInCards = false;
 			canReinforce = true;
-			canFortify = false;
+			setCanAttack(false);
+			setCanFortify(false);
 			
 		} catch (FileNotFoundException error) {
 			System.out.println(error.getMessage());
@@ -315,7 +409,8 @@ public class Risk_Model extends Observable {
 							notifyObservers("countryA");
 							
 							if (currentPlayer.getArmies() == 0) {
-								canFortify = true;
+								setCanAttack(true);
+								setCanFortify(true);
 							}
 						} else {
 							System.out.println("You do not have enough armies to reinforce " + countryAName + " with " + armies + " armies.\nReinforcements available: " + currentPlayer.getArmies());
@@ -344,11 +439,156 @@ public class Risk_Model extends Observable {
 	}
 	
 	/**
+	 * Handles the attack function.
+	 * Attacking allows the player to engage in battles, with outcomes decided by RNG, with
+	 * opposing players in order to lower the number of armies in a territory to 0 in order
+	 * to occupy it.
+	 * @param countryA is a String of the point A country.
+	 * @param countryB is a String of the point B country.
+	 **/
+	public void attack(String countryAName, String countryBName) {
+	
+		countryA = board.getCountryByName(countryAName);
+		countryB = board.getCountryByName(countryBName);
+		
+		if (this.getCanAttack() == true) {
+		
+			if (!currentPlayer.equals(countryB.getOccupant())) {
+			// Check if countryB is occupied by an opponent
+				if (board.checkAdjacency(countryA.getName(), countryB.getName()) == true) {
+				// Check if countryA is adjacent to countryB
+				
+					dice = new Dice();
+					
+					// Set default values
+					attackerLosses = 0;
+					defenderLosses = 0;
+					attackerDice = 1;
+					defenderDice = 1;
+					isInt = false;
+					
+					
+					// If current player is Human
+					try {
+					// Attacker chooses how many dice to roll
+							
+						attackerDice = Integer.parseInt(JOptionPane.showInputDialog(countryA.getOccupant().getName() + ", you are attacking " + countryAName + " from " + countryBName + "! How many dice will you roll?"));
+							
+						if (attackerDice < 1 || attackerDice > 3 || attackerDice >= countryA.getArmies()) {
+							throw new IllegalArgumentException();
+						}
+						isInt = true;
+							
+					} catch (NumberFormatException e) {
+						// Error: attacker inputs non-integer
+						System.out.println("Commander, please take this seriously. We are at war.");
+							
+					} catch (IllegalArgumentException e) {
+						// Error: attacker inputs invalid number of dice
+						System.out.println("Roll 1,2 or 3 dice. You must have at least one more army in your country than the number of dice you roll.");
+					}
+					
+					if (isInt == true) {
+						attackerRolls = dice.roll(attackerDice);
+						for(int i = 0; i < attackerRolls.length; i++){
+							System.out.println("the Attacker's dice: " + attackerRolls[i]);
+						}
+						isInt = false;							
+						
+						// If current player is Human
+						while(isInt == false) {
+							try {
+								// Defender chooses how many dice to roll after attacker
+								defenderDice = Integer.parseInt(JOptionPane.showInputDialog(countryB.getOccupant().getName() + ", you are defending " + countryBName + " from " + countryA.getOccupant().getName() + "! How many dice will you roll?"));
+									
+								if (defenderDice < 1 || defenderDice > 2 || defenderDice > countryA.getArmies()) {
+									throw new IllegalArgumentException();
+								}
+								isInt = true;
+									
+							} catch (NumberFormatException e) { 
+								// Error: defender inputs non-integer
+								System.out.println("Commander, please take this seriously. We are at war.");
+									
+							} catch (IllegalArgumentException e) {
+								// Error: defender inputs invalid number of dice
+								System.out.println("Roll either 1 or 2 dice. To roll 2 dice, you must have at least 2 armies on your country.");
+							}
+						}
+						
+						if (isInt == true) {
+							defenderRolls = dice.roll(defenderDice);
+							for(int i = 0; i < defenderRolls.length; i++){
+								System.out.println("the Defender's dice: " + defenderRolls[i]);
+							}
+							// Rolls arrays have been ordered in descending order. Index 0 = highest pair
+							if (attackerRolls[0] > defenderRolls[0]) {
+								defenderLosses++;
+							}
+							else if (attackerRolls[0] < defenderRolls[0]) {
+								attackerLosses++;
+							}
+							// Index 1 = second highest pair
+							if (attackerDice > 1 && defenderDice > 1) {
+							
+								if (attackerRolls[1] > defenderRolls[1]) {
+									defenderLosses++;
+									
+								} else if (attackerRolls[1] < defenderRolls[1]) {
+									attackerLosses++;
+								}
+							}
+							// Calculate losses
+							System.out.println("<COMBAT REPORT>");
+							countryA.decrementArmies(attackerLosses);
+							countryB.decrementArmies(defenderLosses);
+							
+							// If defending country loses all armies
+							if (countryB.getArmies() < 1) {
+							
+								System.out.println("WORLD NEWS: " + countryA.getOccupant().getName() + " has defeated all of " + countryB.getOccupant().getName() + "'s armies in " + countryBName + " and has occupied the country!");
+								
+								// Remove country from defender's list of occupied territories and adds to attacker's list
+								countryB.getOccupant().removeCountry(countryBName);
+								countryA.getOccupant().addCountry(countryB);
+
+								// Check if defender is eliminated from game
+								if (countryB.getOccupant().getOwnedCountries().size() == 0)	{
+									
+									System.out.println("WORLD NEWS: " + countryB.getOccupant().getName() + " has surrendered to " + currentPlayer.getName() + " after his last military defeat at " + countryBName + ". " + currentPlayer.getName() + " has issued an execution, with " + countryB.getOccupant().getName() + " charged as a war criminal.");
+									
+									players.remove(countryB.getOccupant().getIndex());
+								}
+								// Set country occupant to attacker
+								countryB.setOccupant(countryA.getOccupant());
+								countryA.decrementArmies(1);
+								countryB.incrementArmies(1);
+								
+								setChanged();
+								notifyObservers("countryA");
+								
+							}
+							canReinforce = false;
+						}
+					}
+				} else {
+					System.out.println("Commander, " + countryAName + " is not adjacent to " + countryBName + ".");
+				}
+			} else {
+				System.out.println("Commander, you cannot attack your own territories.");
+			}
+		} else {
+			System.out.println("Commander, our forces are not prepared to launch an attack right now.");
+		}
+	}
+	
+	/**
 	 * Handles the fortify function.
 	 * Fortifying allows the player to move armies from one country to another occupied 
 	 * country once per turn.
-	 * @param countryA is a String of the point A country.
-	 * @param countryB is a String of the point B country.
+	 *
+	 * @param countryAName the country A name
+	 * @param countryBName the country B name
 	 */
 	public void fortify(String countryAName, String countryBName) {	
 	
@@ -357,7 +597,7 @@ public class Risk_Model extends Observable {
 		countryA = board.getCountryByName(countryAName);
 		countryB = board.getCountryByName(countryBName);
 		
-		if (canFortify == true) {
+		if (this.getCanFortify() == true) {
 		
 			if (currentPlayer.equals(countryA.getOccupant()) && currentPlayer.equals(countryB.getOccupant())) {
 			// Check player owns countryA and countryB
@@ -417,7 +657,8 @@ public class Risk_Model extends Observable {
 				// Prevents actions between turn transitions
 				canTurnInCards = false;
 				canReinforce = false;
-				canFortify = false;
+				setCanAttack(false);
+				setCanFortify(false);
 				playerIndex++;
 				
 				if (playerIndex >= players.size()) {
@@ -564,13 +805,19 @@ public class Risk_Model extends Observable {
 		notifyObservers("countryB");
 	}
 	
+	/**
+	 * Gets the board.
+	 *
+	 * @return the board
+	 */
 	public Board getBoard() {
 		return board;
 	}
 	
 	/**
-	 * Parse the selected mapfile into Countries file  
-	 * @param filePath
+	 * Parse the selected mapfile into Countries file  .
+	 *
+	 * @param filePath the file path
 	 */
 	public static void parseCountry(String filePath){
   	  
@@ -617,8 +864,9 @@ public class Risk_Model extends Observable {
     }
 	
 	/**
-	 * Parse the selected mapfile into Continents file
-	 * @param filePath
+	 * Parse the selected mapfile into Continents file.
+	 *
+	 * @param filePath the file path
 	 */
 	public static void parseContinents(String filePath){
 		/*Firstly, read the map.txt.*/
@@ -677,8 +925,9 @@ public class Risk_Model extends Observable {
 	}
 	
 	/**
-	 * Parse the selected mapfile into Adajencies file
-	 * @param filePath
+	 * Parse the selected mapfile into Adajencies file.
+	 *
+	 * @param filePath the file path
 	 */
 	public static void parseAdajencies(String filePath){
   	  
@@ -729,6 +978,34 @@ public class Risk_Model extends Observable {
             }
   	  
     }
+	/**
+	 * 
+	 * @param state
+	 */
+	public void setCanAttack(boolean state){
+		this.canAttack = state;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean getCanAttack(){
+		return canAttack;
+	}
+	/**
+	 * 
+	 * @param state
+	 */
+	public void setCanFortify(boolean state){
+		this.canFortify = state;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean getCanFortify(){
+		return canFortify;
+	}
 
 	
 }
