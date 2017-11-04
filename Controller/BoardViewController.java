@@ -7,6 +7,7 @@ import Model.Risk_Model;
 import View.Board_View;
 import View.MenuView;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class maps the user's actions in the BoardView to the data and methods in the model.
  * @author yaomeng
@@ -14,16 +15,30 @@ import View.MenuView;
  */
 public class BoardViewController implements ActionListener {
 
+	/** The model. */
 	private Risk_Model model;
+	
+	/** The view. */
 	private Board_View view;
+	
+	/** The menu dialog. */
 	private MenuView menuDialog;
 	
+	/**
+	 * Instantiates a new board view controller.
+	 *
+	 * @param model the model
+	 * @param view the view
+	 */
 	public BoardViewController(Risk_Model model, Board_View view) {		
 		this.model = model;
 		this.view = view;
 		model.startGame();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent evt) {
 	
 		String actionEvent = evt.getActionCommand();
@@ -43,8 +58,8 @@ public class BoardViewController implements ActionListener {
 			model.reinforce(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""));
 			
 		} else if (actionEvent.equals("attackBtn")) {
+			model.attack(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""), view.getCountryB().replaceAll("[0-9]", "").replaceAll("\\-", ""));
 			
-			System.out.println(" 'Attack' function is not avalible in this build.");
 			
 		} else if (actionEvent.equals("fortifyBtn")) {
 			//System.out.println("User pressed fortifyButton.");
