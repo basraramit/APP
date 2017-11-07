@@ -1,5 +1,6 @@
 package View;
 
+import Model.newMap;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -21,36 +22,24 @@ import java.awt.event.ActionEvent;
 
 import Model.CountryMap;
 
-// TODO: Auto-generated Javadoc
 /**
- * This class maps the user's actions in the MapEdit View to edit map.
+ * This class maps the user's actions in the MapEdit View to edit map
  */
 public class MapEdit_View extends JFrame {
 	
-	/** The view. */
 	MapEdit_View view;
-	
-	/** The a. */
+	newMap	n;
 	CountryMap a;
-	
-	/** The frame. */
 	JFrame frame;
-	
-	/** The default map. */
-	String defaultMap = "C:/Users/yaome/workspace/Risk_Game/src/Map_Info/map.txt";
+	String defaultMap = "C:/Users/kjasp/CodeRepository/RiskGame/src/Map_Info/map.txt";
     
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 */
 	public static void main(String[] args){
 		MapEdit_View view= new MapEdit_View();
 		view.setVisible(true);
 	}
 	
 	/**
-	 * Constructor of this class.
+	 * Constructor of this class
 	 */
 	public MapEdit_View(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,7 +108,7 @@ public class MapEdit_View extends JFrame {
 				Graphics2D  g2d = bi.createGraphics();
 				a.paint(g2d);
 				try {
-					ImageIO.write(bi, "PNG", new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/countryMap.png"));
+					ImageIO.write(bi, "PNG", new File("G:/workspace/Risk-App/Map_Info/countryMap.png"));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -128,6 +117,19 @@ public class MapEdit_View extends JFrame {
 				
 			}
 				);
+		
+		JButton btnnewMap= new JButton("create new map");
+		btnnewMap.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnnewMap.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					n= new newMap();
+					n.createNewMap();
+					
+					
+				}
+					
+				}
+					);
 		
 		JButton btnAddCountry= new JButton("Add Country");
 		 btnAddCountry.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -187,6 +189,7 @@ public class MapEdit_View extends JFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 				.addComponent(btnAddCountry, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
 				.addComponent(btnRemoveCountry, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnnewMap, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)		
 				.addComponent(btnPlay, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 				.addGap(151))
 						);
@@ -211,6 +214,7 @@ public class MapEdit_View extends JFrame {
 				 .addGroup(groupLayout.createParallelGroup(Alignment.CENTER)
 				 .addComponent(btnAddCountry)
 				 .addComponent(btnRemoveCountry))
+				 .addComponent(btnnewMap)
 				 .addComponent(btnPlay)
 						
 				);
