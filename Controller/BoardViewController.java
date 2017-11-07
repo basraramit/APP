@@ -34,6 +34,7 @@ public class BoardViewController implements ActionListener {
 		this.model = model;
 		this.view = view;
 		model.startGame();
+		view.update(model, model.state);
 	}
 	
 	/* (non-Javadoc)
@@ -52,23 +53,27 @@ public class BoardViewController implements ActionListener {
 		} else if (actionEvent.equals("turnInBtn")) {
 			//System.out.println("User pressed turnInButton.");
 			model.turnInCards(view.getCardsToRemove());
-			
+			view.update(model, model.state);
 		} else if (actionEvent.equals("reinforceBtn")) {
 			//System.out.println("User pressed reinforceButton.");view.getSelectedComboBox();
 			model.reinforce(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""));
-			
+			view.update(model, model.state);
 		} else if (actionEvent.equals("attackBtn")) {
 			model.attack(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""), view.getCountryB().replaceAll("[0-9]", "").replaceAll("\\-", ""));
-			
+			view.update(model, model.state);
 			
 		} else if (actionEvent.equals("fortifyBtn")) {
 			//System.out.println("User pressed fortifyButton.");
 			model.fortify(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""), view.getCountryB().replaceAll("[0-9]", "").replaceAll("\\-", ""));
-			
+			view.update(model, model.state);
 		} else if (actionEvent.equals("endTurnBtn")) {
 			model.nextPlayer();
+			view.update(model, model.state);
 		
-		} else {
+		}else if(actionEvent.equals("skipAttackBtn")){
+			model.skipAttack();
+			view.update(model, model.state);
+		}else {
 			System.out.println("actionEvent not found: " + actionEvent);
 		}
 	}

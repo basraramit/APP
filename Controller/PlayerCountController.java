@@ -7,17 +7,28 @@ import Model.Risk_Model;
 import View.PlayerCount_View;
 import View.PlayerSetting_View;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class maps the user's actions in the PlayerCountDialog to the data and methods in 
  * the model.
  */
 public class PlayerCountController implements ActionListener {
 
+	/** The model. */
 	private Risk_Model model;
+	
+	/** The view. */
 	private PlayerCount_View view;
 	
+	/** The player settings dialog. */
 	private PlayerSetting_View playerSettingsDialog;
 	
+	/**
+	 * Instantiates a new player count controller.
+	 *
+	 * @param model the model
+	 * @param view the view
+	 */
 	//Constructor
 	public PlayerCountController(Risk_Model model, PlayerCount_View view)
 	{
@@ -29,6 +40,9 @@ public class PlayerCountController implements ActionListener {
 		view.addActionListeners(this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent evt) {
 	
 		String actionEvent = evt.getActionCommand();

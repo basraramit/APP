@@ -9,17 +9,31 @@ import Model.Risk_Model;
 import View.Board_View;
 import View.PlayerSetting_View;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class maps the user's actions in the PlayerSettingsDialog to the data and methods in 
  * the model.
  */
 public class PlayerSettingsController implements ActionListener {
+	
+	/** The is loaded. */
 	boolean isLoaded = false;
+	
+	/** The player names. */
 	private ArrayList<String> playerNames;
 	
+	/** The model. */
 	private Risk_Model model;
+	
+	/** The view. */
 	private PlayerSetting_View view;
 	
+	/**
+	 * Instantiates a new player settings controller.
+	 *
+	 * @param model the model
+	 * @param view the view
+	 */
 	public PlayerSettingsController(Risk_Model model, PlayerSetting_View view) {
 		System.out.println("Loaded PlayerSettingsController!");
 		this.model = model;
@@ -27,6 +41,9 @@ public class PlayerSettingsController implements ActionListener {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent evt) {
 		String actionEvent = evt.getActionCommand();
 		playerNames = new ArrayList<String>();

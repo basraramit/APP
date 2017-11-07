@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import Model.Risk_Model;
 import View.LoadMap_View;
 import View.MapEdit_View;
-import View.PlayerCount_View;
 import View.RiskStart_View;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class maps the user's actions in the Risk View to the data and methods in the model.
  * @author yaomeng
@@ -16,10 +16,21 @@ import View.RiskStart_View;
  */
 public class StartViewController implements ActionListener {
 
+	/** The view. */
 	private RiskStart_View view;
+	
+	/** The model. */
 	private Risk_Model model;
+	
+	/** The Load map dialog. */
 	private LoadMap_View LoadMapDialog;
 	
+	/**
+	 * Instantiates a new start view controller.
+	 *
+	 * @param model the model
+	 * @param view the view
+	 */
 	public StartViewController(Risk_Model model, RiskStart_View view) {
 		
 		System.out.println("Loaded Risk!");
@@ -31,6 +42,9 @@ public class StartViewController implements ActionListener {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		String actionEvent = evt.getActionCommand();
