@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class sets up the countries and continents on the Risk game board.
  * @author yaomeng
@@ -10,26 +11,51 @@ import java.util.HashMap;
  */
 public class Board {
 
+	/** The i. */
 	public int i;
+	
+	/** The j. */
 	public int j;
 	
+	/** The is loaded. */
 	public boolean isLoaded;
+	
+	/** The is adjacent. */
 	public boolean isAdjacent;
 	
+	/** The name. */
 	public String name;
 	
+	/** The continents array. */
 	public String[] continentsArray;
+	
+	/** The adjacencies array. */
 	public String[] adjacenciesArray;
 	
+	/** The countries list. */
 	public ArrayList<Country> countriesList;
+	
+	/** The adjacencies list. */
 	public ArrayList<Country> adjacenciesList;
+	
+	/** The member countries. */
 	public ArrayList<Country> memberCountries;
+	
+	/** The unoccupied. */
 	public ArrayList<Country> unoccupied;
+	
+	/** The continents list. */
 	public ArrayList<Continent> continentsList;
 
+    /** The countries map. */
     public HashMap<String, Country> countriesMap;
+    
+    /** The continents map. */
     public HashMap<String, Continent> continentsMap;
 	
+    /**
+     * Instantiates a new board.
+     */
     public Board() {
     	super();
     }
@@ -39,10 +65,11 @@ public class Board {
      * needed for the board from three files.  The first file lists all the countries.  The second file lists 
      * all of the continents and which countries are on a given continent.  The third file lists the adjacencies 
      * for each country.
-     * @param countriesArray
-     * @param adjacenciesFileArray
-     * @param continentsFileArray
-     * @return
+     *
+     * @param countriesArray the countries array
+     * @param adjacenciesFileArray the adjacencies file array
+     * @param continentsFileArray the continents file array
+     * @return true, if successful
      */
     public boolean loadBoard(String[] countriesArray, String[] adjacenciesFileArray, String[] continentsFileArray) {
 		
@@ -110,8 +137,9 @@ public class Board {
 	}
 
     /**
-     * Returns a list containing the continent objects the board has
-     * @return
+     * Returns a list containing the continent objects the board has.
+     *
+     * @return the continents
      */
     public ArrayList<Continent> getContinents() {
 		return new ArrayList<Continent>(continentsMap.values());
@@ -119,8 +147,11 @@ public class Board {
 
 
     /**
-     * Returns the continent object whose name is the string continentName
-     **/
+     * Returns the continent object whose name is the string continentName.
+     *
+     * @param continentName the continent name
+     * @return the continent by name
+     */
     public Continent getContinentByName(String continentName) {
 		return continentsMap.get(continentName);
     }
@@ -128,9 +159,10 @@ public class Board {
 
     /**
      * Returns the number of bonus armies awarded to a player for controlling all the countries in
-     * the continent whose name is the string continentName
-     * @param continentName
-     * @return
+     * the continent whose name is the string continentName.
+     *
+     * @param continentName the continent name
+     * @return the bonus amrines
      */
     public int getBonusAmrines(String continentName) {
 		return continentsMap.get(continentName).getBonusArmies();
@@ -139,9 +171,10 @@ public class Board {
 
     /**
      * Returns a list of the country objects that are in the continent specified 
-     * by the string continentName
-     * @param continentName
-     * @return
+     * by the string continentName.
+     *
+     * @param continentName the continent name
+     * @return the member countries
      */
     public ArrayList<Country> getMemberCountries(String continentName) {
 		return continentsMap.get(continentName).getMemberCountries();
@@ -149,8 +182,9 @@ public class Board {
 
 
     /**
-     * Returns a list of all of the country objects in the board
-     * @return
+     * Returns a list of all of the country objects in the board.
+     *
+     * @return the countries
      */
     public ArrayList<Country> getCountries() {
 		return countriesList;
@@ -158,9 +192,10 @@ public class Board {
 
     /**
      * Returns the country object for the country specified by the string
-     * countryName
-     * @param countryName
-     * @return
+     * countryName.
+     *
+     * @param countryName the country name
+     * @return the country by name
      */
     public Country getCountryByName(String countryName) {
 		return countriesMap.get(countryName);
@@ -170,8 +205,9 @@ public class Board {
     /**
      * Sets the occupant of the country object specified by the string countryName
      * to be the player object supplied as an argument.
-     * @param countryName
-     * @param occupant
+     *
+     * @param countryName the country name
+     * @param occupant the occupant
      */
     public void setOccupant(String countryName, Player occupant) {
 		countriesMap.get(countryName).setOccupant(occupant);
@@ -180,9 +216,10 @@ public class Board {
 
     /**
      * Returns the player object that currently occupies the country specufied by
-     * string countryName
-     * @param countryName
-     * @return
+     * string countryName.
+     *
+     * @param countryName the country name
+     * @return the occupant
      */
     public Player getOccupant(String countryName) {
 		return countriesMap.get(countryName).getOccupant();
@@ -191,9 +228,10 @@ public class Board {
 
     /**
      * Sets the number of armies currently in the country specified by the string
-     * countryName to the integer supplied as an argument
-     * @param countryName
-     * @param numberArmies
+     * countryName to the integer supplied as an argument.
+     *
+     * @param countryName the country name
+     * @param numberArmies the number armies
      */
     public void setNumberArmies(String countryName, int numberArmies) {
 		countriesMap.get(countryName).setNumArmies(numberArmies);
@@ -202,9 +240,10 @@ public class Board {
 
     /**
      * Returns the number of armies currently in the country specified by the string
-     * countryName
-     * @param countryName
-     * @return
+     * countryName.
+     *
+     * @param countryName the country name
+     * @return the number armies
      */
     public int getNumberArmies(String countryName) {
 		return countriesMap.get(countryName).getArmies();
@@ -213,14 +252,20 @@ public class Board {
 
     /**
      * Returns a list of the country objects that are the countries adjacent to the country
-     * specified by the string countryName on the board
-     * @param countryName
-     * @return
+     * specified by the string countryName on the board.
+     *
+     * @param countryName the country name
+     * @return the adjacencies
      */
     public ArrayList<Country> getAdjacencies(String countryName) {
 		return countriesMap.get(countryName).getAdjacencies();
     }
 	
+	/**
+	 * Gets the unoccupied.
+	 *
+	 * @return the unoccupied
+	 */
 	public ArrayList<Country> getUnoccupied() {
 
 		unoccupied = new ArrayList<Country>();
@@ -234,6 +279,13 @@ public class Board {
 		return unoccupied;
 	}
 	
+	/**
+	 * Check adjacency.
+	 *
+	 * @param countryA the country A
+	 * @param countryB the country B
+	 * @return true, if successful
+	 */
 	public boolean checkAdjacency(String countryA, String countryB) {
 		if (countriesMap.get(countryA).getAdjacencies().contains(countriesMap.get(countryB))) {
 			isAdjacent = true;

@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * Read and write file util.
  */
@@ -18,8 +19,13 @@ import java.util.List;
 	 * Hide the constructor.
 	 */
 	private ReadWriteFileUtil() {}
+	
 	/**
 	 * Write file.
+	 *
+	 * @param fileName the file name
+	 * @param content the content
+	 * @return true, if successful
 	 */
 	public static boolean write(String fileName, String content) {
 		File obj = new File(fileName);
@@ -35,8 +41,12 @@ import java.util.List;
 		}
 		return true;	
 	}
+	
 	/**
 	 * Read file.
+	 *
+	 * @param fileName the file name
+	 * @return the list
 	 */
 	public static List<String> read(String fileName) {
 		List<String> result = new ArrayList<>();

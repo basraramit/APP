@@ -153,6 +153,8 @@ public class Risk_Model extends Observable {
 	private int[] attackerRolls;
 
 	private int[] defenderRolls;
+
+	public String state;
 	
 	
 	/**
@@ -288,8 +290,9 @@ public class Risk_Model extends Observable {
 			
 			canTurnInCards = false;
 			canReinforce = true;
-			setCanAttack(false);
-			setCanFortify(false);
+			canAttack = false;
+			canFortify = false;
+			setState("Place Army");
 			
 		} catch (FileNotFoundException error) {
 			System.out.println(error.getMessage());
@@ -318,6 +321,14 @@ public class Risk_Model extends Observable {
 		}
 		
 		System.out.println("How to begin: Claim territories by selecting them from the list and clicking the 'Place Reinforcements' button.");
+		
+		Collections.shuffle(board.countriesList);
+		for (i = 0; i < board.countriesList.size(); i++){
+			board.countriesList.get(i).setOccupant(players.get(i % (players.size())));
+			players.get(i % (players.size())).addCountry(board.countriesList.get(i));
+		}
+		setChanged();
+		notifyObservers("player");
 		nextPlayer();
 	}
 	
@@ -328,7 +339,7 @@ public class Risk_Model extends Observable {
 	public void turnInCards(int[] cardsToRemove) {
 	
 		if (canTurnInCards == true) {
-		
+			
 			if (cardsToRemove.length == 3) {
 			
 				if (currentPlayer.getHand().get(cardsToRemove[0]).getCountry().getOccupant().equals(currentPlayer) || currentPlayer.getHand().get(cardsToRemove[1]).getCountry().getOccupant().equals(currentPlayer) || currentPlayer.getHand().get(cardsToRemove[2]).getCountry().getOccupant().equals(currentPlayer)) {
@@ -358,14 +369,16 @@ public class Risk_Model extends Observable {
 					
 				}
 				currentPlayer.removeCards(cardsToRemove);
-				
+				setState("Place Army");
 				setChanged();
 				notifyObservers("cards");
 				
 			} else {
+				setState("Place Army");
 				System.out.println("You must trade in three cards of the same type or one of each three types.");
 			}			
 		} else {
+			setState("Place Army");
 			System.out.println("You can't turn in cards right now.");
 		}
 	}
@@ -379,10 +392,9 @@ public class Risk_Model extends Observable {
 		countryA = board.getCountryByName(countryAName);
 		
 		if (canReinforce == true) {
-		
 			if (countryA.hasPlayer() == false || currentPlayer.equals(countryA.getOccupant())) {
 			// If countryA is occupied by player or unoccupied
-				if (deployTurn >= board.countriesList.size()) {
+				if (deployTurn >= countriesArray.length) {
 					// If all countries have been claimed
 					
 					isInt = false;
@@ -409,17 +421,18 @@ public class Risk_Model extends Observable {
 							notifyObservers("countryA");
 							
 							if (currentPlayer.getArmies() == 0) {
-								setCanAttack(true);
-								setCanFortify(true);
+								canAttack = true;
+								//canFortify = true;
+								setState("Attack");
 							}
 						} else {
 							System.out.println("You do not have enough armies to reinforce " + countryAName + " with " + armies + " armies.\nReinforcements available: " + currentPlayer.getArmies());
 						}
 					}
-				} else if (countryA.hasPlayer() == false) {
+				} else if (countryA.getArmies() == 0) {
 				// If there are remaining countries to claim, makes sure country is unoccupied
-					countryA.setOccupant(currentPlayer);
-					currentPlayer.addCountry(countryA);
+					//countryA.setOccupant(currentPlayer);
+					//currentPlayer.addCountry(countryA);
 					// Places one army at the unoccupied territory
 					countryA.incrementArmies(1);
 					currentPlayer.decrementArmies(1);
@@ -451,8 +464,8 @@ public class Risk_Model extends Observable {
 		countryA = board.getCountryByName(countryAName);
 		countryB = board.getCountryByName(countryBName);
 		
-		if (this.getCanAttack() == true) {
-		
+		if (canAttack == true) {
+			setState("Attack");
 			if (!currentPlayer.equals(countryB.getOccupant())) {
 			// Check if countryB is occupied by an opponent
 				if (board.checkAdjacency(countryA.getName(), countryB.getName()) == true) {
@@ -501,7 +514,7 @@ public class Risk_Model extends Observable {
 								// Defender chooses how many dice to roll after attacker
 								defenderDice = Integer.parseInt(JOptionPane.showInputDialog(countryB.getOccupant().getName() + ", you are defending " + countryBName + " from " + countryA.getOccupant().getName() + "! How many dice will you roll?"));
 									
-								if (defenderDice < 1 || defenderDice > 2 || defenderDice > countryA.getArmies()) {
+								if (defenderDice < 1 || defenderDice > 2 || defenderDice > countryB.getArmies()) {
 									throw new IllegalArgumentException();
 								}
 								isInt = true;
@@ -525,7 +538,7 @@ public class Risk_Model extends Observable {
 							if (attackerRolls[0] > defenderRolls[0]) {
 								defenderLosses++;
 							}
-							else if (attackerRolls[0] < defenderRolls[0]) {
+							else if (attackerRolls[0] <= defenderRolls[0]) {
 								attackerLosses++;
 							}
 							// Index 1 = second highest pair
@@ -534,7 +547,7 @@ public class Risk_Model extends Observable {
 								if (attackerRolls[1] > defenderRolls[1]) {
 									defenderLosses++;
 									
-								} else if (attackerRolls[1] < defenderRolls[1]) {
+								} else if (attackerRolls[1] <= defenderRolls[1]) {
 									attackerLosses++;
 								}
 							}
@@ -544,7 +557,7 @@ public class Risk_Model extends Observable {
 							countryB.decrementArmies(defenderLosses);
 							
 							// If defending country loses all armies
-							if (countryB.getArmies() < 1) {
+							if (countryB.getArmies() == 0) {
 							
 								System.out.println("WORLD NEWS: " + countryA.getOccupant().getName() + " has defeated all of " + countryB.getOccupant().getName() + "'s armies in " + countryBName + " and has occupied the country!");
 								
@@ -566,6 +579,8 @@ public class Risk_Model extends Observable {
 								
 								setChanged();
 								notifyObservers("countryA");
+								setChanged();
+								notifyObservers("player");
 								
 							}
 							canReinforce = false;
@@ -580,6 +595,10 @@ public class Risk_Model extends Observable {
 		} else {
 			System.out.println("Commander, our forces are not prepared to launch an attack right now.");
 		}
+	}
+	
+	public void skipAttack(){
+		setState("Fortify");
 	}
 	
 	/**
@@ -597,8 +616,8 @@ public class Risk_Model extends Observable {
 		countryA = board.getCountryByName(countryAName);
 		countryB = board.getCountryByName(countryBName);
 		
-		if (this.getCanFortify() == true) {
-		
+		if (canFortify == true) {
+			//setState("Fortification");
 			if (currentPlayer.equals(countryA.getOccupant()) && currentPlayer.equals(countryB.getOccupant())) {
 			// Check player owns countryA and countryB
 				if (board.checkAdjacency(countryAName, countryBName) == true) {
@@ -657,8 +676,8 @@ public class Risk_Model extends Observable {
 				// Prevents actions between turn transitions
 				canTurnInCards = false;
 				canReinforce = false;
-				setCanAttack(false);
-				setCanFortify(false);
+				canAttack = false;
+				canFortify = false;
 				playerIndex++;
 				
 				if (playerIndex >= players.size()) {
@@ -677,7 +696,7 @@ public class Risk_Model extends Observable {
 					if (deployPhase == true && noArmiesCount == players.size()) {
 						deployPhase = false;
 						deployed = true;
-						System.out.println("\n=== The deploy phase has ended! ===\nWhat to do:\n1. Get new armies by turning in matching cards\n2. Attack and conquer neighbor territories.\n3. End your turn by fortifying a country with armies from another occupied country.\nGood luck, commander!");
+						System.out.println("\n=== The startup phase has ended! ===\nWhat to do:\n1. Get new armies by turning in matching cards\n2. Attack and conquer neighbor territories.\n3. End your turn by fortifying a country with armies from another occupied country.\nGood luck, commander!");
 					}
 				}
 				if (deployPhase == false) {
@@ -712,6 +731,7 @@ public class Risk_Model extends Observable {
 					}
 						canTurnInCards = true;
 						canReinforce = true;
+						setState("TurnInCards");
 						
 						setChanged();
 						notifyObservers("cards");
@@ -726,16 +746,17 @@ public class Risk_Model extends Observable {
 						nextPlayer();
 					} else {
 						deployed = false;
-						System.out.println("\n===" + currentPlayer.getName().toUpperCase() +  "===\n" + currentPlayer.getName() + "'s turn is ready! (Deploy Phase)\nReinforcements available: " + currentPlayer.getArmies());
+						System.out.println("\n===" + currentPlayer.getName().toUpperCase() +  "===\n" + currentPlayer.getName() + "'s turn is ready! (startup Phase)\nReinforcements available: " + currentPlayer.getArmies());
 						setChanged();
 						notifyObservers("countryA");
 						
 						canReinforce = true;
+						setState("Place Army");
 						
 					}
 				}
 			} else {
-				System.out.println("Commander, you must place your reinforcements during the deploy phase.");
+				System.out.println("Commander, you must place your reinforcements during the reinforcement phase.");
 			}
 		} else {
 		
@@ -765,16 +786,11 @@ public class Risk_Model extends Observable {
 	
 		list = new ArrayList<String>();
 		
-		if (deployTurn >= 42) {
-		
-			for (i = 0; i < currentPlayer.getOwnedCountries().size(); i++) {
-				list.add(currentPlayer.getOwnedCountries().get(i).getArmies() + "-" + currentPlayer.getOwnedCountries().get(i).getName());
-			}
-		} else {
-			for (i = 0; i < board.getUnoccupied().size(); i++) {
-				list.add(board.getUnoccupied().get(i).getName());
-			}
+		for (i = 0; i < currentPlayer.getOwnedCountries().size(); i++) {
+			list.add(currentPlayer.getOwnedCountries().get(i).getArmies() + "-" + currentPlayer.getOwnedCountries().get(i).getName());
 		}
+	 
+		
 		return list;
 	}
 	
@@ -978,33 +994,22 @@ public class Risk_Model extends Observable {
             }
   	  
     }
+	
 	/**
-	 * 
+	 * set the state of current phase
 	 * @param state
 	 */
-	public void setCanAttack(boolean state){
-		this.canAttack = state;
+	public void setState(String newState){
+		this.state = newState;
+		setChanged();
+		notifyObservers(state);
 	}
 	/**
 	 * 
 	 * @return
 	 */
-	public boolean getCanAttack(){
-		return canAttack;
-	}
-	/**
-	 * 
-	 * @param state
-	 */
-	public void setCanFortify(boolean state){
-		this.canFortify = state;
-	}
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean getCanFortify(){
-		return canFortify;
+	public String getState(){
+		return state;
 	}
 
 	

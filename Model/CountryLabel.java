@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
+// TODO: Auto-generated Javadoc
 /**
  * Allows the creation of JLists with updating strings from the RiskModel.
  * This class allows the creation of lists that stay updated to the lists of current 
@@ -14,10 +15,22 @@ import javax.swing.JLabel;
  *
  */
 public class CountryLabel extends JLabel implements Observer {
+	
+	/** The name. */
 	public String name;
+	
+	/** The display. */
 	public String display;
+	
+	/** The country. */
 	public Country country;
 	
+    /**
+     * Instantiates a new country label.
+     *
+     * @param model the model
+     * @param country the country
+     */
     public CountryLabel (Risk_Model model, Country country) {
 	
         super();
@@ -26,6 +39,9 @@ public class CountryLabel extends JLabel implements Observer {
 		setText(name);
     }
 	
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	// Updates the state of the RiskList
 	public void update(Observable obs, Object obj) {
 		

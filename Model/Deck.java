@@ -3,6 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// TODO: Auto-generated Javadoc
 /**
  * Allows the creation of the Risk deck containing total Risk cards.
  * @author yaomeng
@@ -10,19 +11,25 @@ import java.util.Collections;
  */
 public class Deck {
 	
+	/** The i. */
 	public int i;
 	
+	/** The types array. */
 	public String[] typesArray;
 	
+	/** The deck. */
 	public ArrayList<Card> deck;
+	
+	/** The draw card. */
 	public Card drawCard;
 
 	/**
-	* Creates all cards, one for each territory. Each card has either 
-	* a type of Infantry, Cavalry, or Artillery. Ensure that the number of
-	* Infantry, Cavalry, and Artillery are the same
-	* @param countries
-	*/
+	 * Creates all cards, one for each territory. Each card has either 
+	 * a type of Infantry, Cavalry, or Artillery. Ensure that the number of
+	 * Infantry, Cavalry, and Artillery are the same
+	 *
+	 * @param countries the countries
+	 */
 	public Deck (ArrayList<Country> countries) {		
 	
 		Collections.shuffle(countries);
@@ -41,8 +48,9 @@ public class Deck {
 	}
 
 	/**
-	 * Removes a card from the deck and return it
-	 * @return
+	 * Removes a card from the deck and return it.
+	 *
+	 * @return the card
 	 */
 	public Card draw() {
 	
@@ -53,8 +61,9 @@ public class Deck {
 	}
 
 	/**
-	 * Add a card to the deck
-	 * @param card
+	 * Add a card to the deck.
+	 *
+	 * @param card the card
 	 */
 	public void add(Card card) {
 	
@@ -62,7 +71,7 @@ public class Deck {
 	}
 
 	/**
-	 * Shuffle the deck of cards
+	 * Shuffle the deck of cards.
 	 */
 	public void shuffle() {
 	

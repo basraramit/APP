@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import javax.swing.DefaultListModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * Allows the creation of JLists with updating strings from the RiskModel.
  * This class allows the creation of lists that stay updated to the lists of current 
@@ -15,11 +16,24 @@ import javax.swing.DefaultListModel;
  */
 public class RiskListModel extends DefaultListModel implements Observer {
 
+	/** The i. */
 	public int i;
+	
+	/** The type. */
 	public String type;
+	
+	/** The display. */
 	public String display;
+	
+	/** The model. */
 	public Risk_Model model;
 	
+    /**
+     * Instantiates a new risk list model.
+     *
+     * @param model the model
+     * @param type the type
+     */
     public RiskListModel (Risk_Model model, String type) {
 	
         super();
@@ -27,6 +41,9 @@ public class RiskListModel extends DefaultListModel implements Observer {
 		this.type = type;
     }
 	
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	// Updates the state of the RiskList
 	public void update(Observable obs, Object obj) {
 		
@@ -66,6 +83,6 @@ public class RiskListModel extends DefaultListModel implements Observer {
 			
 				addElement(model.getCountryBList().get(i));
 			}
-		}
+		} 
 	}
 }

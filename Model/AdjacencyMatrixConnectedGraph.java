@@ -7,8 +7,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AdjacencyMatrixConnectedGraph.
+ */
 public class AdjacencyMatrixConnectedGraph {
 	
+	/**
+	 * Check adjacency.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean checkAdjacency(){
     	String fileName= "C:/Users/yaome/workspace/Risk_Game/src/MatrixFile.txt";
         int lineNo = 0;
@@ -75,9 +84,11 @@ public class AdjacencyMatrixConnectedGraph {
         return result;
 	}
 
-	/** This method checks connectivity of graph
-	 * @param aadjacencyMatrix
-	 * @return
+	/**
+	 *  This method checks connectivity of graph.
+	 *
+	 * @param adjacencyMatrix the adjacency matrix
+	 * @return true, if is connected
 	 */
 
 	private static boolean isConnected(int[][] adjacencyMatrix) 

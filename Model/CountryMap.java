@@ -20,22 +20,47 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 import java.awt.Color;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CountryMap.
+ */
 public class CountryMap extends JFrame{
 	
+	/** The c. */
 	Country c;
+	
+	/** The country. */
 	public List<Country> country = new ArrayList<Country>();
+	
+	/** The continent. */
 	List<Continent> continent = new ArrayList<Continent>();
+    
+    /** The list vertex. */
     Map<String,Object> listVertex=new HashMap<String,Object>();
+    
+    /** The list continent. */
     Map<String,String> listContinent=new HashMap<String,String>();
+	
+	/** The member countries. */
 	List<String> memberCountries= new ArrayList<String>();
+    
+    /** The Continent list. */
     List<String> ContinentList= new ArrayList<String>();
+    
+    /** The graph. */
     mxGraph graph = new mxGraph();
+	
+	/** The parent. */
 	Object parent = graph.getDefaultParent();
+	
+	/** The filename. */
 	File filename;
+	
+	/** The adj matrix. */
 	AdjacencyMatrixConnectedGraph adjMatrix=new AdjacencyMatrixConnectedGraph();
 	 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public CountryMap(){
 		super("Risk Game Map");
@@ -123,21 +148,20 @@ public class CountryMap extends JFrame{
 			graph.getModel().endUpdate();
 				
 			}
-		makeMatrixFile();
 		boolean result=adjMatrix.checkAdjacency(); 
 		boolean resultTwo=findMainPartsInFile();
 		if ((CountLine%3==0)&&(result==true)&&(resultTwo==true)){
-			System.out.println("Correct number of countries");
 			mxGraphComponent graphComponent = new mxGraphComponent(graph);
 			getContentPane().add(graphComponent);}
 			else{
-				
-				System.out.println("Incorrect number of countries");
+				mxGraphComponent graphComponent = new mxGraphComponent(graph);
+				getContentPane().add(graphComponent);
+				System.out.println("Incorrect map type");
 			}
 		}
 	     
 	/**
-	 * this method is used to remove Country     
+	 * this method is used to remove Country.
 	 */
 	public void removeCountry(){
 		  Scanner sc=new Scanner(System.in);
@@ -186,8 +210,9 @@ public class CountryMap extends JFrame{
 	  }
 	
 	/**
-	 * randomly generate name to country
-	 * @return
+	 * randomly generate name to country.
+	 *
+	 * @return the string
 	 */
 	 public String NameGenerator() {
 		  
@@ -200,9 +225,10 @@ public class CountryMap extends JFrame{
 		    }
 	 
 	 /**
-	  * set the File 
-	  * @return
-	  */
+ 	 * set the File .
+ 	 *
+ 	 * @return the file
+ 	 */
 	 public File setFilename(){
 		  Scanner sc=new Scanner(System.in);
 
@@ -218,9 +244,6 @@ public class CountryMap extends JFrame{
 		  else if(map.equals("3")){
 			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/input2.txt"); 
 		  }
-		 else if(map.equals("4")){
-			  filename=new File("TempFile.txt"); 
-		  }
 		  else{
 			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/Aden.map"); 
 		  }
@@ -230,10 +253,11 @@ public class CountryMap extends JFrame{
 	  }
 	 
 	 /**
-	  * set the Color of each continents
-	  * @param Continent
-	  * @return
-	  */
+ 	 * set the Color of each continents.
+ 	 *
+ 	 * @param Continent the continent
+ 	 * @return the color
+ 	 */
 	 public String getColor(String Continent){
 			String color="fillColor=lightblue";
 			if(Continent.equals(ContinentList.get(0))){
@@ -263,8 +287,9 @@ public class CountryMap extends JFrame{
 	       
 			return color;
 		}
+	
 	/**
-	 * this method is used to add Country
+	 * this method is used to add Country.
 	 */
 	public void addCountry(){
 		String newLine = "";		  
@@ -351,7 +376,7 @@ public class CountryMap extends JFrame{
 	}
 	
 	/**
-	 * this method is used to add continent
+	 * this method is used to add continent.
 	 */
 	public void addContinent(){
 		
@@ -460,8 +485,9 @@ public class CountryMap extends JFrame{
 		            	   		      		      		      
 	     }
 	
-	/** 
-	 * This method deletes continent with countries
+	/**
+	 *  
+	 * This method deletes continent with countries.
 	 */
 
 	public void deleteContinentWithCountries(){
@@ -510,8 +536,9 @@ public class CountryMap extends JFrame{
 	
 	}
 
-	/** 
-	 * This method deletes continent without countries
+	/**
+	 *  
+	 * This method deletes continent without countries.
 	 */
 
 	public void deleteContinentWithoutCountries(){
@@ -552,6 +579,9 @@ public class CountryMap extends JFrame{
 		}		
 	}
 
+	/**
+	 * Make matrix file.
+	 */
 	public void makeMatrixFile(){
 	
 		try{
@@ -582,8 +612,8 @@ public class CountryMap extends JFrame{
                   	            		                    		                    
 								if (  id.equals(tokens[i])   ) {
               	  
-									//System.out.println("in 4");
-									//System.out.println(String.valueOf(CID));		                	  
+									System.out.println("in 4");
+									System.out.println(String.valueOf(CID));		                	  
 									currentLine = currentLine.replace(id, String.valueOf(CID));	                	
 									break;
                    
@@ -609,6 +639,11 @@ public class CountryMap extends JFrame{
   
 	}
     
+	/**
+	 * Find main parts in file.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean findMainPartsInFile(){
 		boolean result=true;
 		try{

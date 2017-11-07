@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
 /**
  * Allows the creation of Risk Hand objects used to handle the cards held by a player.
  * @author yaomeng
@@ -9,8 +10,10 @@ import java.util.ArrayList;
  */
 public class Hand {
 	
+	/** The condition. */
 	public boolean condition;
 	
+	/** The hand. */
 	public ArrayList<Card> hand;
 
 	/**
@@ -22,18 +25,21 @@ public class Hand {
 	}
 
 	/**
-	 * Adds the card to the hand 
-	 * @param card
+	 * Adds the card to the hand .
+	 *
+	 * @param card the card
 	 */
 	public void add(Card card) {
 	
 		hand.add(card);
 	}
+	
 	/**
-	 * Removes the cards at the given indices from the hand
-	 * @param index1
-	 * @param index2
-	 * @param index3
+	 * Removes the cards at the given indices from the hand.
+	 *
+	 * @param index1 the index 1
+	 * @param index2 the index 2
+	 * @param index3 the index 3
 	 */
 	public void removeCardsFromHand(int index1, int index2, int index3) {
 	
@@ -48,11 +54,12 @@ public class Hand {
 	}
 
 	/**
-	 * returns true if the player can turn in cards
-	 * @param index1
-	 * @param index2
-	 * @param index3
-	 * @return
+	 * returns true if the player can turn in cards.
+	 *
+	 * @param index1 the index 1
+	 * @param index2 the index 2
+	 * @param index3 the index 3
+	 * @return true, if successful
 	 */
 	public boolean canTurnInCards(int index1, int index2, int index3) {
 	
@@ -73,8 +80,9 @@ public class Hand {
 	}
 
 	/**
-	 * Returns true if the player must turn in cards
-	 * @return
+	 * Returns true if the player must turn in cards.
+	 *
+	 * @return true, if successful
 	 */
 	public boolean mustTurnInCards() {
 	
@@ -87,8 +95,9 @@ public class Hand {
 	}
 
 	/**
-	 * Returns the hand
-	 * @return
+	 * Returns the hand.
+	 *
+	 * @return the cards
 	 */
 	public ArrayList<Card> getCards() {
 		return hand;

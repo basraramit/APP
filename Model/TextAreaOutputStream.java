@@ -3,6 +3,7 @@ import java.io.OutputStream;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+// TODO: Auto-generated Javadoc
 /**
  * Used to wrapper a window.
  * This is utilized in order to allow easy printing of messages on the Risk GUI.
@@ -11,15 +12,26 @@ import javax.swing.SwingUtilities;
  */
 public class TextAreaOutputStream extends OutputStream {
 
+    /** The text area. */
     public JTextArea textArea;
+    
+    /** The string builder. */
     public StringBuilder stringBuilder = new StringBuilder();
 
+    /**
+     * Instantiates a new text area output stream.
+     *
+     * @param textArea the text area
+     */
     public TextAreaOutputStream(JTextArea textArea) {
         this.textArea = textArea;
     }
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see java.io.OutputStream#write(int)
+	 */
 	public void write(int b) {
 	//Writes the specified byte to this output stream	
 		
