@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.Box;
 
+// TODO: Auto-generated Javadoc
 /**
  * These classes set up the start GUI of the Risk program.
  * @author yaomeng
@@ -19,13 +20,22 @@ import javax.swing.Box;
 
 public class RiskStart_View extends JFrame{
 	
+	/** The button panel. */
 	private JPanel buttonPanel;
 	
+	/** The image component. */
 	private ImageComponent imageComponent;
+	
+	/** The welcome pic. */
 	private Images welcomePic;
 	
+	/** The new game button. */
 	private JButton newGameButton;
+	
+	/** The edit map button. */
 	private JButton editMapButton;
+	
+	/** The quit button. */
 	private JButton quitButton;
 	
 	/**
@@ -67,8 +77,9 @@ public class RiskStart_View extends JFrame{
 	}
 	
 	/**
-	 * add action listener
-	 * @param evt
+	 * add action listener.
+	 *
+	 * @param evt the evt
 	 */
 	public void addActionListeners(ActionListener evt)
 	{

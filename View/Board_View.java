@@ -8,6 +8,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,80 +28,149 @@ import javax.swing.text.DefaultCaret;
 
 import Model.Board;
 import Model.CountryLabel;
+import Model.PlayerLabel;
 import Model.RiskListModel;
 import Model.Risk_Model;
 import Model.TextAreaOutputStream;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class creates a panel to play game
- * @author yaomeng
+ * This class creates a panel to play game.
  *
+ * @author yaomeng
  */
-public class Board_View extends JDialog {
+public class Board_View extends JDialog implements Observer{
 	
+	/** The i. */
 	public int i;
 	
+	/** The message panel. */
 	public JPanel messagePanel;
-	public JPanel mapPanel;
-	public JPanel actionPanel;
-	public JPanel countryInfoPanel;
-
-	public JPanel continentPanel1;
-	public JPanel continentPanel2;
-	public JPanel continentPanel3;
-	public JPanel continentPanel4;
-	public JPanel continentPanel5;
-	public JPanel continentPanel6;
 	
+	/** The map panel. */
+	public JPanel mapPanel;
+	
+	/** The action panel. */
+	public JPanel actionPanel;
+	
+	/** The country info panel. */
+	public JPanel countryInfoPanel;
+	
+	/** The c. */
 	public GridBagConstraints c;
+	
+	/** The main layout. */
 	public GridBagLayout mainLayout;
+	
+	/** The message layout. */
 	public GridBagLayout messageLayout;
+	
+	/** The action layout. */
 	public GridBagLayout actionLayout;
 	
+	/** The selected label. */
 	public JLabel selectedLabel;
+	
+	/** The target label. */
 	public JLabel targetLabel;
+	
+	/** The menu btn name. */
 	public String menuBtnName = "menuBtn";
+	
+	/** The reinforce btn name. */
 	public String reinforceBtnName = "reinforceBtn";
+	
+	/** The attack btn name. */
 	public String attackBtnName = "attackBtn";
+	
+	private String skipAttackBtnName = "skipAttackBtn";
+	
+	/** The fortify btn name. */
 	public String fortifyBtnName = "fortifyBtn";
+	
+	/** The turn in btn name. */
 	public String turnInBtnName = "turnInBtn";
+	
+	/** The end turn btn name. */
 	public String endTurnBtnName = "endTurnBtn";
 	
+	/** The menu btn. */
 	public JButton menuBtn;
+	
+	/** The reinforce btn. */
 	public JButton reinforceBtn;
+	
+	/** The attack btn. */
 	public JButton attackBtn;
+	
+	/** The Skip attack btn. */
+	public JButton skipAttackBtn;
+	
+	/** The fortify btn. */
 	public JButton fortifyBtn;
+	
+	/** The turn in btn. */
 	public JButton turnInBtn;
+	
+	/** The end turn btn. */
 	public JButton endTurnBtn;
 	
+	/** The print text area. */
 	public JTextArea printTextArea;
 	
+	/** The cards list. */
 	public JList<Object> cardsList;
+	
+	/** The country A list. */
 	public JList<Object> countryAList;
+	
+	/** The country B list. */
 	public JList<Object> countryBList;
 	
+	/** The map scroll pane. */
 	public JScrollPane mapScrollPane;
+	
+	/** The message scroll pane. */
 	public JScrollPane messageScrollPane;
+	
+	/** The country B scroll pane. */
 	public JScrollPane countryBScrollPane;
+	
+	/** The country A scroll pane. */
 	public JScrollPane countryAScrollPane;
 	
+	/** The caret. */
 	public DefaultCaret caret;
 	
+	/** The map image icon. */
 	public ImageIcon mapImageIcon;
 	
+	/** The model. */
 	public Risk_Model model;
 	
+	/** The cards list model. */
 	public RiskListModel cardsListModel;
+	
+	/** The country A list model. */
 	public RiskListModel countryAListModel;
+	
+	/** The country B list model. */
 	public RiskListModel countryBListModel;
 
+	/** The country label. */
 	public CountryLabel countryLabel;
+
+	private int j;
+
+	private PlayerLabel playerLabel;
+
 	
 	/**
 	 * Constructs the Risk game board.
-	 * @param view
-	 * @param modality
-	 * @param model
+	 *
+	 * @param view the view
+	 * @param modality the modality
+	 * @param model the model
 	 */
 	public Board_View(PlayerSetting_View view, boolean modality, Risk_Model model) {		
 		
@@ -158,7 +230,8 @@ public class Board_View extends JDialog {
 	
 	/**
 	 * The panel for the card display and turn-in button.
-	 * @return
+	 *
+	 * @return the j panel
 	 */
 	public JPanel messagePanel() {
 	
@@ -191,7 +264,8 @@ public class Board_View extends JDialog {
 	
 	/**
 	 * The panel containing the scrollable Risk map image.
-	 * @return
+	 *
+	 * @return the j panel
 	 */
 	public JPanel mapPanel() {
 	
@@ -201,12 +275,14 @@ public class Board_View extends JDialog {
 		mapScrollPane = new JScrollPane(new JLabel(mapImageIcon));
 		mapScrollPane.setPreferredSize(new Dimension(1080, 980));
 		mapPanel.add(mapScrollPane);
+		
 		return mapPanel;
 	}
 	
 	/**
 	 * The panel for the buttons which allow the user to perform actions.
-	 * @return
+	 *
+	 * @return the j panel
 	 */
 	@SuppressWarnings("unchecked")
 	public JPanel actionPanel() {
@@ -225,6 +301,7 @@ public class Board_View extends JDialog {
 		turnInBtn = new JButton("Turn In Cards");
 		reinforceBtn = new JButton("Place Reinforcements");
 		attackBtn = new JButton("Attack!");
+		skipAttackBtn = new JButton("Skip Attack");
 		fortifyBtn = new JButton("Fortify");
 		endTurnBtn = new JButton("End Turn");
 		
@@ -232,6 +309,7 @@ public class Board_View extends JDialog {
 		turnInBtn.setActionCommand(turnInBtnName);
 		reinforceBtn.setActionCommand(reinforceBtnName);
 		attackBtn.setActionCommand(attackBtnName);
+		skipAttackBtn.setActionCommand(skipAttackBtnName );
 		fortifyBtn.setActionCommand(fortifyBtnName);
 		endTurnBtn.setActionCommand(endTurnBtnName);
 		
@@ -250,12 +328,12 @@ public class Board_View extends JDialog {
 		countryAList = new JList<Object>(countryAListModel);
 		countryAList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		countryAList.setLayoutOrientation(JList.VERTICAL_WRAP);
-		countryAList.setVisibleRowCount(57);
+		countryAList.setVisibleRowCount(20);
 		
 		countryBList = new JList<Object>(countryBListModel);
 		countryBList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		countryBList.setLayoutOrientation(JList.VERTICAL_WRAP);
-		countryBList.setVisibleRowCount(6);
+		countryBList.setVisibleRowCount(10);
 		
 		countryAScrollPane = new JScrollPane(countryAList);
 		countryBScrollPane = new JScrollPane(countryBList);
@@ -340,6 +418,14 @@ public class Board_View extends JDialog {
 		c.weighty = 0.5;
 		c.gridx = 0;
 		c.gridy = 10;
+		actionPanel.add(skipAttackBtn, c);
+
+		c.fill = GridBagConstraints.BOTH;
+		c.insets = new Insets(5, 5, 5, 5);
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		c.gridx = 0;
+		c.gridy = 11;
 		actionPanel.add(fortifyBtn, c);
 		
 		c.fill = GridBagConstraints.BOTH;
@@ -347,187 +433,71 @@ public class Board_View extends JDialog {
 		c.weightx = 0.5;
 		c.weighty = 0.5;
 		c.gridx = 0;
-		c.gridy = 11;
+		c.gridy = 12;
 		actionPanel.add(endTurnBtn, c);
 		
 		return actionPanel;
 	}
 	
 	/**
-	 * Show the continents and countries' info in this panel
-	 * @param board
-	 * @return
+	 * Show the continents and countries' info in this panel.
+	 *
+	 * @param board the board
+	 * @return the j panel
 	 */
 	public JPanel countryInfoPanel(Board board) {
-		
 		countryInfoPanel = new JPanel();
-		
 		countryInfoPanel.setPreferredSize(new Dimension(320, 980));
 		countryInfoPanel.setLayout(new GridBagLayout());
-	
-		continentPanel1 = new JPanel();
-		continentPanel1.setPreferredSize(new Dimension(320, 100));
-		continentPanel1.setLayout(new GridLayout(6, 2, 5, 5));
 		
-		for (i = 0; i < board.getMemberCountries(board.getContinents().get(0).getName()).size(); i++) {
-			countryLabel = new CountryLabel(model, board.getMemberCountries(board.getContinents().get(0).getName()).get(i));
-			countryLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-			continentPanel1.add(countryLabel);
-			model.addObserver((CountryLabel) countryLabel);
+		for(i = 0; i < board.getContinents().size(); i++){
+			JPanel continentPanel = new JPanel();
+			continentPanel.setPreferredSize(new Dimension(320, 100));
+			continentPanel.setLayout(new GridLayout(6, 2, 3, 3));
+			
+			for (j = 0; j < board.getMemberCountries(board.getContinents().get(i).getName()).size(); j++) {
+				countryLabel = new CountryLabel(model, board.getMemberCountries(board.getContinents().get(i).getName()).get(j));
+				countryLabel.setFont(new Font("Arial", Font.PLAIN, 10));
+				continentPanel.add(countryLabel);
+				model.addObserver((CountryLabel) countryLabel);
+				
+			}
+			c.fill = GridBagConstraints.BOTH;
+			c.insets = new Insets(5, 5, 5, 5);
+			c.weightx = 0.5;
+			c.weighty = 0.5;
+			c.gridx = 0;
+			c.gridy = 2 * i;
+			countryInfoPanel.add(new JLabel(board.getContinents().get(i).getName()), c);
+			
+			c.fill = GridBagConstraints.BOTH;
+			c.insets = new Insets(5, 5, 5, 5);
+			c.weightx = 0.5;
+			c.weighty = 0.5;
+			c.gridx = 0;
+			c.gridy = 2 * i + 1;
+			countryInfoPanel.add(continentPanel, c);
 		}
-		continentPanel2 = new JPanel();
-		continentPanel2.setPreferredSize(new Dimension(320, 60));
-		continentPanel2.setLayout(new GridLayout(6, 2, 5, 5));
-		
-		for (i = 0; i < board.getMemberCountries(board.getContinents().get(1).getName()).size(); i++) {
-			countryLabel = new CountryLabel(model, board.getMemberCountries(board.getContinents().get(1).getName()).get(i));
-			countryLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-			continentPanel2.add(countryLabel);
-			model.addObserver((CountryLabel) countryLabel);
+		for(int n = 0; n < model.players.size(); n++){
+			playerLabel = new PlayerLabel(model, model.players.get(n));
+			c.fill = GridBagConstraints.BOTH;
+			c.insets = new Insets(5, 5, 5, 5);
+			c.weightx = 0.5;
+			c.weighty = 0.5;
+			c.gridx = 0;
+			c.gridy = 15+n;
+			countryInfoPanel.add(playerLabel,c);
+			model.addObserver((PlayerLabel)playerLabel);
 		}
-		continentPanel3 = new JPanel();
-		continentPanel3.setPreferredSize(new Dimension(320, 80));
-		continentPanel3.setLayout(new GridLayout(6, 2, 5, 5));
-		
-		for (i = 0; i < board.getMemberCountries(board.getContinents().get(2).getName()).size(); i++) {
-			countryLabel = new CountryLabel(model, board.getMemberCountries(board.getContinents().get(2).getName()).get(i));
-			countryLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-			continentPanel3.add(countryLabel);
-			model.addObserver((CountryLabel) countryLabel);
-		}
-		continentPanel4 = new JPanel();
-		continentPanel4.setPreferredSize(new Dimension(320, 60));
-		continentPanel4.setLayout(new GridLayout(6, 2, 5, 5));
-		
-		for (i = 0; i < board.getMemberCountries(board.getContinents().get(3).getName()).size(); i++) {
-			countryLabel = new CountryLabel(model, board.getMemberCountries(board.getContinents().get(3).getName()).get(i));
-			countryLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-			continentPanel4.add(countryLabel);
-			model.addObserver((CountryLabel) countryLabel);
-		}
-		continentPanel5 = new JPanel();
-		continentPanel5.setPreferredSize(new Dimension(320, 120));
-		continentPanel5.setLayout(new GridLayout(6, 2, 5, 5));
-		
-		for (i = 0; i < board.getMemberCountries(board.getContinents().get(4).getName()).size(); i++) {
-			countryLabel = new CountryLabel(model, board.getMemberCountries(board.getContinents().get(4).getName()).get(i));
-			countryLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-			continentPanel5.add(countryLabel);
-			model.addObserver((CountryLabel) countryLabel);
-		}
-		continentPanel6 = new JPanel();
-		continentPanel6.setPreferredSize(new Dimension(320, 60));
-		continentPanel6.setLayout(new GridLayout(6, 2, 5, 5));
-		
-		for (i = 0; i < board.getMemberCountries(board.getContinents().get(5).getName()).size(); i++) {
-			countryLabel = new CountryLabel(model, board.getMemberCountries(board.getContinents().get(5).getName()).get(i));
-			countryLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-			continentPanel6.add(countryLabel);
-			model.addObserver((CountryLabel) countryLabel);
-		}
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 0;
-		countryInfoPanel.add(new JLabel(board.getContinents().get(0).getName()), c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 1;
-		countryInfoPanel.add(continentPanel1, c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 2;
-		countryInfoPanel.add(new JLabel(board.getContinents().get(1).getName()), c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 3;
-		countryInfoPanel.add(continentPanel2, c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 4;
-		countryInfoPanel.add(new JLabel(board.getContinents().get(2).getName()), c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 5;
-		countryInfoPanel.add(continentPanel3, c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 6;
-		countryInfoPanel.add(new JLabel(board.getContinents().get(3).getName()), c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 7;
-		countryInfoPanel.add(continentPanel4, c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 8;
-		countryInfoPanel.add(new JLabel(board.getContinents().get(4).getName()), c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 9;
-		countryInfoPanel.add(continentPanel5, c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 10;
-		countryInfoPanel.add(new JLabel(board.getContinents().get(5).getName()), c);
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets(5, 5, 5, 5);
-		c.weightx = 0.5;
-		c.weighty = 0.5;
-		c.gridx = 0;
-		c.gridy = 11;
-		countryInfoPanel.add(continentPanel6, c);
 		
 		return countryInfoPanel;
 	}
 	
 	/**
 	 * Adds the action listeners for the buttons and lists.
-	 * @param evt1
-	 * @param evt2
+	 *
+	 * @param evt1 the evt 1
+	 * @param evt2 the evt 2
 	 */
 	public void addActionListeners(ActionListener evt1, ListSelectionListener evt2) {
 	
@@ -535,6 +505,7 @@ public class Board_View extends JDialog {
 		turnInBtn.addActionListener(evt1);
 		reinforceBtn.addActionListener(evt1);
 		attackBtn.addActionListener(evt1);
+		skipAttackBtn.addActionListener(evt1);
 		fortifyBtn.addActionListener(evt1);
 		endTurnBtn.addActionListener(evt1);
 		
@@ -572,6 +543,50 @@ public class Board_View extends JDialog {
 	public String getCountryB() {
 		return countryBList.getSelectedValue().toString();
 	}
+
+	@Override
+	public void update(Observable obs, Object state) {
+		if(state == this.model.getState()){
+			 System.out.println( "In update of Player Turn View" );
+             
+	         String subViewName = this.model.getState();
+
+             System.out.println( "Current Phase of the Player : " + subViewName );
+		
+             if(state.equals("TurnInCards")){
+            	 this.cardsList.setVisible(true);
+            	 this.turnInBtn.setVisible(true);
+            	 this.reinforceBtn.setVisible(true);
+            	 this.attackBtn.setVisible(false);
+            	 this.skipAttackBtn.setVisible(false);
+            	 this.fortifyBtn.setVisible(false);
+             }else if(state.equals("Place Army")){
+            	 this.cardsList.setVisible(false);
+            	 this.turnInBtn.setVisible(false);
+            	 this.reinforceBtn.setVisible(true);
+            	 this.attackBtn.setVisible(false);
+            	 this.skipAttackBtn.setVisible(false);
+            	 this.fortifyBtn.setVisible(false);
+             }else if(state.equals("Attack")){
+            	 this.attackBtn.setVisible(true);
+            	 this.skipAttackBtn.setVisible(true);
+            	 this.fortifyBtn.setVisible(false);
+            	 this.cardsList.setVisible(false);
+            	 this.turnInBtn.setVisible(false);
+            	 this.reinforceBtn.setVisible(false);
+             }else if(state.equals("Fortify")){
+            	 this.attackBtn.setVisible(false);
+            	 this.skipAttackBtn.setVisible(false);
+            	 this.fortifyBtn.setVisible(true);
+            	 this.cardsList.setVisible(false);
+            	 this.turnInBtn.setVisible(false);
+            	 this.reinforceBtn.setVisible(false);
+             }
+		}
+	}
+
+	
+	
 }
 
 

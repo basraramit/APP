@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class define the GUI for load a game map.
  * @author yaomeng
@@ -18,23 +19,35 @@ import javax.swing.JPanel;
  */
 public class LoadMap_View extends JFrame{
 	
+	/** The fc. */
 	final JFileChooser fc = new JFileChooser();
 	
+	/** The load map panel. */
 	JPanel loadMapPanel = new JPanel();
 	
+	/** The load map btn. */
 	private JButton loadMapBtn;
+	
+	/** The next btn. */
 	private JButton nextBtn;
+	
+	/** The back btn. */
 	private JButton backBtn;
 	
+	/** The load map layout. */
 	private GridLayout loadMapLayout;
 
+	/** The load map label. */
 	private JLabel loadMapLabel;
+	
+	/** The next label. */
 	private JLabel nextLabel;
 
 	/**
 	 * Constructs the dialog for map selection.
-	 * @param start_view
-	 * @param modality
+	 *
+	 * @param start_view the start view
+	 * @param modality the modality
 	 */
 	public LoadMap_View(RiskStart_View start_view, boolean modality)
 	{
@@ -54,7 +67,8 @@ public class LoadMap_View extends JFrame{
 
 	/**
 	 * The map select panel.
-	 * @return
+	 *
+	 * @return the j panel
 	 */
 	private JPanel LoadMapPanel() {
 		
@@ -85,7 +99,8 @@ public class LoadMap_View extends JFrame{
 	
 	/**
 	 * Adds the action listeners.
-	 * @param evt
+	 *
+	 * @param evt the evt
 	 */
 	public void addActionListeners(ActionListener evt)
 	{
