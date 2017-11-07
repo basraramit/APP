@@ -1,5 +1,7 @@
 package Model;
 
+package Model;
+
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -15,52 +17,30 @@ import javax.swing.JFrame;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 import java.awt.Color;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class CountryMap.
- */
 public class CountryMap extends JFrame{
 	
-	/** The c. */
 	Country c;
-	
-	/** The country. */
 	public List<Country> country = new ArrayList<Country>();
-	
-	/** The continent. */
 	List<Continent> continent = new ArrayList<Continent>();
-    
-    /** The list vertex. */
     Map<String,Object> listVertex=new HashMap<String,Object>();
-    
-    /** The list continent. */
     Map<String,String> listContinent=new HashMap<String,String>();
-	
-	/** The member countries. */
 	List<String> memberCountries= new ArrayList<String>();
-    
-    /** The Continent list. */
     List<String> ContinentList= new ArrayList<String>();
-    
-    /** The graph. */
     mxGraph graph = new mxGraph();
-	
-	/** The parent. */
 	Object parent = graph.getDefaultParent();
-	
-	/** The filename. */
 	File filename;
-	
-	/** The adj matrix. */
 	AdjacencyMatrixConnectedGraph adjMatrix=new AdjacencyMatrixConnectedGraph();
 	 
 	/**
-	 * Constructor.
+	 * Constructor
 	 */
 	public CountryMap(){
 		super("Risk Game Map");
@@ -93,7 +73,7 @@ public class CountryMap extends JFrame{
 	               String Continent= tokens[3];
 	               x= Integer.parseInt(tokens[1]);
 	               y= Integer.parseInt(tokens[2]);
-	               String PlayerName=NameGenerator();
+	               
 	               c = new Country(CountryId);
 	               country.add(c);
 	               c.setCountryName(CountryId);
@@ -101,7 +81,6 @@ public class CountryMap extends JFrame{
 	               c.setContinent(Continent);
 	               c.setCoordinateX(x);
 	               c.setCoordinateY(y);
-	               c.setPlayerName(PlayerName);
 	               int length= tokens.length;
 	               
 	               List<String> adjToken= new ArrayList<String>();
@@ -125,10 +104,11 @@ public class CountryMap extends JFrame{
 	              String Continent=c.getContinent();
 	              int x1= c.getCoordinateX();
 	              int y1= c.getCoordinatey();
-	             String Pname=c.getPlayerName();
+	             
 	              String color=getColor(Continent);
 	              
-	              Object vertex= graph.insertVertex(parent, null, id+" "+Pname+"\n"+Continent, x1,y1,80,30,color);
+	           //   System.out.println(owners.get(key));
+	              Object vertex= graph.insertVertex(parent, null, id+" "+"\n"+Continent, x1,y1,80,30,color);
 	             listVertex.put(id, vertex);
 	           
 	                }
@@ -148,20 +128,21 @@ public class CountryMap extends JFrame{
 			graph.getModel().endUpdate();
 				
 			}
+		makeMatrixFile();
 		boolean result=adjMatrix.checkAdjacency(); 
 		boolean resultTwo=findMainPartsInFile();
 		if ((CountLine%3==0)&&(result==true)&&(resultTwo==true)){
+			System.out.println("Correct number of countries");
 			mxGraphComponent graphComponent = new mxGraphComponent(graph);
 			getContentPane().add(graphComponent);}
 			else{
-				mxGraphComponent graphComponent = new mxGraphComponent(graph);
-				getContentPane().add(graphComponent);
-				System.out.println("Incorrect map type");
+				
+				System.out.println("Incorrect number of countries");
 			}
 		}
 	     
 	/**
-	 * this method is used to remove Country.
+	 * this method is used to remove Country     
 	 */
 	public void removeCountry(){
 		  Scanner sc=new Scanner(System.in);
@@ -173,7 +154,7 @@ public class CountryMap extends JFrame{
 			
 		 try{
 			
-		        File tempFile = new File("TempFile.txt");
+		        File tempFile = new File("G:/workspace/Risk-App/Map_Info/TempFile.txt");
 
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
 		        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -209,26 +190,12 @@ public class CountryMap extends JFrame{
 			
 	  }
 	
-	/**
-	 * randomly generate name to country.
-	 *
-	 * @return the string
-	 */
-	 public String NameGenerator() {
-		  
-		    String[] peoples = {"Bob", "Jill", "Tom", "Brandon"};
-		    List<String> names = Arrays.asList(peoples);
-		    int index = new Random().nextInt(names.size());
-		    String name = names.get(index);
-		    //System.out.println(name+"");
-		    return name;
-		    }
-	 
+	
+	
 	 /**
- 	 * set the File .
- 	 *
- 	 * @return the file
- 	 */
+	  * set the File 
+	  * @return
+	  */
 	 public File setFilename(){
 		  Scanner sc=new Scanner(System.in);
 
@@ -236,16 +203,22 @@ public class CountryMap extends JFrame{
 
 		  String map=sc.next();	
 		  if(map.equals("1")){
-			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/map.txt");
+			  filename=new File("G:/workspace/Risk-App/Map_Info/map.txt");
 		  }
 		  else if(map.equals("2")){
-			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/IncorrectMap/input3.txt"); 
+			  filename=new File("C:/Users/kjasp/CodeRepository/RiskGame/src/Map_Info/IncorrectMap/input3.txt"); 
 		  }
 		  else if(map.equals("3")){
-			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/input2.txt"); 
+			  filename=new File("/C:/Users/kjasp/CodeRepository/RiskGame/src/Map_Info/CorrectMap/input2.txt"); 
+		  }
+		  else if(map.equals("4")){
+			  filename=new File("G:/workspace/Risk-App/Map_Info/TempFile.txt"); 
+		  }
+		  else if(map.equals("5")){
+			  filename=new File("NewMap.txt"); 
 		  }
 		  else{
-			  filename=new File("/C:/Users/kjasp/CodeRepository/Risk/src/Map/CorrectMap/Aden.map"); 
+			  filename=new File("/C:/Users/kjasp/CodeRepository/RiskGame/src/Map_Info/CorrectMap/Aden.map"); 
 		  }
 			 
 		  return this.filename;
@@ -253,11 +226,10 @@ public class CountryMap extends JFrame{
 	  }
 	 
 	 /**
- 	 * set the Color of each continents.
- 	 *
- 	 * @param Continent the continent
- 	 * @return the color
- 	 */
+	  * set the Color of each continents
+	  * @param Continent
+	  * @return
+	  */
 	 public String getColor(String Continent){
 			String color="fillColor=lightblue";
 			if(Continent.equals(ContinentList.get(0))){
@@ -287,9 +259,8 @@ public class CountryMap extends JFrame{
 	       
 			return color;
 		}
-	
 	/**
-	 * this method is used to add Country.
+	 * this method is used to add Country
 	 */
 	public void addCountry(){
 		String newLine = "";		  
@@ -314,14 +285,14 @@ public class CountryMap extends JFrame{
           System.out.println("Enter continent: \n");
 
 		  String continent =sc.next();
-		  String color=getColor(continent);
-		  String PlayerName=NameGenerator();
-		  c.setPlayerName(PlayerName);
+		  String color="fillColor=lightblue";
+		  
+		  
 		  c = new Country(Countryid);
 
 		  newLine = newLine + continent + ",";
 		  
-          Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+continent, x,y,80,30,color);
+          Object vertex= graph.insertVertex(parent, null, Countryid+" "+"\n"+continent, x,y,80,30,color);
 
 	      listVertex.put(Countryid, vertex);
 
@@ -355,7 +326,7 @@ public class CountryMap extends JFrame{
 
 	    	  BufferedWriter bw = new BufferedWriter(fw);
 
-	    	  bw.write("\n"+ newLine);	      	
+	    	  bw.write("\r\n"+ newLine);	      	
 
 	    	  bw.close();
 
@@ -376,7 +347,7 @@ public class CountryMap extends JFrame{
 	}
 	
 	/**
-	 * this method is used to add continent.
+	 * this method is used to add continent
 	 */
 	public void addContinent(){
 		
@@ -413,10 +384,10 @@ public class CountryMap extends JFrame{
 		 		
 		  
 		  newCountryLine = newCountryLine + Continentid + ",";
-		  String color=getColor(Continentid);
-		  String PlayerName=NameGenerator();
+		  String color="fillColor=lightblue";
 		  
-		  Object vertex= graph.insertVertex(parent, null, Countryid+" "+PlayerName+"\n"+Continentid, x,y,80,30,color);
+		  
+		  Object vertex= graph.insertVertex(parent, null, Countryid+" "+"\n"+Continentid, x,y,80,30,color);
 	          listVertex.put(Countryid, vertex);
 	      
 	          System.out.println("Enter no. of adjacent countries: \n");
@@ -437,7 +408,7 @@ public class CountryMap extends JFrame{
 	    	      	
 	      	FileWriter fw = new FileWriter(filename,true);	      
 	      	BufferedWriter bw = new BufferedWriter(fw);
-	      	bw.write("\n"+ newCountryLine);	      	
+	      	bw.write("\r\n"+ newCountryLine);	      	
 	      	bw.close();
 	      	
 	      	System.out.println("NewLine final : " + newCountryLine );
@@ -451,11 +422,15 @@ public class CountryMap extends JFrame{
 	      }
 	      
 	      try{
-	    	  		    	 
-		    File tempFile = new File("TempFile.txt");
+	    	 
+	    	  	    	 
+		    File tempFile = new File("G:/workspace/Risk-App/Map_Info/TempFile.txt");
+	    	 // Path source = Paths.get("TempFile.txt");
+	    	 
+	    	 // Path newdir = Paths.get("G:/workspace/Risk-App/Map_Info");
 
 		    BufferedReader reader = new BufferedReader(new FileReader(filename));
-		    BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+		    BufferedWriter writer = new BufferedWriter(new FileWriter("G:/workspace/Risk-App/Map_Info/TempFile.txt"));
 		       
 		    String ContinentsBlock = "";
 		    String currentLine;
@@ -464,9 +439,9 @@ public class CountryMap extends JFrame{
 		        	
 		    if(currentLine.contains("[Continents]") ){
 		        		
-		        		
+		        System.out.println("in continents");		
 		        writer.write(currentLine + System.getProperty("line.separator"));
-		        writer.write(newContinentLine + System.getProperty("line.separator"));
+		        writer.write(newContinentLine + "9" + System.getProperty("line.separator"));
 		     }
 		        	
 		     else 
@@ -475,9 +450,10 @@ public class CountryMap extends JFrame{
 		     }
 		        writer.close(); 
 		        reader.close(); 
-		        boolean successful = tempFile.renameTo(filename);
-		        System.out.println(successful);
-
+		       // boolean successful = tempFile.renameTo(filename);
+		        //System.out.println(successful);
+		        tempFile.renameTo(filename);
+		       // Files.move(source, newdir.resolve(source.getFileName()), java.nio.file.StandardCopyOption.REPLACE_EXISTING);	
 		        }catch(IOException ioe){
 		           System.out.println("Exception occurred:");
 		      	 ioe.printStackTrace();
@@ -485,9 +461,9 @@ public class CountryMap extends JFrame{
 		            	   		      		      		      
 	     }
 	
-	/**
-	 *  
-	 * This method deletes continent with countries.
+	
+	/** 
+	 * This method deletes continent with countries
 	 */
 
 	public void deleteContinentWithCountries(){
@@ -500,7 +476,7 @@ public class CountryMap extends JFrame{
 	  	String Continentid=sc.next();		
 								
 		 try{
-		        File tempFile = new File("TempFile.txt");
+		        File tempFile = new File("G:/workspace/Risk-App/Map_Info/TempFile.txt");
 
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
 		        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -536,9 +512,8 @@ public class CountryMap extends JFrame{
 	
 	}
 
-	/**
-	 *  
-	 * This method deletes continent without countries.
+	/** 
+	 * This method deletes continent without countries
 	 */
 
 	public void deleteContinentWithoutCountries(){
@@ -549,7 +524,7 @@ public class CountryMap extends JFrame{
 				
 		try{
 	  	
-			File tempFile = new File("TempFile.txt");
+			File tempFile = new File("G:/workspace/Risk-App/Map_Info/TempFile.txt");
 
 			BufferedReader reader = new BufferedReader(new FileReader(filename));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -579,9 +554,6 @@ public class CountryMap extends JFrame{
 		}		
 	}
 
-	/**
-	 * Make matrix file.
-	 */
 	public void makeMatrixFile(){
 	
 		try{
@@ -612,8 +584,8 @@ public class CountryMap extends JFrame{
                   	            		                    		                    
 								if (  id.equals(tokens[i])   ) {
               	  
-									System.out.println("in 4");
-									System.out.println(String.valueOf(CID));		                	  
+									//System.out.println("in 4");
+									//System.out.println(String.valueOf(CID));		                	  
 									currentLine = currentLine.replace(id, String.valueOf(CID));	                	
 									break;
                    
@@ -639,11 +611,6 @@ public class CountryMap extends JFrame{
   
 	}
     
-	/**
-	 * Find main parts in file.
-	 *
-	 * @return true, if successful
-	 */
 	public boolean findMainPartsInFile(){
 		boolean result=true;
 		try{
