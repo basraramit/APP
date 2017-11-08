@@ -1,7 +1,5 @@
 package Model;
 
-package Model;
-
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
