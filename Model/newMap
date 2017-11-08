@@ -81,8 +81,8 @@ public class newMap {
 			ioe.printStackTrace();
 		}
 	}
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		newMap map=new newMap();
 		map.createNewMap();
-	}
+	}*/
 }
