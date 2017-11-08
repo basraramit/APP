@@ -1,38 +1,62 @@
-package test;
+package Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import Model.*;
+import Model.Continent;
+import Model.Country;
 import junit.framework.TestCase;
 
 public class ContinentTest extends TestCase{
-	
-	private Continent Kala;
-	private ArrayList<Country> KalaCountories;
+	//The Continent Objects to test
+	private Continent Africa;
+	private ArrayList<Country> AfricanTerritories;
 	
 	/**
-	 * set up
+	 * Setup
 	 */
-	protected void setUp (){
-		
-		Country Forgoth= new Country("Forgoth");
-		Country Rove= new Country("Rove");
-		KalaCountories= new ArrayList<Country> ();
-		KalaCountories.add(Forgoth);
-		KalaCountories.add(Rove);
+	protected void setUp ()
+	{
+		// create a sample map of Territories
+		Country SouthAfrica = new Country("South Africa");
+		Country Nigeria = new Country("Nigeria");
+		AfricanTerritories = new ArrayList<Country>();
+		AfricanTerritories.add(SouthAfrica);
+		AfricanTerritories.add(Nigeria);
 
 		// initialize a sample Continent: name   , numBonusArmies, territoriesMap
-		Kala = new Continent("Kala", 6 , KalaCountories);
-		
-	}
-	
+		Africa = new Continent("Africa", 4 , AfricanTerritories);
+	} 
+
 	/**
 	 * Test method getName
 	 */
-	public void testGetName(){
-		assertEquals ( "Kala", Kala.getName());
-	}
-	
-	
+	public void testGetName()
+	{
+		assertEquals("Africa", Africa.getName());
+	}								
 
-}
+	/**
+	 * Test method getNumBonusArmies
+	 */
+	public void testGetNumBonusArmies()
+	{
+		assertTrue(Africa.getBonusArmies() == 4);
+	}	// returns the continent's value of bonus armies
+
+
+	 /**
+	 * Test method getTerritoriesMap
+	 * @require the Continent have at least one territory 
+	 */
+	public void testGetMemberCountries()
+	{
+		assertSame ( AfricanTerritories, Africa.getMemberCountries()); // should refer to the same object		
+		// add one more territory to the list 
+		Country Algeria= new Country("Algeria");
+		Africa.getMemberCountries().add(Algeria);
+		assertTrue (Africa.getMemberCountries().size() == 3); // should be consistent 
+		
+	}
+
+
+
+}// end class ContinentTest

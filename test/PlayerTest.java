@@ -1,44 +1,91 @@
-package test;
+package Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import Model.*;
+import Model.Continent;
+import Model.Country;
+import Model.Player;
 import junit.framework.TestCase;
 
 public class PlayerTest extends TestCase{
 	
 	private Player player1;
 	private Player player2;
-	private Country country0;
-	private Country country1;
-	private Continent continent0;
-	private Continent continent1;
+	private Country china;
+	private Country england;
+	private Continent asia;
+	private Continent europe;
+	
+	private ArrayList<Country> asiaCountry;
+	private ArrayList<Country> europeCountry;
+	
 	/**
-	 * set up
+	 * Setup
 	 */
 	protected void setUp (){
+		player1 = new Player("XI", 0, 0);
+		player2 = new Player("LI", 5, 1);
 		
-		//initialize some sample Territory and Continent objects to be tested
-		country0 = new Country("country0");
-		country1 = new Country("country1");
-		continent0 = new Continent("cont0",5,null);
-		continent1 = new Continent("cont1",10,null);
-
-		// Initialize a GameBoard object to be used in tests
-		HashMap<String,Country> temp= new HashMap<String,Country>();
-		temp.put("country0",country0);
-		temp.put("country1",country1);
-
-		// initiziale sample Player objects to be tested
-		player1= new Player("Hung Le", 10, 1);
-		player2= new Player("Jeanne Vu", 0, 2);
+		asiaCountry = new ArrayList<Country>();
+		europeCountry = new ArrayList<Country>();
+		
+		china = new Country("china");
+		england = new Country("england");
+		asia = new Continent("asia", 3, asiaCountry);
+		europe = new Continent("europe", 1, europeCountry);
+		
+		asiaCountry.add(china);
+		europeCountry.add(england);
 		
 	}
+	
 	/**
-	 * test the method getArmies
+	 * Method to be tested: String getName()
+	 * return the Player's name
 	 */
-	public void testGetNumArmies(){
-		assertTrue( player1.getArmies()== 10 );
+	public void testGetName()
+	{
+		assertEquals("XI",player1.getName() );
+		assertEquals("LI",player2.getName() );
+	} 
+	
+	/**
+	 * Method to be tested: int getNumArmies()
+	 * return: the number of armies to be placed
+	 */
+	public void testGetArmies()
+	{
+		player1.incrementArmies(7);
+		assertTrue( player1.getArmies()== 7 );
+		player2.decrementArmies(2);
+		assertTrue( player2.getArmies()== 3 );
+
 	}
+	
+	public void testAddCountry(){
+		player1.addCountry(china);
+		player2.addCountry(england);
+		assertSame(china, player1.getOwnedCountries().get(0));
+		assertSame(england, player2.getOwnedCountries().get(0));
+	}
+	
+	public void testRemoveCountry(){
+		player1.addCountry(china);
+		assertTrue( player1.getOwnedCountries().size() == 1 );
+		player1.removeCountry("china");
+		assertTrue( player1.getOwnedCountries().size() == 0 );
+	}
+	
+	public void testGetOwnedCountries(){
+		player1.addCountry(china);
+		player2.addCountry(england);
+		assertTrue( player1.getOwnedCountries().size() == 1);
+		assertTrue( player2.getOwnedCountries().size() == 1);
+		assertTrue( player1.getOwnedCountries().containsAll(asiaCountry));
+		assertTrue( player2.getOwnedCountries().containsAll(europeCountry));
+	}
+	
+	
 
 }
