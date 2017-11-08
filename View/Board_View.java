@@ -83,6 +83,7 @@ public class Board_View extends JDialog implements Observer{
 	/** The attack btn name. */
 	public String attackBtnName = "attackBtn";
 	
+	/** The skip attack btn name. */
 	private String skipAttackBtnName = "skipAttackBtn";
 	
 	/** The fortify btn name. */
@@ -160,8 +161,10 @@ public class Board_View extends JDialog implements Observer{
 	/** The country label. */
 	public CountryLabel countryLabel;
 
+	/** The j. */
 	private int j;
 
+	/** The player label. */
 	private PlayerLabel playerLabel;
 
 	
@@ -328,7 +331,7 @@ public class Board_View extends JDialog implements Observer{
 		countryAList = new JList<Object>(countryAListModel);
 		countryAList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		countryAList.setLayoutOrientation(JList.VERTICAL_WRAP);
-		countryAList.setVisibleRowCount(20);
+		countryAList.setVisibleRowCount(21);
 		
 		countryBList = new JList<Object>(countryBListModel);
 		countryBList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -544,6 +547,9 @@ public class Board_View extends JDialog implements Observer{
 		return countryBList.getSelectedValue().toString();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable obs, Object state) {
 		if(state == this.model.getState()){

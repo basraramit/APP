@@ -1,6 +1,6 @@
 package View;
 
-import Model.newMap;
+import Model.NewMap;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -22,24 +22,39 @@ import java.awt.event.ActionEvent;
 
 import Model.CountryMap;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class maps the user's actions in the MapEdit View to edit map
+ * This class maps the user's actions in the MapEdit View to edit map.
  */
 public class MapEdit_View extends JFrame {
 	
+	/** The view. */
 	MapEdit_View view;
-	newMap	n;
+	
+	/** The n. */
+	NewMap	n;
+	
+	/** The a. */
 	CountryMap a;
+	
+	/** The frame. */
 	JFrame frame;
+	
+	/** The default map. */
 	String defaultMap = "C:/Users/kjasp/CodeRepository/RiskGame/src/Map_Info/map.txt";
     
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args){
 		MapEdit_View view= new MapEdit_View();
 		view.setVisible(true);
 	}
 	
 	/**
-	 * Constructor of this class
+	 * Constructor of this class.
 	 */
 	public MapEdit_View(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +75,7 @@ public class MapEdit_View extends JFrame {
 				CountryMap a= new CountryMap();
 				a.addContinent();
 				a.setVisible(true);
-				a.setSize(800, 800);
+				a.setSize(900, 800);
 				}
 				
 		}
@@ -73,7 +88,7 @@ public class MapEdit_View extends JFrame {
 					a= new CountryMap();
 					a.deleteContinentWithCountries();
 					a.setVisible(true);
-					a.setSize(800, 800);
+					a.setSize(900, 800);
 				}
 					
 				}
@@ -85,7 +100,7 @@ public class MapEdit_View extends JFrame {
 					a= new CountryMap();
 					a.deleteContinentWithoutCountries();
 					a.setVisible(true);
-					a.setSize(800, 800);
+					a.setSize(900, 800);
 				}
 					
 				}
@@ -98,17 +113,17 @@ public class MapEdit_View extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				CountryMap a= new CountryMap();
 				//a.DrawMap();
-				a.setSize(800, 800);
+				a.setSize(900, 800);
 				a.setVisible(true);
 				a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				a.setSize(800, 800);
+				a.setSize(900, 800);
 				a.setVisible(true);
 				
 				BufferedImage  bi = new BufferedImage(a.getWidth(), a.getHeight(), BufferedImage.TYPE_INT_ARGB);
 				Graphics2D  g2d = bi.createGraphics();
 				a.paint(g2d);
 				try {
-					ImageIO.write(bi, "PNG", new File("G:/workspace/Risk-App/Map_Info/countryMap.png"));
+					ImageIO.write(bi, "PNG", new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/countryMap.png"));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -122,7 +137,7 @@ public class MapEdit_View extends JFrame {
 		btnnewMap.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnnewMap.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-					n= new newMap();
+					n= new NewMap();
 					n.createNewMap();
 					
 					
@@ -138,7 +153,7 @@ public class MapEdit_View extends JFrame {
 					CountryMap	a= new CountryMap();
 					a.addCountry();
 					a.setVisible(true);
-					a.setSize(800, 800);
+					a.setSize(900, 800);
 					
 				}
 					
@@ -152,7 +167,7 @@ public class MapEdit_View extends JFrame {
 					a= new CountryMap();
 					a.removeCountry();
 					a.setVisible(true);
-					a.setSize(800, 800);
+					a.setSize(900, 800);
 				}
 					
 				}
