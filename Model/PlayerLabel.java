@@ -6,6 +6,10 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PlayerLabel.
+ */
 public class PlayerLabel extends JLabel implements Observer{
 	
 	/** The name. */
@@ -17,15 +21,16 @@ public class PlayerLabel extends JLabel implements Observer{
 	/** The Player. */
 	public Player player;
 	
+	/** The model. */
 	public Risk_Model model;
 
 	
 	/**
-     * Instantiates a new Player label.
-     *
-     * @param model the model
-     * @param country the country
-     */
+	 * Instantiates a new Player label.
+	 *
+	 * @param model the model
+	 * @param player the player
+	 */
     public PlayerLabel (Risk_Model model, Player player) {
 	
         super();
@@ -35,6 +40,9 @@ public class PlayerLabel extends JLabel implements Observer{
 		setText(name);
     }
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable obs, Object obj) {
 		display = (String) obj;

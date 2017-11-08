@@ -236,5 +236,21 @@ public class Player {
 	
 		return hand.mustTurnInCards();
 	}
+	
+	/**
+	 * Check start.
+	 *
+	 * @return the int
+	 */
+	public int checkStart(){
+		int count = 0;
+		for(int j = 0; j < getOwnedCountries().size(); j++){
+			if(getOwnedCountries().get(j).getArmies() == 1){
+				count++;
+			}
+		}
+		return count;
+		
+	}
 
 }

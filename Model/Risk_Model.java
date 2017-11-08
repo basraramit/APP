@@ -138,22 +138,31 @@ public class Risk_Model extends Observable {
 	/** The player. */
 	public Player[] player;
 
+	/** The can attack. */
 	public boolean canAttack;
 
+	/** The dice. */
 	private Dice dice;
 
+	/** The attacker losses. */
 	private int attackerLosses;
 
+	/** The defender losses. */
 	private int defenderLosses;
 
+	/** The attacker dice. */
 	private int attackerDice;
 
+	/** The defender dice. */
 	private int defenderDice;
 
+	/** The attacker rolls. */
 	private int[] attackerRolls;
 
+	/** The defender rolls. */
 	private int[] defenderRolls;
 
+	/** The state. */
 	public String state;
 	
 	
@@ -392,11 +401,10 @@ public class Risk_Model extends Observable {
 		countryA = board.getCountryByName(countryAName);
 		
 		if (canReinforce == true) {
-			if (countryA.hasPlayer() == false || currentPlayer.equals(countryA.getOccupant())) {
+			if (currentPlayer.equals(countryA.getOccupant())) {
 			// If countryA is occupied by player or unoccupied
 				if (deployTurn >= countriesArray.length) {
 					// If all countries have been claimed
-					
 					isInt = false;
 					try {
 						// Player inputs how many armies to reinforce selected country
@@ -409,7 +417,7 @@ public class Risk_Model extends Observable {
 					if (isInt == true) {
 						
 						if (currentPlayer.getArmies() >= armies) {
-						// If player has enough armies
+							// If player has enough armies
 							// Subtracts player armies and adds armies to country
 							currentPlayer.decrementArmies(armies);
 							countryA.incrementArmies(armies);
@@ -456,11 +464,13 @@ public class Risk_Model extends Observable {
 	 * Attacking allows the player to engage in battles, with outcomes decided by RNG, with
 	 * opposing players in order to lower the number of armies in a territory to 0 in order
 	 * to occupy it.
-	 * @param countryA is a String of the point A country.
-	 * @param countryB is a String of the point B country.
-	 **/
+	 *
+	 * @param countryAName the country A name
+	 * @param countryBName the country B name
+	 */
 	public void attack(String countryAName, String countryBName) {
 	
+		int count = 0;
 		countryA = board.getCountryByName(countryAName);
 		countryB = board.getCountryByName(countryBName);
 		
@@ -498,7 +508,7 @@ public class Risk_Model extends Observable {
 							
 					} catch (IllegalArgumentException e) {
 						// Error: attacker inputs invalid number of dice
-						System.out.println("Roll 1,2 or 3 dice. You must have at least one more army in your country than the number of dice you roll.");
+						System.out.println("Roll 1, 2 or 3 dice. You must have at least one more army in your country than the number of dice you roll.");
 					}
 					
 					if (isInt == true) {
@@ -506,9 +516,8 @@ public class Risk_Model extends Observable {
 						for(int i = 0; i < attackerRolls.length; i++){
 							System.out.println("the Attacker's dice: " + attackerRolls[i]);
 						}
-						isInt = false;							
+						isInt = false;	
 						
-						// If current player is Human
 						while(isInt == false) {
 							try {
 								// Defender chooses how many dice to roll after attacker
@@ -535,19 +544,19 @@ public class Risk_Model extends Observable {
 								System.out.println("the Defender's dice: " + defenderRolls[i]);
 							}
 							// Rolls arrays have been ordered in descending order. Index 0 = highest pair
-							if (attackerRolls[0] > defenderRolls[0]) {
+							if (attackerRolls[attackerRolls.length-1] > defenderRolls[defenderRolls.length-1]) {
 								defenderLosses++;
 							}
-							else if (attackerRolls[0] <= defenderRolls[0]) {
+							else {
 								attackerLosses++;
 							}
 							// Index 1 = second highest pair
 							if (attackerDice > 1 && defenderDice > 1) {
 							
-								if (attackerRolls[1] > defenderRolls[1]) {
+								if (attackerRolls[attackerRolls.length-2] > defenderRolls[attackerRolls.length-2]) {
 									defenderLosses++;
 									
-								} else if (attackerRolls[1] <= defenderRolls[1]) {
+								} else {
 									attackerLosses++;
 								}
 							}
@@ -555,6 +564,11 @@ public class Risk_Model extends Observable {
 							System.out.println("<COMBAT REPORT>");
 							countryA.decrementArmies(attackerLosses);
 							countryB.decrementArmies(defenderLosses);
+							
+							setChanged();
+							notifyObservers("countryA");
+							setChanged();
+							notifyObservers("countryB");
 							
 							// If defending country loses all armies
 							if (countryB.getArmies() == 0) {
@@ -568,17 +582,43 @@ public class Risk_Model extends Observable {
 								// Check if defender is eliminated from game
 								if (countryB.getOccupant().getOwnedCountries().size() == 0)	{
 									
-									System.out.println("WORLD NEWS: " + countryB.getOccupant().getName() + " has surrendered to " + currentPlayer.getName() + " after his last military defeat at " + countryBName + ". " + currentPlayer.getName() + " has issued an execution, with " + countryB.getOccupant().getName() + " charged as a war criminal.");
+									System.out.println("WORLD NEWS: " + countryB.getOccupant().getName() + " has surrendered to " + currentPlayer.getName()
+											+ " after his last military defeat at " + countryBName + ". " + currentPlayer.getName() + " has issued an execution, with " 
+											+ countryB.getOccupant().getName() + " charged as a war criminal.");
 									
 									players.remove(countryB.getOccupant().getIndex());
 								}
 								// Set country occupant to attacker
 								countryB.setOccupant(countryA.getOccupant());
-								countryA.decrementArmies(1);
-								countryB.incrementArmies(1);
+								
+								try {
+									// Defender chooses how many dice to roll after attacker
+									int moveArmy = Integer.parseInt(JOptionPane.showInputDialog(countryB.getOccupant().getName() + 
+											", how many armies do U plan to move to " + countryBName + " from " + countryA.getName() + " ?"));
+										
+									if (moveArmy >= countryA.getArmies()) {
+										throw new IllegalArgumentException();
+									}else{
+										countryA.decrementArmies(moveArmy);
+										countryB.incrementArmies(moveArmy);
+										count++;
+									}
+									if(count > 0){
+										currentPlayer.addRiskCard(deck.draw());
+									}
+								} catch (NumberFormatException e) { 
+									// Error: defender inputs non-integer
+									System.out.println("Commander, please leave at least 1 army in " + countryA.getName());
+										
+								} catch (IllegalArgumentException e) {
+									// Error: defender inputs invalid number of dice
+									System.out.println("Roll either 1 or 2 dice. To roll 2 dice, you must have at least 2 armies on your country.");
+								}
 								
 								setChanged();
 								notifyObservers("countryA");
+								setChanged();
+								notifyObservers("countryB");
 								setChanged();
 								notifyObservers("player");
 								
@@ -597,8 +637,12 @@ public class Risk_Model extends Observable {
 		}
 	}
 	
+	/**
+	 * Skip attack.
+	 */
 	public void skipAttack(){
 		setState("Fortify");
+		canFortify = true;
 	}
 	
 	/**
@@ -610,7 +654,6 @@ public class Risk_Model extends Observable {
 	 * @param countryBName the country B name
 	 */
 	public void fortify(String countryAName, String countryBName) {	
-	
 		//countryAName = JOptionPane.showInputDialog("Move army from:");
 		//countryBName = JOptionPane.showInputDialog("Move army to:");
 		countryA = board.getCountryByName(countryAName);
@@ -623,7 +666,6 @@ public class Risk_Model extends Observable {
 				if (board.checkAdjacency(countryAName, countryBName) == true) {
 				// Check if countryA and countryB are adjacent
 					isInt = false;
-					
 					
 					// If current player is Human
 					try {
@@ -638,7 +680,7 @@ public class Risk_Model extends Observable {
 					// Decrements armies in country A and increments armies in country B
 					if (isInt == true) {
 						
-						if (countryA.getArmies() >= armies) {
+						if (countryA.getArmies() > armies) {
 							System.out.println(currentPlayer.getName() + " has chosen to fortify " + countryBName + " with " + armies + " armies from " + countryAName + ".");
 							
 							countryA.decrementArmies(armies);
@@ -646,6 +688,8 @@ public class Risk_Model extends Observable {
 							
 							setChanged();
 							notifyObservers("countryA");
+							setChanged();
+							notifyObservers("countryB");
 							
 							nextPlayer();
 							
@@ -688,22 +732,22 @@ public class Risk_Model extends Observable {
 				noArmiesCount = 0;
 				
 				for(i = 0; i < players.size(); i++) {
-				
+				//
 					if (players.get(i).getArmies() == 0) {
-					// Used to determine when to end the deploy phase
+						// Used to determine when to end the deploy phase
 						noArmiesCount++;
 					}
 					if (deployPhase == true && noArmiesCount == players.size()) {
 						deployPhase = false;
 						deployed = true;
-						System.out.println("\n=== The startup phase has ended! ===\nWhat to do:\n1. Get new armies by turning in matching cards\n2. Attack and conquer neighbor territories.\n3. End your turn by fortifying a country with armies from another occupied country.\nGood luck, commander!");
+						System.out.println("\n=== The Game Play Phase! ===\nWhat to do:\n1. Get new armies by turning in matching cards\n2. Attack and conquer neighbor territories.\n3. End your turn by fortifying a country with armies from another occupied country.\nGood luck, commander!");
 					}
 				}
 				if (deployPhase == false) {
-				// If game phase is active
+					// If game phase is active
 					// Draw card
 					System.out.println("\n===" + currentPlayer.getName().toUpperCase() +  "===");
-					currentPlayer.addRiskCard(deck.draw());	
+					//currentPlayer.addRiskCard(deck.draw());	
 					
 					if (currentPlayer.getOwnedCountries().size() < 12) {
 					// Increment armies based on the number of territories occupied
@@ -996,17 +1040,20 @@ public class Risk_Model extends Observable {
     }
 	
 	/**
-	 * set the state of current phase
-	 * @param state
+	 * set the state of current phase.
+	 *
+	 * @param newState the new state
 	 */
 	public void setState(String newState){
 		this.state = newState;
 		setChanged();
 		notifyObservers(state);
 	}
+	
 	/**
-	 * 
-	 * @return
+	 * Gets the state.
+	 *
+	 * @return the state
 	 */
 	public String getState(){
 		return state;

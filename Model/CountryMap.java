@@ -23,22 +23,47 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.view.mxGraph;
 import java.awt.Color;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CountryMap.
+ */
 public class CountryMap extends JFrame{
 	
+	/** The c. */
 	Country c;
+	
+	/** The country. */
 	public List<Country> country = new ArrayList<Country>();
+	
+	/** The continent. */
 	List<Continent> continent = new ArrayList<Continent>();
+    
+    /** The list vertex. */
     Map<String,Object> listVertex=new HashMap<String,Object>();
+    
+    /** The list continent. */
     Map<String,String> listContinent=new HashMap<String,String>();
+	
+	/** The member countries. */
 	List<String> memberCountries= new ArrayList<String>();
+    
+    /** The Continent list. */
     List<String> ContinentList= new ArrayList<String>();
+    
+    /** The graph. */
     mxGraph graph = new mxGraph();
+	
+	/** The parent. */
 	Object parent = graph.getDefaultParent();
+	
+	/** The filename. */
 	File filename;
+	
+	/** The adj matrix. */
 	AdjacencyMatrixConnectedGraph adjMatrix=new AdjacencyMatrixConnectedGraph();
 	 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public CountryMap(){
 		super("Risk Game Map");
@@ -140,7 +165,7 @@ public class CountryMap extends JFrame{
 		}
 	     
 	/**
-	 * this method is used to remove Country     
+	 * this method is used to remove Country.
 	 */
 	public void removeCountry(){
 		  Scanner sc=new Scanner(System.in);
@@ -152,7 +177,7 @@ public class CountryMap extends JFrame{
 			
 		 try{
 			
-		        File tempFile = new File("G:/workspace/Risk-App/Map_Info/TempFile.txt");
+		        File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt");
 
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
 		        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -191,9 +216,10 @@ public class CountryMap extends JFrame{
 	
 	
 	 /**
-	  * set the File 
-	  * @return
-	  */
+ 	 * set the File .
+ 	 *
+ 	 * @return the file
+ 	 */
 	 public File setFilename(){
 		  Scanner sc=new Scanner(System.in);
 
@@ -201,22 +227,22 @@ public class CountryMap extends JFrame{
 
 		  String map=sc.next();	
 		  if(map.equals("1")){
-			  filename=new File("G:/workspace/Risk-App/Map_Info/map.txt");
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/map.txt");
 		  }
 		  else if(map.equals("2")){
-			  filename=new File("C:/Users/kjasp/CodeRepository/RiskGame/src/Map_Info/IncorrectMap/input3.txt"); 
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/input3.txt"); 
 		  }
 		  else if(map.equals("3")){
-			  filename=new File("/C:/Users/kjasp/CodeRepository/RiskGame/src/Map_Info/CorrectMap/input2.txt"); 
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/input2.txt"); 
 		  }
 		  else if(map.equals("4")){
-			  filename=new File("G:/workspace/Risk-App/Map_Info/TempFile.txt"); 
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt"); 
 		  }
 		  else if(map.equals("5")){
-			  filename=new File("NewMap.txt"); 
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/NewMap.txt"); 
 		  }
 		  else{
-			  filename=new File("/C:/Users/kjasp/CodeRepository/RiskGame/src/Map_Info/CorrectMap/Aden.map"); 
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/aden.txt"); 
 		  }
 			 
 		  return this.filename;
@@ -224,10 +250,11 @@ public class CountryMap extends JFrame{
 	  }
 	 
 	 /**
-	  * set the Color of each continents
-	  * @param Continent
-	  * @return
-	  */
+ 	 * set the Color of each continents.
+ 	 *
+ 	 * @param Continent the continent
+ 	 * @return the color
+ 	 */
 	 public String getColor(String Continent){
 			String color="fillColor=lightblue";
 			if(Continent.equals(ContinentList.get(0))){
@@ -257,8 +284,9 @@ public class CountryMap extends JFrame{
 	       
 			return color;
 		}
+	
 	/**
-	 * this method is used to add Country
+	 * this method is used to add Country.
 	 */
 	public void addCountry(){
 		String newLine = "";		  
@@ -345,7 +373,7 @@ public class CountryMap extends JFrame{
 	}
 	
 	/**
-	 * this method is used to add continent
+	 * this method is used to add continent.
 	 */
 	public void addContinent(){
 		
@@ -422,13 +450,13 @@ public class CountryMap extends JFrame{
 	      try{
 	    	 
 	    	  	    	 
-		    File tempFile = new File("G:/workspace/Risk-App/Map_Info/TempFile.txt");
+		    File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt");
 	    	 // Path source = Paths.get("TempFile.txt");
 	    	 
 	    	 // Path newdir = Paths.get("G:/workspace/Risk-App/Map_Info");
 
 		    BufferedReader reader = new BufferedReader(new FileReader(filename));
-		    BufferedWriter writer = new BufferedWriter(new FileWriter("G:/workspace/Risk-App/Map_Info/TempFile.txt"));
+		    BufferedWriter writer = new BufferedWriter(new FileWriter("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt"));
 		       
 		    String ContinentsBlock = "";
 		    String currentLine;
@@ -460,8 +488,9 @@ public class CountryMap extends JFrame{
 	     }
 	
 	
-	/** 
-	 * This method deletes continent with countries
+	/**
+	 *  
+	 * This method deletes continent with countries.
 	 */
 
 	public void deleteContinentWithCountries(){
@@ -474,7 +503,7 @@ public class CountryMap extends JFrame{
 	  	String Continentid=sc.next();		
 								
 		 try{
-		        File tempFile = new File("G:/workspace/Risk-App/Map_Info/TempFile.txt");
+		        File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt");
 
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
 		        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -501,7 +530,7 @@ public class CountryMap extends JFrame{
 		        writer.close(); 
 		        reader.close(); 
 		        boolean successful = tempFile.renameTo(filename);
-		        System.out.println(successful);
+		        //System.out.println(successful);
 
 		        }catch(IOException ioe){
 		           System.out.println("Exception occurred:");
@@ -510,8 +539,9 @@ public class CountryMap extends JFrame{
 	
 	}
 
-	/** 
-	 * This method deletes continent without countries
+	/**
+	 *  
+	 * This method deletes continent without countries.
 	 */
 
 	public void deleteContinentWithoutCountries(){
@@ -522,7 +552,7 @@ public class CountryMap extends JFrame{
 				
 		try{
 	  	
-			File tempFile = new File("G:/workspace/Risk-App/Map_Info/TempFile.txt");
+			File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt");
 
 			BufferedReader reader = new BufferedReader(new FileReader(filename));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -544,7 +574,7 @@ public class CountryMap extends JFrame{
 			writer.close(); 
 			reader.close(); 
 			boolean successful = tempFile.renameTo(filename);
-			System.out.println(successful);
+			//System.out.println(successful);
 
 		}catch(IOException ioe){
 			System.out.println("Exception occurred:");
@@ -552,11 +582,14 @@ public class CountryMap extends JFrame{
 		}		
 	}
 
+	/**
+	 * Make matrix file.
+	 */
 	public void makeMatrixFile(){
 	
 		try{
 
-			File tempFile = new File("MatrixFile.txt");
+			File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/MatrixFile.txt");
 
 			BufferedReader reader = new BufferedReader(new FileReader(filename));	       
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -609,6 +642,11 @@ public class CountryMap extends JFrame{
   
 	}
     
+	/**
+	 * Find main parts in file.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean findMainPartsInFile(){
 		boolean result=true;
 		try{
