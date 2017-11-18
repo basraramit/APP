@@ -613,7 +613,7 @@ public class CountryMap extends JFrame{
 								//System.out.println(tokens[i]);
 								//System.out.println(id);
                   	            		                    		                    
-								if (  id.equalsIgnoreCase(tokens[i])   ) {
+								if (  tokens[i]).trim().equalsIgnoreCase(id)     ) {
               	  
 									//System.out.println("in 4");
 									//System.out.println(String.valueOf(CID));		                	  
