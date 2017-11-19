@@ -658,7 +658,7 @@ public class CountryMap extends JFrame{
 			int  ContinentPart = 0;
 			int  CountryPart = 0;
 			while((currentLine = reader.readLine()) != null) {
-				if(currentLine.equals("[Map]") ) {
+				if(currentLine.equalsIgnoreCase("[Map]") ) {
 	        		
 					MapPart = 1;
 					continue;		        		
