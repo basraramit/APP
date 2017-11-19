@@ -603,20 +603,16 @@ public class CountryMap extends JFrame{
 					while((currentLine = reader.readLine()) != null) {
       		
 						String[] tokens = currentLine.split(",");
-						for (int i=0 ; i< tokens.length; i++){
-							//System.out.println("in 2");
-							//System.out.println(tokens[i]);
-      			
+						for (int i=0 ; i< tokens.length; i++){							
+     			
 							for(Country c: country){
 								String id=c.getName();
 								int CID=c.getCID();
-								//System.out.println(tokens[i]);
-								//System.out.println(id);
+								
                   	            		                    		                    
 								if (  tokens[i]).trim().equalsIgnoreCase(id)     ) {
               	  
-									//System.out.println("in 4");
-									//System.out.println(String.valueOf(CID));		                	  
+											                	  
 									currentLine = currentLine.replaceFirst(id, String.valueOf(CID));	                	
 									break;
                    
