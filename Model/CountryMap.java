@@ -663,11 +663,11 @@ public class CountryMap extends JFrame{
 					MapPart = 1;
 					continue;		        		
 				}
-				else if(currentLine.equals("[Continents]") ){
+				else if(currentLine.equalsIgnoreCase("[Continents]") ){
 					ContinentPart = 1;
 					continue;			        		
 				}		        	
-				else if (currentLine.equals("[Territories]") ){
+				else if (currentLine.equalsIgnoreCase("[Territories]") ){
 					CountryPart = 1;
 					continue;	
 				}	
