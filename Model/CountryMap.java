@@ -689,6 +689,80 @@ public class CountryMap extends JFrame{
 	             return result;
 	 }
 	
+	
+public void makeMatrixFileForEachContinent(){
+	
+try{
+
+  File tempFile = new File("MatrixFile.txt");
+
+  BufferedReader reader = new BufferedReader(new FileReader("continentMatrixFile.txt"));	       
+  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+  String currentLine;
+
+      while((currentLine = reader.readLine()) != null) {
+      	
+         if(currentLine.equals("[Territories]") ){
+      	writer.write(currentLine + System.getProperty("line.separator"));		        				        	
+		   while((currentLine = reader.readLine()) != null) {
+      					        		
+      		//System.out.println("in one lineeeeeeeee\n" + "\n");
+      		String[] tokens = currentLine.split(",");
+      		
+      		for (int i=0 ; i< tokens.length; i++){
+      		
+      			
+      		for(Country c: country){
+      		
+                 	String id=c.getCountryId();
+                 	
+                  	int CID=c.getCID();
+                 	
+                  	//if ("stupid".equalsIgnoreCase("STupid"))
+                  	//		System.out.println("=++++++++++++++++++++++++++++++++++++++++++");
+                  	//else 
+                  	//	System.out.println("=------------------------");
+                   if ( tokens[i].equalsIgnoreCase(id))   {
+                // if (  (tokens[i]).trim().toLowerCase().equals(id.toLowerCase())){
+                		  //equalsIgnoreCase(id)   ) {
+	                	  
+	                	  //System.out.println("id:   "+ id);
+	                	  //System.out.println("tokens[i]:   "+  tokens[i]);
+	                	  //System.out.println("CID:  " + String.valueOf(CID));	
+	                	  
+	                	  currentLine = currentLine.replaceFirst(id, String.valueOf(CID));
+	                	  //System.out.println(currentLine);
+	                	  break;
+	                     
+	                  }	
+              	
+      		 
+                
+                continue;
+	                }// for country
+      		
+      	     }//for tokens
+      		writer.write(currentLine + System.getProperty("line.separator"));
+
+      }
+      			        
+      					        					            				            			            
+      }
+      }
+      writer.close(); 
+      reader.close(); 	    
+
+      }catch(IOException ioe){
+         System.out.println("Exception occurred:");
+    	 ioe.printStackTrace();
+      }
+  
+
+}
+	
+	
+	
 	public void makeFileForEachContinent(){
 	Continent con;			  		 
 	 String currentLine;				  
