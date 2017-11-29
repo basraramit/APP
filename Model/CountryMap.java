@@ -720,7 +720,7 @@ public class CountryMap extends JFrame{
 	      				
 	      				for(Country tok: country){
 	      					
-	                     	if ((tokens[j].trim().equals(tok.getCountryId()))){ 
+	                     	if ((tokens[j].trim().equals(tok.getName()))){ 
 	                     		
 	                     			if (tok.getContinent().trim().equals(tokens[3])){
 	                     				
