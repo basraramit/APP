@@ -35,6 +35,9 @@ public class RiskStart_View extends JFrame{
 	/** The edit map button. */
 	private JButton editMapButton;
 	
+	/** The new game button. */
+	private JButton tournamentButton;
+	
 	/** The quit button. */
 	private JButton quitButton;
 	
@@ -57,11 +60,15 @@ public class RiskStart_View extends JFrame{
 		newGameButton = new JButton("New Game");
 		newGameButton.setPreferredSize(new Dimension(150,40));
 		buttonPanel.add(newGameButton);
-		buttonPanel.add( Box.createRigidArea(new Dimension(10,0)));
+		
 		editMapButton = new JButton("Edit Map");
 		editMapButton.setPreferredSize(new Dimension(150,40));
 		buttonPanel.add(editMapButton);
-		buttonPanel.add( Box.createRigidArea(new Dimension(10,0)));
+		
+		tournamentButton = new JButton("Tournament Mode");
+		tournamentButton.setPreferredSize(new Dimension(150,40));
+		buttonPanel.add(tournamentButton);
+		
 		quitButton = new JButton("Quit Game");
 		quitButton.setPreferredSize(new Dimension(150,40));
 		buttonPanel.add(quitButton);
@@ -69,6 +76,7 @@ public class RiskStart_View extends JFrame{
 		// Sets button commands
 		newGameButton.setActionCommand("newGameBtn");
 		editMapButton.setActionCommand("editMapBtn");
+		tournamentButton.setActionCommand("tournamentBtn");
 		quitButton.setActionCommand("quitBtn");
 
 		add(buttonPanel,BorderLayout.SOUTH);
@@ -85,6 +93,7 @@ public class RiskStart_View extends JFrame{
 	{
 		newGameButton.addActionListener(evt);
 		editMapButton.addActionListener(evt);
+		tournamentButton.addActionListener(evt);
 		quitButton.addActionListener(evt);
 	}
 	
