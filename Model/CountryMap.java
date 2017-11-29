@@ -74,7 +74,7 @@ public class CountryMap extends JFrame{
 			int x,y;
 		    //filename=setFilename();
 		     Scanner reader = new Scanner(filename);
-		   while (reader.hasNextLine()){
+		     while (reader.hasNextLine()){
 	               String line = reader.nextLine();
 	               if (line.equals("[Continents]")){
 	            	   while (reader.hasNextLine()&& !(line.equals("[Territories]"))){
@@ -603,17 +603,21 @@ public class CountryMap extends JFrame{
 					while((currentLine = reader.readLine()) != null) {
       		
 						String[] tokens = currentLine.split(",");
-						for (int i=0 ; i< tokens.length; i++){							
-     			
+						for (int i=0 ; i< tokens.length; i++){
+							//System.out.println("in 2");
+							//System.out.println(tokens[i]);
+      			
 							for(Country c: country){
 								String id=c.getName();
 								int CID=c.getCID();
-								
+								//System.out.println(tokens[i]);
+								//System.out.println(id);
                   	            		                    		                    
-								if (  tokens[i]).trim().equalsIgnoreCase(id)     ) {
+								if (  id.equals(tokens[i])   ) {
               	  
-											                	  
-									currentLine = currentLine.replaceFirst(id, String.valueOf(CID));	                	
+									//System.out.println("in 4");
+									//System.out.println(String.valueOf(CID));		                	  
+									currentLine = currentLine.replace(id, String.valueOf(CID));	                	
 									break;
                    
 								}	
@@ -654,16 +658,16 @@ public class CountryMap extends JFrame{
 			int  ContinentPart = 0;
 			int  CountryPart = 0;
 			while((currentLine = reader.readLine()) != null) {
-				if(currentLine.equalsIgnoreCase("[Map]") ) {
+				if(currentLine.equals("[Map]") ) {
 	        		
 					MapPart = 1;
 					continue;		        		
 				}
-				else if(currentLine.equalsIgnoreCase("[Continents]") ){
+				else if(currentLine.equals("[Continents]") ){
 					ContinentPart = 1;
 					continue;			        		
 				}		        	
-				else if (currentLine.equalsIgnoreCase("[Territories]") ){
+				else if (currentLine.equals("[Territories]") ){
 					CountryPart = 1;
 					continue;	
 				}	
@@ -689,142 +693,6 @@ public class CountryMap extends JFrame{
 	             return result;
 	 }
 	
-	
-public void makeMatrixFileForEachContinent(){
-	
-try{
-
-  File tempFile = new File("MatrixFile.txt");
-
-  BufferedReader reader = new BufferedReader(new FileReader("continentMatrixFile.txt"));	       
-  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-  String currentLine;
-
-      while((currentLine = reader.readLine()) != null) {
-      	
-         if(currentLine.equals("[Territories]") ){
-      	writer.write(currentLine + System.getProperty("line.separator"));		        				        	
-		   while((currentLine = reader.readLine()) != null) {
-      					        		
-      		//System.out.println("in one lineeeeeeeee\n" + "\n");
-      		String[] tokens = currentLine.split(",");
-      		
-      		for (int i=0 ; i< tokens.length; i++){
-      		
-      			
-      		for(Country c: country){
-      		
-                 	String id=c.getCountryId();
-                 	
-                  	int CID=c.getCID();
-                 	
-                  	//if ("stupid".equalsIgnoreCase("STupid"))
-                  	//		System.out.println("=++++++++++++++++++++++++++++++++++++++++++");
-                  	//else 
-                  	//	System.out.println("=------------------------");
-                   if ( tokens[i].equalsIgnoreCase(id))   {
-                // if (  (tokens[i]).trim().toLowerCase().equals(id.toLowerCase())){
-                		  //equalsIgnoreCase(id)   ) {
-	                	  
-	                	  //System.out.println("id:   "+ id);
-	                	  //System.out.println("tokens[i]:   "+  tokens[i]);
-	                	  //System.out.println("CID:  " + String.valueOf(CID));	
-	                	  
-	                	  currentLine = currentLine.replaceFirst(id, String.valueOf(CID));
-	                	  //System.out.println(currentLine);
-	                	  break;
-	                     
-	                  }	
-              	
-      		 
-                
-                continue;
-	                }// for country
-      		
-      	     }//for tokens
-      		writer.write(currentLine + System.getProperty("line.separator"));
-
-      }
-      			        
-      					        					            				            			            
-      }
-      }
-      writer.close(); 
-      reader.close(); 	    
-
-      }catch(IOException ioe){
-         System.out.println("Exception occurred:");
-    	 ioe.printStackTrace();
-      }
-  
-
-}
-	
-	
-	
-	public void makeFileForEachContinent(){
-	Continent con;			  		 
-	 String currentLine;				  
-	  for (int i=0 ; i<(ContinentList.size()) -1 ; i++){//forcontinentsize			  
-		 
-		  System.out.println("continent:    " + ContinentList.get(i));
-		  try{				  
-			  File tempFile = new File("continentMatrixFile.txt");
-			  BufferedReader reader = new BufferedReader(new FileReader(filename));	       
-			  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-			  while((currentLine = reader.readLine()) != null) {//while2
-	      	
-	         if(currentLine.equals("[Territories]") ){
-	        	writer.write("[Territories]");        				        	
-			   while((currentLine = reader.readLine()) != null) {//while1
-	      		
-	      		if (currentLine.contains(","+ContinentList.get(i)+",")){
-	      			//System.out.println("currentline:   " + currentLine);
-	      			String[] tokens = currentLine.split(",");
-	      			
-	      			writer.write("\n"+tokens[0]+ "," +tokens[1] + "," +tokens[2] + ","+tokens[3]);	
-	      			
-	      			for (int j=4;j<tokens.length; j++){
-	      				      				
-	      				
-	      				for(Country tok: country){
-	      					
-	                     	if ((tokens[j].trim().equals(tok.getCountryId()))){ 
-	                     		
-	                     			if (tok.getContinent().trim().equals(tokens[3])){
-	                     				
-	                     		
-	                     			writer.write(","+ tokens[j]);	
-	                     	}
-	                     	}
-	                      
-	      				}
-	      				
-	      			}//for	
-	      			
-	      		}	
-	      		
-			   }//while1				   				   
-			   			        					            				            			            
-	      }//if
-	        
-	      }//while2
-			  			  				  	      			          
-			  
-	      writer.close(); 
-	      reader.close(); 	    
-
-	      }catch(IOException ioe){
-	         System.out.println("Exception occurred:");
-	    	 ioe.printStackTrace();
-	      }
-		  makeMatrixFileForEachContinent();
-  		AdjacencyMatrixConnectedContinent adjMatrix=new AdjacencyMatrixConnectedContinent();
-  		boolean result=adjMatrix.checkAdjacency();
-		  			  		  			  	
-	  }//forcontinentsize
-}
 	
 //	public static void main(String[] args){
 //		CountryMap2 frame = new CountryMap2();

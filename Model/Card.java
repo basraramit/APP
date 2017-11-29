@@ -20,7 +20,7 @@ public class Card {
      * @param type the type
      * @param country the country
      */
-    public Card( String type, Country country ) {
+    public Card(String type, Country country ) {
 		this.type = type;
 		this.country = country;
     }

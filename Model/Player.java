@@ -3,6 +3,8 @@ package Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Strategy.IStrategy;
+
 // TODO: Auto-generated Javadoc
 /**
  * Allows the creation of Risk player objects.
@@ -31,6 +33,12 @@ public class Player {
 	
 	/** The hand. */
 	public Hand hand;
+	
+	public IStrategy strategy;
+
+	private String playerType;
+
+	private boolean isAI;
 
     /**
      * Instantiates a new player.
@@ -39,11 +47,13 @@ public class Player {
      * @param armies the armies
      * @param index the index
      */
-    public Player(String name, int armies, int index) {
+    public Player(String name, int armies, int index, String playerType, boolean isBot) {
 	
 		this.name = name;
 		this.armies = armies;
 		this.index = index;
+		this.playerType = playerType;
+		this.isAI = isBot;
 		
 		countriesHeld = new HashMap<String, Country>();
 		continentsHeld = new HashMap<String, Continent>();
@@ -80,6 +90,14 @@ public class Player {
 		return armies;
 	}
 	
+	public String getPlayerType() {
+		return playerType;
+	}
+	
+	public boolean getAI() {
+		return isAI;
+	}
+
     /**
      * Decreases the count of the number of numArmies the player has on the board
      * This count has to reflect the actual number of numArmies the players has on 
@@ -235,22 +253,6 @@ public class Player {
 	public boolean mustTurnInCards() {
 	
 		return hand.mustTurnInCards();
-	}
-	
-	/**
-	 * Check start.
-	 *
-	 * @return the int
-	 */
-	public int checkStart(){
-		int count = 0;
-		for(int j = 0; j < getOwnedCountries().size(); j++){
-			if(getOwnedCountries().get(j).getArmies() == 1){
-				count++;
-			}
-		}
-		return count;
-		
 	}
 
 }
