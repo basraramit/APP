@@ -693,6 +693,69 @@ public class CountryMap extends JFrame{
 	             return result;
 	 }
 	
+	public void makeFileForEachContinent(){
+	Continent con;			  		 
+	 String currentLine;				  
+	  for (int i=0 ; i<(ContinentList.size()) -1 ; i++){//forcontinentsize			  
+		 
+		  System.out.println("continent:    " + ContinentList.get(i));
+		  try{				  
+			  File tempFile = new File("continentMatrixFile.txt");
+			  BufferedReader reader = new BufferedReader(new FileReader(filename));	       
+			  BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+			  while((currentLine = reader.readLine()) != null) {//while2
+	      	
+	         if(currentLine.equals("[Territories]") ){
+	        	writer.write("[Territories]");        				        	
+			   while((currentLine = reader.readLine()) != null) {//while1
+	      		
+	      		if (currentLine.contains(","+ContinentList.get(i)+",")){
+	      			//System.out.println("currentline:   " + currentLine);
+	      			String[] tokens = currentLine.split(",");
+	      			
+	      			writer.write("\n"+tokens[0]+ "," +tokens[1] + "," +tokens[2] + ","+tokens[3]);	
+	      			
+	      			for (int j=4;j<tokens.length; j++){
+	      				      				
+	      				
+	      				for(Country tok: country){
+	      					
+	                     	if ((tokens[j].trim().equals(tok.getCountryId()))){ 
+	                     		
+	                     			if (tok.getContinent().trim().equals(tokens[3])){
+	                     				
+	                     		
+	                     			writer.write(","+ tokens[j]);	
+	                     	}
+	                     	}
+	                      
+	      				}
+	      				
+	      			}//for	
+	      			
+	      		}	
+	      		
+			   }//while1				   				   
+			   			        					            				            			            
+	      }//if
+	        
+	      }//while2
+			  			  				  	      			          
+			  
+	      writer.close(); 
+	      reader.close(); 	    
+
+	      }catch(IOException ioe){
+	         System.out.println("Exception occurred:");
+	    	 ioe.printStackTrace();
+	      }
+		  makeMatrixFileForEachContinent();
+  		AdjacencyMatrixConnectedGraph adjMatrix=new AdjacencyMatrixConnectedGraph();
+  		boolean result=adjMatrix.checkAdjacency();
+		  			  		  			  	
+	  }//forcontinentsize
+}
+	
 	
 //	public static void main(String[] args){
 //		CountryMap2 frame = new CountryMap2();
