@@ -617,7 +617,7 @@ public class CountryMap extends JFrame{
               	  
 									//System.out.println("in 4");
 									//System.out.println(String.valueOf(CID));		                	  
-									currentLine = currentLine.replace(id, String.valueOf(CID));	                	
+									currentLine = currentLine.replaceFirst(id, String.valueOf(CID));	                	
 									break;
                    
 								}	
