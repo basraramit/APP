@@ -750,7 +750,7 @@ public class CountryMap extends JFrame{
 	    	 ioe.printStackTrace();
 	      }
 		  makeMatrixFileForEachContinent();
-  		AdjacencyMatrixConnectedGraph adjMatrix=new AdjacencyMatrixConnectedGraph();
+  		AdjacencyMatrixConnectedContinent adjMatrix=new AdjacencyMatrixConnectedContinent();
   		boolean result=adjMatrix.checkAdjacency();
 		  			  		  			  	
 	  }//forcontinentsize
