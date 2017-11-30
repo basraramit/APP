@@ -40,6 +40,7 @@ public class RiskStart_View extends JFrame{
 	
 	/** The quit button. */
 	private JButton quitButton;
+	private JButton loadSavedButton;
 	
 	/**
 	 * Constructs the start menu.
@@ -60,6 +61,11 @@ public class RiskStart_View extends JFrame{
 		newGameButton = new JButton("New Game");
 		newGameButton.setPreferredSize(new Dimension(150,40));
 		buttonPanel.add(newGameButton);
+		buttonPanel.add( Box.createRigidArea(new Dimension(10,0)));
+		loadSavedButton=new JButton("Load saved Game");
+		loadSavedButton.setPreferredSize(new Dimension(150,40));
+		buttonPanel.add(loadSavedButton);
+		buttonPanel.add( Box.createRigidArea(new Dimension(10,0)));
 		
 		editMapButton = new JButton("Edit Map");
 		editMapButton.setPreferredSize(new Dimension(150,40));
@@ -78,6 +84,7 @@ public class RiskStart_View extends JFrame{
 		editMapButton.setActionCommand("editMapBtn");
 		tournamentButton.setActionCommand("tournamentBtn");
 		quitButton.setActionCommand("quitBtn");
+		loadSavedButton.setActionCommand("loadSavedBtn");
 
 		add(buttonPanel,BorderLayout.SOUTH);
 		add(imageComponent,BorderLayout.CENTER);
@@ -95,6 +102,7 @@ public class RiskStart_View extends JFrame{
 		editMapButton.addActionListener(evt);
 		tournamentButton.addActionListener(evt);
 		quitButton.addActionListener(evt);
+		loadSavedButton.addActionListener(evt);
 	}
 	
 }
