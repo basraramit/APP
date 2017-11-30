@@ -41,6 +41,16 @@ public class MenuController implements ActionListener {
 	
 		if (actionEvent.equals("returnBtn")) {
 			view.dispose();	
+			else if (actionEvent.equals("saveBtn")) {
+			try {
+				board.saveBoard();
+				model.SavePlayerList();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		} else if (actionEvent.equals("saveBtn")) {
 		
 		} else if (actionEvent.equals("quitBtn")) {
