@@ -55,7 +55,16 @@ public class StartViewController implements ActionListener {
 			//Opens the playerCountDialog
 			LoadMapDialog = new LoadMap_View(view, true);
 			LoadMapDialog.addActionListeners(new LoadMapController(model, LoadMapDialog));
-			LoadMapDialog.setVisible(true);
+			LoadMapDialog.setVisible(true);}
+			else if (actionEvent.equals("loadSavedBtn")) {
+			try {
+				model.loadPlayerList();
+				board.loadBoard();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		
 		}else if (actionEvent.equals("editMapBtn")) {
 			MapEdit_View v= new MapEdit_View();
