@@ -11,10 +11,15 @@ import java.lang.NumberFormatException;
 import java.awt.Container;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import javax.swing.JOptionPane;
 
@@ -32,7 +37,9 @@ import Strategy.Random_Bot;
  * @author yaome
  *
  */
-public class Risk_Model extends Observable {
+public class Risk_Model extends Observable implements Serializable{
+	
+	private static final long serialVersionUID = 5l;
 
 	/** The Country name. */
 	public static String CountryName;
@@ -123,7 +130,6 @@ public class Risk_Model extends Observable {
 	
 	/** The players. */
 	public ArrayList<Player> players;
-	public ArrayList<Player> players2;
 	
 	/** The string builder. */
 	public StringBuilder stringBuilder;
@@ -189,9 +195,15 @@ public class Risk_Model extends Observable {
 
 	public int moveArmy;
 
-	public String winner;
+	public String winner = "Draw";
 	
 	public IStrategy strategy;
+
+	private int drawTurns;
+
+	public boolean hasBotWon;
+
+	private int currentIteration;
 	
 	
 	/**
@@ -269,44 +281,15 @@ public class Risk_Model extends Observable {
     public void executeFortification(String country1, String country2, Risk_Model model) {
         this.strategy.fortify(country1, country2, model);
     }
-	List classPlayers= new ArrayList(); 
-	public void SavePlayerList()throws IOException{
-		
-		FileOutputStream fileOut = new FileOutputStream("Save.ser");
+    
+    public int getDrawTurns() {
+        return drawTurns;
+    }
 
-		 ObjectOutputStream objOut;
-		objOut= new ObjectOutputStream(fileOut);
-		
-		
-		for(int i=0; i<players.size();i++){
-		classPlayers.add(player);
-		}
-		 objOut.writeObject(classPlayers);
-		 
-        objOut.writeObject(players);
-	    objOut.close();
-	    JOptionPane.showMessageDialog(null, "Game saved Successfully");
-		
-	}
+    public void setDrawTurns(int drawTurns) {
+        this.drawTurns = drawTurns;
+    }
 	
-	public void loadPlayerList() throws IOException, ClassNotFoundException {
-	    ObjectInputStream restore = null;
-	    try {
-	       FileInputStream saveFile = new FileInputStream("Save.ser");
-	       restore = new ObjectInputStream(saveFile);
-	     classPlayers=(List) restore.readObject();
-	       players2 = new ArrayList<Player>();
-	       players2= (ArrayList<Player>) restore.readObject();
-	       for(int i=0; i<players2.size();i++){
-	       System.out.println(players2.get(i).getName());
-	       //(Arrays.asList((Player[])restore.readObject()));
-	       }
-	     
-	    } catch (java.io.FileNotFoundException ex) {
-	       System.out.println("File not found");
-	    }
-	       
-	    }
 	/**
 	 * Sets up the Risk game.
 	 *
@@ -403,12 +386,13 @@ public class Risk_Model extends Observable {
 			deployTurn = 0;
 			deployPhase = true;
 			deployed = true;
-			
+			hasBotWon = false;
 			canTurnInCards = false;
 			canReinforce = true;
 			canAttack = false;
 			canFortify = false;
 			setState("Place Army");
+			
 			
 		} catch (FileNotFoundException error) {
 			System.out.println(error.getMessage());
@@ -427,7 +411,7 @@ public class Risk_Model extends Observable {
 	
 		System.out.println("Welcome to RISK Game!\nEach player rolls a DICE in order to determine the order of turns...");
 		
-		//Collections.shuffle(players);
+		Collections.shuffle(players);
 		
 		System.out.println("Here is the order of turns:");
 	
@@ -440,9 +424,16 @@ public class Risk_Model extends Observable {
 		
 		Collections.shuffle(board.countriesList);
 		for (i = 0; i < board.countriesList.size(); i++){
-			System.out.println("=== " + players.get(i % (players.size())).getName() + "'s turn ===");
+			//System.out.println("=== " + players.get(i % (players.size())).getName() + "'s turn ===");
 			board.countriesList.get(i).setOccupant(players.get(i % (players.size())));
 			players.get(i % (players.size())).addCountry(board.countriesList.get(i));
+			//board.countriesList.get(i).incrementArmies(1);
+			//players.get(i % (players.size())).decrementArmies(1);
+		}
+		for (i = 0; i < board.countriesList.size(); i++){
+			System.out.println("=== " + players.get(i % (players.size())).getName() + "'s turn ===");
+			//board.countriesList.get(i).setOccupant(players.get(i % (players.size())));
+			//players.get(i % (players.size())).addCountry(board.countriesList.get(i));
 			board.countriesList.get(i).incrementArmies(1);
 			players.get(i % (players.size())).decrementArmies(1);
 		}
@@ -680,7 +671,7 @@ public class Risk_Model extends Observable {
 											+ " after his last military defeat at " + countryBName + ". " + currentPlayer.getName() + " has issued an execution, with " 
 											+ countryB.getOccupant().getName() + " charged as a war criminal.");
 									
-									players.remove(countryB.getOccupant().getIndex());
+									players.remove(countryB.getOccupant());
 									if(checkWin(players) == true){
 										canAttack = false;
 						                canReinforce = false;
@@ -845,6 +836,7 @@ public class Risk_Model extends Observable {
 	 * Handles turn transitions in both the deploy phase and game phase.
 	 */
 	public void nextPlayer() {
+		this.count = 0;
 	
 		if (players.size() > 1) {
 			// If at least one player remains
@@ -860,8 +852,12 @@ public class Risk_Model extends Observable {
 				if (playerIndex >= players.size()) {
 				// Loops player index back to 0 when it exceeds the number of players
 					playerIndex = 0;
-					System.out.println("Current turns is : "+deployTurn);
+					currentIteration++;
 				}
+				if(currentIteration > getDrawTurns()){
+	            	winner="DrawGame";
+	                System.out.println("Game is draw ! ");
+	            }
 				currentPlayer = players.get(playerIndex);
 				noArmiesCount = 0;
 				
@@ -875,7 +871,7 @@ public class Risk_Model extends Observable {
 						deployPhase = false;
 						deployed = true;
 						System.out.println("\n=== The Game Play Phase! ===\nWhat to do:\n1. Get new armies by turning in matching cards\n2. Attack and conquer neighbor territories.\n3. End your turn by fortifying a country with armies from another occupied country.\nGood luck, commander!");
-					}
+					
 				}
 				if (deployPhase == false) {
 					// If game phase is active
@@ -910,7 +906,6 @@ public class Risk_Model extends Observable {
 				} else if (deployPhase == true) {
 				// If deploy phase is active
 					deployTurn++;
-					
 					if (currentPlayer.getArmies() == 0) {
 						nextPlayer();
 					} else {	
@@ -922,19 +917,25 @@ public class Risk_Model extends Observable {
 							// Current player is AI
 							System.out.println("**turnAI-Deploy");
 							turnAI();
+							if(this.hasBotWon = false){
 							nextPlayer();
+							}else{
+								System.out.println(currentPlayer.getName()+" has won the game !");
+	                            winner=currentPlayer.getName();
+							}
 						} else {
 							canReinforce = true;
 							setState("Place Army");
 						}
 					}
-				}
+				}}
 			} else {
 				System.out.println("Commander, you must place your reinforcements during the reinforcement phase.");
 			}
 		} else {
 		
 		}
+			
 	}
 
 	public void turnAI() {
@@ -985,254 +986,323 @@ public class Risk_Model extends Observable {
 		this.setStrategy(new Cheater_Bot());
 		 List<Country> cheaterCountries = new ArrayList<>();
 	        for(Country country: currentPlayer.getOwnedCountries()){
+	        	cheaterCountries.add(country);
 	            executeReinforce(country.getName(), this);
 	            setChanged();
 				notifyObservers("countryA");
-	            cheaterCountries.add(country);
+	            
 	        }
 		
-	        for(Country attackingCountry: cheaterCountries) {
+	        attackPhase: for(Country attackingCountry: cheaterCountries) {
 	            List<Country> neighbors = attackingCountry.getAdjacencies();
 	            for (Country neighbor : neighbors) {
-	                //Country defenderCountry = board.getCountryByName(neighbor.getName());
-	                if (!attackingCountry.getOccupant().equals(neighbor.getOccupant())) {
-	                    executeAttack(attackingCountry.getName(), neighbor.getName(), this);
-	                    setChanged();
-						notifyObservers("countryA");
-						setChanged();
-						notifyObservers("player");
+	                Country defenderCountry = board.getCountryByName(neighbor.getName());
+	                if (!attackingCountry.getOccupant().equals(defenderCountry.getOccupant())) {
+	                    executeAttack(attackingCountry.getName(), defenderCountry.getName(), this);
+	                    if(hasBotWon) {
+	                    	break attackPhase;
+	                    }
 	                    break;
 	                }
 	            }
 	        }
 	        
 	      //fortification phase for bot
-	        for(Country fotifyCountry: cheaterCountries) {
-	            List<Country> neighbors = fotifyCountry.getAdjacencies();
-	            for (Country neighbor : neighbors) {
-	                //Country defenderCountry = board.getCountryByName(neighbor.getName());
-	                if (!fotifyCountry.getOccupant().equals(neighbor.getOccupant())) {
-	                    this.executeFortification(fotifyCountry.getName(), neighbor.getName(), this);
-	                    setChanged();
-						notifyObservers("countryA");
+	        List<Country> priorityCountries = new ArrayList<>();
+
+	        for(Country country : cheaterCountries){
+	            List<Country> neighbors = country.getAdjacencies();
+	            for(Country neighbor: neighbors) {
+	                Country c = board.getCountryByName(neighbor.getName());
+	                if (c != null && c.getOccupant().equals(currentPlayer)) {
+	                    priorityCountries.add(c);
 	                    break;
 	                }
 	            }
 	        }
+	        if (priorityCountries.size() > 0) {
+	            for (Country country:priorityCountries){
+	                executeFortification(country.getName(),null,this);
+	                setChanged();
+					notifyObservers("countryA");
+	            }
+	        }
+	    
 		
 	}
 
 	public void randomBotTurn() {
 		this.setStrategy(new Random_Bot());
 		rng = new Random();
-		Country temp1 = null;
-		Country temp2 = null;
-		Country temp3 = null;
-		Country temp4 = null;
-		Country temp5 = null;
+		int r = rng.nextInt(currentPlayer.getOwnedCountries().size());
+
+        Country randomCountry = currentPlayer.getOwnedCountries().get(rng.nextInt(currentPlayer.getOwnedCountries().size()));
+
+        if (randomCountry !=null) {
+
+            //reinforce phase for bot
+            executeReinforce(randomCountry.getName(), this);
+            setChanged();
+    		notifyObservers("countryA");
+
+            //attack phase for bot
+            List<Country> neighbors = randomCountry.getAdjacencies();
+            for (Country neighbor : neighbors) {
+                Country defenderCountry = board.getCountryByName(neighbor.getName());
+                if (isAttackValid(currentPlayer, randomCountry, defenderCountry)) {
+                    executeAttack(randomCountry.getName(), neighbor.getName(), this);
+                    setChanged();
+            		notifyObservers("countryA");
+            		setChanged();
+            		notifyObservers("player");
+                    break;
+                }
+            }
+
+
+            //fortification phase for bot
+            // AI fortify
+           System.out.println("\n===Random Player fortify - start===");
+            List<Country> priorityTargets = new ArrayList<>();
+
+            for (Country country : currentPlayer.getOwnedCountries()) {
+                for (Country neighbor : country.getAdjacencies()) {
+                    // Checks if country has both adjacent friendly and enemy countries
+                    Country n = board.getCountryByName(neighbor.getName());
+                    if (n != null) {
+                        if (n.getOccupant().getName().equals(currentPlayer.getName())) {
+                            priorityTargets.add(country);
+                        }
+                    }
+                }
+            }
+            //System.out.println("**AI fortify - Created priorityTargets list");
+
+            if (priorityTargets.size() > 0) {
+                List<Country> priorityCountries = new ArrayList<Country>();
+                int r1 = rng.nextInt(priorityTargets.size());
+
+                for (i = 0; i < priorityTargets.get(r1).getAdjacencies().size(); i++) {
+                    Country c = board.getCountryByName(priorityTargets.get(r1).getAdjacencies().get(i).getName());
+
+                    if (c != null && c.getOccupant().equals(currentPlayer) && c.getArmies() > 1) {
+                        priorityCountries.add(c);
+                    }
+                }
+                if (priorityCountries.size() > 0) {
+                    //System.out.println("**AI fortify - Created priorityCountries list");
+                    int r2 = rng.nextInt(priorityCountries.size());
+                    executeFortification(priorityCountries.get(r2).getName(), priorityTargets.get(r1).getName(), this);
+                    setChanged();
+            		notifyObservers("countryA");
+                } else {
+                	nextPlayer();
+                    System.out.println(priorityTargets.get(r1).getName()+" does not have any valid neighbours from which it can fortify ! ");
+                }
+            } else {
+            	nextPlayer();
+                System.out.println("The player doesn't have any valid countries to fortify !");
+            }
+        }
 		
-		int repeat;
-		do {
-			// 70% chance to repeat action
-				int r = rng.nextInt(currentPlayer.getOwnedCountries().size());
-				temp1 = currentPlayer.getOwnedCountries().get(r);
-				executeReinforce(temp1.getName(), this);
-				setChanged();
-				notifyObservers("countryA");
-				repeat = rng.nextInt(9);
-			} while (repeat >= 3 && currentPlayer.getArmies() > 0 );
-		
-		
-		// AI Attack
-		do {
-			// 50% chance to repeat action
-				ArrayList<Country> priorityCountries = new ArrayList<Country>();
-				
-				for (i = 0; i < currentPlayer.getOwnedCountries().size(); i++) {
-					boolean add = false;
-					
-					for (j = 0; j < currentPlayer.getOwnedCountries().get(i).getAdjacencies().size(); j++) {
-						
-						if (currentPlayer.getOwnedCountries().get(i).getArmies() > 2 && !currentPlayer.getOwnedCountries().get(i).getAdjacencies().get(j).getOccupant().equals(currentPlayer)) {
-						// If priority country has more than 2 armies and has an adjacent, enemy country
-							add = true;
-						}
-					}
-					if (add == true) {
-						priorityCountries.add(currentPlayer.getOwnedCountries().get(i));
-					}
-				}
-				//System.out.println("**AI attack - Created priorityCountries list");
-				
-				if (priorityCountries.size() > 0) {
-					int r1 = rng.nextInt(priorityCountries.size());
-					temp2 = priorityCountries.get(r1);
-					ArrayList<Country> priorityTargets = new ArrayList<Country>();
-					
-					for (i = 0; i < temp2.getAdjacencies().size(); i++) {
-					
-						if (!temp2.getAdjacencies().get(i).getOccupant().equals(currentPlayer.getName())) {
-							priorityTargets.add(temp2.getAdjacencies().get(i));
-						}
-					}
-					//System.out.println("**AI attack - Created priorityTargets list");
-					
-					if (priorityTargets.size() > 0) {
-						int r2 = rng.nextInt(priorityTargets.size());
-						temp3 = priorityTargets.get(r2);
-						//System.out.println("**AI attack - Attacking...");
-						this.executeAttack(temp2.getName(), temp3.getName(), this);
-						setChanged();
-						notifyObservers("countryA");
-						setChanged();
-						notifyObservers("player");
-						repeat = rng.nextInt(9);
-					}
-				}
-			} while (repeat >= 5 && currentPlayer.getArmies() > 0);
-			
-		// AI fortify
-		ArrayList<Country> priorityCountries = new ArrayList<Country>();
-		
-		for (i = 0; i < currentPlayer.getOwnedCountries().size(); i++) {
-			boolean add = false;
-			
-			for (j = 0; j < currentPlayer.getOwnedCountries().get(i).getAdjacencies().size(); j++) {
-				
-				if (currentPlayer.getOwnedCountries().get(i).getArmies() > 2 && !currentPlayer.getOwnedCountries().get(i).getAdjacencies().get(j).getOccupant().equals(currentPlayer)) {
-				// If priority country has more than 2 armies and has an adjacent, enemy country
-					add = true;
-				}
-			}
-			if (add == true) {
-				priorityCountries.add(currentPlayer.getOwnedCountries().get(i));
-			}
-		}
-		if(priorityCountries.size() > 0){
-			int r1 = rng.nextInt(priorityCountries.size());
-			temp4 = priorityCountries.get(r1);
-			ArrayList<Country> priorityTargets = new ArrayList<Country>();
-			
-			for (i = 0; i < temp2.getAdjacencies().size(); i++) {
-			
-				if (!temp2.getAdjacencies().get(i).getOccupant().equals(currentPlayer.getName())) {
-					priorityTargets.add(temp2.getAdjacencies().get(i));
-				}
-			}
-			if (priorityTargets.size() > 0) {
-				int r2 = rng.nextInt(priorityTargets.size());
-				temp5 = priorityTargets.get(r2);
-				this.executeFortification(temp4.getName(), temp5.getName(), this);
-				setChanged();
-				notifyObservers("countryA");
-			}
-		}
-		
+	}
+
+	private boolean isAttackValid(Player currentPlayer, Country countryA, Country countryB) {
+		if (countryA.getArmies() > 1 && !hasBotWon) {
+            //Check if at-least 2 armies are there on the attacking country.
+            if (!currentPlayer.getName().equals(countryB.getOccupant().getName()) && currentPlayer.getName().equals(countryA.getOccupant().getName())) {
+                // Check if another country is occupied by an opponent and not by the currentPlayer.
+                if (board.checkAdjacency(countryA.getName(), countryB.getName())) {
+                    return true;
+                } else{
+                    System.out.println(countryA.getName() + " is not the neighbor of " + countryB.getName() + ".");
+                }
+            } else {
+               
+            	System.out.println("You cannot attack your own country.");
+                
+            }
+        } else {
+        	if(!hasBotWon) {
+        		System.out.println("You must have more than 1 army on " + countryA.getName() + " if you wish to attack from it.");	
+        	}
+            
+        }
+        return false;
 	}
 
 	public void benevolentBotTurn() {
 		this.setStrategy(new Benevolent_Bot());
 		rng = new Random();
-		int min = currentPlayer.getArmies();
-		Country temp1 = null;
-		Country temp2 = null;
-		// AI reinforce
-		for(int i = 0; i < currentPlayer.getOwnedCountries().size(); i++) {
-				if(currentPlayer.getOwnedCountries().get(i).getArmies() < min) {
-		    		min = currentPlayer.getOwnedCountries().get(i).getArmies();
-		    		temp1 = currentPlayer.getOwnedCountries().get(i);
-		    	}
-		    }
-				if (temp1 != null) {
-					
-					executeReinforce(temp1.getName(),this);
-					setChanged();
-					notifyObservers("countryA");
-					
-				}
-		// AI attack
-		int r = rng.nextInt(temp1.getAdjacencies().size());
-		temp2 = temp1.getAdjacencies().get(r);
-		executeAttack(temp1.getName(), temp2.getName(), this);
-		setChanged();
-		notifyObservers("countryA");
-		setChanged();
-		notifyObservers("player");
-		// AI fortify
-		for(int i = 0; i < temp1.getAdjacencies().size(); i++) {
-			if(temp1.getAdjacencies().get(i).getArmies() < min && temp1.getOccupant().equals(temp1.getAdjacencies().get(i).getOccupant())) {
-    			min = temp1.getAdjacencies().get(i).getArmies();
-    			temp2 = temp1.getAdjacencies().get(i);
+        Country weakestCountry = getWeakestCountry(currentPlayer);
+
+        //reinforce phase for bot
+        if(weakestCountry !=null) {
+            executeReinforce(weakestCountry.getName(), this);
+            setChanged();
+    		notifyObservers("countryA");
+            //attack phase for bot
+            executeAttack(null, null, this);
+
+            //fortification phase for bot
+            // AI fortify
+            System.out.println("\n===Benevolent Player fortify - start===");
+            List<Country> priorityTargets = new ArrayList<>();
+
+            for (Country country : currentPlayer.getOwnedCountries()) {
+                for (Country neighbor : country.getAdjacencies()) {
+                    // Checks if country has both adjacent friendly and enemy countries
+                    Country n = board.getCountryByName(neighbor.getName());
+                    if (n != null) {
+                        if (n.getOccupant().getName().equals(currentPlayer.getName())) {
+                            priorityTargets.add(country);
+                        }
+                    }
+                }
+
+            }
+            //System.out.println("**AI fortify - Created priorityTargets list");
+
+            if (priorityTargets.size() > 0) {
+                List<Country> priorityCountries = new ArrayList<Country>();
+                int r1 = rng.nextInt(priorityTargets.size());
+
+                for (i = 0; i < priorityTargets.get(r1).getAdjacencies().size(); i++) {
+                    Country c = board.getCountryByName(priorityTargets.get(r1).getAdjacencies().get(i).getName());
+
+                    if (c != null && c.getOccupant().equals(currentPlayer) && c.getArmies() > 1) {
+                        priorityCountries.add(c);
+                    }
+                }
+                if (priorityCountries.size() > 0) {
+                    //System.out.println("**AI fortify - Created priorityCountries list");
+                    int r2 = rng.nextInt(priorityCountries.size());
+                    System.out.println(" Fortifying...");
+                    executeFortification(priorityCountries.get(r2).getName(), priorityTargets.get(r1).getName(), this);
+                    System.out.println("Successful fortify");
+                }else{
+                	
+                    System.out.println(priorityTargets.get(r1).getName()+" does not have any valid neighbours from which it can fortify ! ");
+                }
+            } else{
+            	
+                System.out.println("The player doesn't have any valid countries to fortify !");
+            }
+            
+            System.out.println("\n===Benevolent Player type fortify - end===");
+        }
+		
+	}
+
+	private Model.Country getWeakestCountry(Player player) {
+    	List<Country> playerCountry=player.getOwnedCountries();
+    	Country weakestCountry = null;
+    	board.getCountries();
+    	int minArmy=200;
+    	for(Country country:playerCountry) {
+    	 int army=	country.getArmies();
+    		if(army<minArmy) {
+    			minArmy=army;
+    			weakestCountry = country;
     		}
     	}
-		if (temp2 != null) {
-			
-			this.executeFortification(temp1.getName(), temp2.getName(), this);
-			setChanged();
-			notifyObservers("countryA");
-			
-		}
-		
+		return weakestCountry;
 	}
 
 	public void aggressiveBotTurn() {
 		this.setStrategy(new Aggressive_Bot());
 		rng = new Random();
-		int max = 0;
-		Country temp1 = null;
-		Country temp2 = null;
-		Country temp3 = null;
-		// AI reinforce
-		for(int i = 0; i < currentPlayer.getOwnedCountries().size(); i++) {
-			if(currentPlayer.getOwnedCountries().get(i).getArmies() > max) {
-    			max = currentPlayer.getOwnedCountries().get(i).getArmies();
-    			temp1 = currentPlayer.getOwnedCountries().get(i);
+        Country strongestCountry = getStrongestCountry(currentPlayer);
+
+
+        if (strongestCountry !=null ) {
+
+            //reinforce phase for bot
+            executeReinforce(strongestCountry.getName(), this);
+            setChanged();
+    		notifyObservers("countryA");
+
+            //attack phase for bot
+            List<Country> neighbors = strongestCountry.getAdjacencies();
+            for (Country neighbor : neighbors) {
+                Country defenderCountry = board.getCountryByName(neighbor.getName());
+                if (isAttackValid(currentPlayer, strongestCountry, defenderCountry)) {
+                    executeAttack(strongestCountry.getName(), neighbor.getName(), this);
+                    setChanged();
+            		notifyObservers("countryA");
+            		setChanged();
+            		notifyObservers("player");
+                    break;
+                }
+            }
+
+            //fortification phase for bot
+            // AI fortify
+            System.out.println("\n===Aggressive Player fortify - start===");
+            List<Country> priorityTargets = new ArrayList<>();
+
+            for (Country country : currentPlayer.getOwnedCountries()) {
+                for (Country neighbor : country.getAdjacencies()) {
+                    // Checks if country has both adjacent friendly and enemy countries
+                    Country n = board.getCountryByName(neighbor.getName());
+                    if (n != null) {
+                        if (n.getOccupant().getName().equals(currentPlayer.getName())) {
+                            priorityTargets.add(country);
+                        }
+                    }
+                }
+
+            }
+            //System.out.println("**AI fortify - Created priorityTargets list");
+
+            if (priorityTargets.size() > 0) {
+                List<Country> priorityCountries = new ArrayList<Country>();
+                int r1 = rng.nextInt(priorityTargets.size());
+
+                for (i = 0; i < priorityTargets.get(r1).getAdjacencies().size(); i++) {
+                    Country c = board.getCountryByName(priorityTargets.get(r1).getAdjacencies().get(i).getName());
+
+                    if (c != null && c.getOccupant().equals(currentPlayer) && c.getArmies() > 1) {
+                        priorityCountries.add(c);
+                    }
+                }
+                if (priorityCountries.size() > 0) {
+                    //System.out.println("**AI fortify - Created priorityCountries list");
+                    int r2 = rng.nextInt(priorityCountries.size());
+                    System.out.println("Fortifying...");
+                    executeFortification(priorityCountries.get(r2).getName(), priorityTargets.get(r1).getName(), this);
+                    setChanged();
+            		notifyObservers("countryA");
+                    System.out.println("Successful fortify");
+                }
+                else{
+                	nextPlayer();
+                    System.out.println(priorityTargets.get(r1).getName()+" does not have any valid neighbours from which it can fortify ! ");
+                }
+            } else{
+            	nextPlayer();
+                System.out.println("The player doesn't have any valid countries to fortify !");
+            }
+        }
+        nextPlayer();
+        System.out.println("\n===Aggressive Player type fortify - end===");
+	}
+
+	private Country getStrongestCountry(Player player) {
+    	List<Country> playerCountry=player.getOwnedCountries();
+    	Country strongestCountry = null;
+    	int maxArmy=0;
+    	if(playerCountry.size()==1) {
+    		return playerCountry.get(0);
+    	}
+    	for(Country country:playerCountry) {
+    	 int army =	country.getArmies();
+    		if(army>maxArmy) {
+    			maxArmy=army;
+    			strongestCountry = country;
     		}
     	}
-		if (temp1 != null) {
-			
-			executeReinforce(temp1.getName(),this);
-			setChanged();
-			notifyObservers("countryA");
-			
-		}
-		// AI attack
-		ArrayList<Country> priorityTargets = new ArrayList<Country>();
-		
-		for (i = 0; i < temp1.getAdjacencies().size(); i++) {
-				
-			if (!temp1.getAdjacencies().get(i).getOccupant().equals(currentPlayer.getName())) {
-				priorityTargets.add(temp1.getAdjacencies().get(i));
-			}
-		}
-			if(priorityTargets.size() > 0){
-				int r = rng.nextInt(priorityTargets.size());
-				temp2 = priorityTargets.get(r);
-				this.executeAttack(temp1.getName(), temp2.getName(), this);	
-				setChanged();
-				notifyObservers("countryA");
-				setChanged();
-				notifyObservers("player");
-			
-				}else{
-					skipAttack();
-			}
-			
-        // AI fortify
-		for(int i = 0; i < temp1.getAdjacencies().size(); i++) {
-			if(temp1.getAdjacencies().get(i).getAdjacencies().size() > max) {
-    			max = temp1.getAdjacencies().get(i).getAdjacencies().size();
-    			temp3 = temp1.getAdjacencies().get(i);
-    		}
-    	}
-		if (temp3 != null) {
-			
-			this.executeFortification(temp1.getName(), temp3.getName(), this);
-			setChanged();
-			notifyObservers("countryA");
-			
-		}
-		
+		return strongestCountry;
 	}
 
 	/**
@@ -1531,5 +1601,77 @@ public class Risk_Model extends Observable {
 		return reinforceArmy;
 		
 	}
+
+	public void playerLostRule(Country countryA2, Country countryB2) {
+		System.out.println(countryB.getOccupant().getName() + " has no countries left, player looses the game and is eliminated");
+
+        //Attacker will get all the cards of the defender as defender has lost all of it's countries
+        List<Card> listOfDefenderCards = countryB.getOccupant().getHand();
+        for (Card card : listOfDefenderCards)
+            countryA.getOccupant().addRiskCard(card);
+
+        players.remove(countryB.getOccupant());
+	}
+	
+	List classPlayers= new ArrayList();
+
+	private ArrayList<Player> players2;
+	//List classCountries=new ArrayList();
+	public void SavePlayerList()throws IOException{
+		
+		FileOutputStream fileOut = new FileOutputStream("Save.ser");
+
+		 ObjectOutputStream objOut;
+		objOut= new ObjectOutputStream(fileOut);
+		
+		for(int i=0; i<players.size();i++){
+		classPlayers.add(player);
+		}
+		
+		objOut.writeObject(classPlayers);
+		 
+        objOut.writeObject(players);
+	    objOut.close();
+	    
+	   /* fileOut = new FileOutputStream("SaveCountries.ser");
+	    objOut= new ObjectOutputStream(fileOut);
+	    CountryMap cMap=new CountryMap();
+		for(int i=0;i<cMap.country.size();i++){
+			classCountries.add(countries);
+		}
+		objOut.writeObject(classCountries);
+		objOut.writeObject(countries);*/
+	    JOptionPane.showMessageDialog(null, "Game saved Successfully");
+		
+	}
+	
+	//public ArrayList<Country> countries2=new ArrayList<Country>();
+	public void loadPlayerList() throws IOException, ClassNotFoundException {
+	    ObjectInputStream restore = null;
+	    try {
+	       FileInputStream saveFile = new FileInputStream("Save.ser");
+	       restore = new ObjectInputStream(saveFile);
+	       /*FileInputStream savedFile = new FileInputStream("SaveCountries.ser");
+	       read = new ObjectInputStream(savedFile);*/
+	       
+	      // classCountries=(List)read.readObject();
+	       
+	     classPlayers=(List) restore.readObject();
+	       players2 = new ArrayList<Player>();
+	       //countries2=(ArrayList<Country>)read.readObject();
+	       players2= (ArrayList<Player>) restore.readObject();
+	       for(int i=0; i<players2.size();i++){
+	    	   
+	       System.out.println("Name: "+players2.get(i).getName()+" Armies:"+players2.get(i).getArmies()+" ");
+	       for(int j=0;j<players2.get(i).countriesHeld.size();j++){  
+	    	   System.out.println("Countries owned:"+(j+1)+" "+players2.get(i).getOwnedCountries().get(j).getName()+"\n");
+	       }
+	       }
+	     
+	    } catch (java.io.FileNotFoundException ex) {
+	       System.out.println("File not found");
+	    }
+	       
+	    }
 	
 }

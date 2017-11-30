@@ -1,6 +1,4 @@
-package src;
-
-
+package Model;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +14,7 @@ import java.util.Scanner;
 /**
  * The Class AdjacencyMatrixConnectedGraph.
  */
-public class AdjacencyMatrixConnectedGraph {
+public class AdjacencyMatrixConnectedContinent {
 	
 	/**
 	 * Check adjacency.
@@ -24,7 +22,7 @@ public class AdjacencyMatrixConnectedGraph {
 	 * @return true, if successful
 	 */
 	public boolean checkAdjacency(){
-    	String fileName= "MatrixFile.txt";
+    	String fileName= "C:/Users/yaome/workspace/Risk_Game/src/MatrixFile.txt";
         int lineNo = 0;
         File file= new File(fileName);
         List<List<String>> lines = new ArrayList<>();    
@@ -58,7 +56,7 @@ public class AdjacencyMatrixConnectedGraph {
           	        	                 	           	        
           
        // int[][] adjMatrix = new int[lineNo][lineNo];
-        int[][] adjMatrix = new int[6][6];
+        int[][] adjMatrix = new int[56][56];
         for(List<String> line: lines)
         {   
         	 String continent= line.get(3);
@@ -70,9 +68,9 @@ public class AdjacencyMatrixConnectedGraph {
         }
         
         String mLine = "";
-        for (int i = 0; i< 6; i++)
+        for (int i = 0; i< 56; i++)
         {
-            for (int j = 0; j < 6 ; j++ )
+            for (int j = 0; j < 56 ; j++ )
             {
             	if (i == j)
             	adjMatrix[i][j] = 0;   	            	    	            	          	   	            	
@@ -112,18 +110,17 @@ public class AdjacencyMatrixConnectedGraph {
 	 *
 	 * @param adjacencyMatrix the adjacency matrix
 	 * @return true, if is connected
-	 * @throws FileNotFoundException 
 	 */
 
 	private static boolean isConnected(int[][] adjacencyMatrix) 
 	{
 		//int visited[] = new int[adjacencyMatrix.length];
-		int visited[] = new int[6];
+		int visited[] = new int[56];
 		//for(int row=0; row< adjacencyMatrix.length; row++)
-		for(int row=0; row< 6; row++)
+		for(int row=0; row< 56; row++)
 		{
 			//for(int col=0; col < adjacencyMatrix.length; col++)
-			for(int col=0; col < 6; col++)
+			for(int col=0; col < 56; col++)
             	{
     	         	if(adjacencyMatrix[row][col]==1 && visited[row]==0 )
     	         	{
@@ -139,7 +136,7 @@ public class AdjacencyMatrixConnectedGraph {
 		{
 			int flag = 0;
 			try{
-			BufferedReader reader = new BufferedReader(new FileReader("MatrixFile.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("C:/Users/yaome/workspace/Risk_Game/src/MatrixFile.txt"));
 			         String line;
 
 			         while((line = reader.readLine()) != null) {

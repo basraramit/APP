@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,10 @@ import java.util.List;
  * @author yaomeng
  *
  */
-public class Continent {
+public class Continent implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 	
 	/** The name. */
 	public String name;

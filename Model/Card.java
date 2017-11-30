@@ -1,12 +1,17 @@
 package Model;
 
+import java.io.Serializable;
+
 // TODO: Auto-generated Javadoc
 /**
  * Allows the creation of Risk Card objects.
  * @author yaomeng
  *
  */
-public class Card {
+public class Card implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 
 	/** The type. */
 	public final String type;

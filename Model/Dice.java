@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
@@ -12,7 +13,10 @@ import java.util.Random;
  *
  */
  
-public class Dice {
+public class Dice implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 
 	/** The roll. */
 	private int roll;

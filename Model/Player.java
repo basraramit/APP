@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +12,10 @@ import Strategy.IStrategy;
  * @author yaomeng
  *
  */
-public class Player {
+public class Player implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 	
 	/** The armies. */
 	public int armies;
@@ -34,10 +38,13 @@ public class Player {
 	/** The hand. */
 	public Hand hand;
 	
+	/** The strategy. */
 	public IStrategy strategy;
 
+	/** The player type. */
 	private String playerType;
 
+	/** The is AI. */
 	private boolean isAI;
 
     /**
@@ -46,6 +53,8 @@ public class Player {
      * @param name the name
      * @param armies the armies
      * @param index the index
+     * @param playerType the player type
+     * @param isBot the is bot
      */
     public Player(String name, int armies, int index, String playerType, boolean isBot) {
 	
@@ -90,10 +99,20 @@ public class Player {
 		return armies;
 	}
 	
+	/**
+	 * Gets the player type.
+	 *
+	 * @return the player type
+	 */
 	public String getPlayerType() {
 		return playerType;
 	}
 	
+	/**
+	 * Gets the ai.
+	 *
+	 * @return the ai
+	 */
 	public boolean getAI() {
 		return isAI;
 	}

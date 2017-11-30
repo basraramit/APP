@@ -152,7 +152,10 @@ public class CountryMap extends JFrame{
 				
 			}
 		makeMatrixFile();
+		
 		boolean result=adjMatrix.checkAdjacency(); 
+		makeFileForEachContinent();
+		
 		boolean resultTwo=findMainPartsInFile();
 		if ((CountLine%3==0)&&(result==true)&&(resultTwo==true)){
 			System.out.println("Correct number of countries");
@@ -177,7 +180,7 @@ public class CountryMap extends JFrame{
 			
 		 try{
 			
-		        File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt");
+		        File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/TempFile.txt");
 
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
 		        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -227,13 +230,13 @@ public class CountryMap extends JFrame{
 
 		  String map=sc.next();	
 		  if(map.equals("1")){
-			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/map.txt");
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/3D Cliff.txt");
 		  }
 		  else if(map.equals("2")){
-			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/input3.txt"); 
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/Twin Volcano.txt"); 
 		  }
 		  else if(map.equals("3")){
-			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/input2.txt"); 
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/World.txt"); 
 		  }
 		  else if(map.equals("4")){
 			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt"); 
@@ -242,7 +245,7 @@ public class CountryMap extends JFrame{
 			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/NewMap.txt"); 
 		  }
 		  else{
-			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/aden.txt"); 
+			  filename=new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/UnconnectedContinent.txt"); 
 		  }
 			 
 		  return this.filename;
@@ -450,13 +453,13 @@ public class CountryMap extends JFrame{
 	      try{
 	    	 
 	    	  	    	 
-		    File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt");
+		    File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/TempFile.txt");
 	    	 // Path source = Paths.get("TempFile.txt");
 	    	 
 	    	 // Path newdir = Paths.get("G:/workspace/Risk-App/Map_Info");
 
 		    BufferedReader reader = new BufferedReader(new FileReader(filename));
-		    BufferedWriter writer = new BufferedWriter(new FileWriter("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt"));
+		    BufferedWriter writer = new BufferedWriter(new FileWriter("TempFile.txt"));
 		       
 		    String ContinentsBlock = "";
 		    String currentLine;
@@ -503,7 +506,7 @@ public class CountryMap extends JFrame{
 	  	String Continentid=sc.next();		
 								
 		 try{
-		        File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt");
+		        File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/TempFile.txt");
 
 		        BufferedReader reader = new BufferedReader(new FileReader(filename));
 		        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -552,7 +555,7 @@ public class CountryMap extends JFrame{
 				
 		try{
 	  	
-			File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/TempFile.txt");
+			File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/TempFile.txt");
 
 			BufferedReader reader = new BufferedReader(new FileReader(filename));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -586,10 +589,10 @@ public class CountryMap extends JFrame{
 	 * Make matrix file.
 	 */
 	public void makeMatrixFile(){
-	
+		
 		try{
 
-			File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/Map_Info/MatrixFile.txt");
+			File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/MatrixFile.txt");
 
 			BufferedReader reader = new BufferedReader(new FileReader(filename));	       
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -693,6 +696,9 @@ public class CountryMap extends JFrame{
 	             return result;
 	 }
 	
+	/**
+	 * Make file for each continent.
+	 */
 	public void makeFileForEachContinent(){
 	Continent con;			  		 
 	 String currentLine;				  
@@ -722,7 +728,7 @@ public class CountryMap extends JFrame{
 	      					
 	                     	if ((tokens[j].trim().equals(tok.getName()))){ 
 	                     		
-	                     			if (tok.getContinent().trim().equals(tokens[3])){
+	                     			if (tok.getContinent().trim().equalsIgnoreCase(tokens[3])){
 	                     				
 	                     		
 	                     			writer.write(","+ tokens[j]);	
@@ -756,11 +762,14 @@ public class CountryMap extends JFrame{
 	  }//forcontinentsize
 }
 	
+	/**
+	 * Make matrix file for each continent.
+	 */
 	public void makeMatrixFileForEachContinent(){
 	
 try{
 
-  File tempFile = new File("MatrixFile.txt");
+  File tempFile = new File("C:/Users/yaome/workspace/Risk_Game/src/MatrixFile.txt");
 
   BufferedReader reader = new BufferedReader(new FileReader("continentMatrixFile.txt"));	       
   BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));

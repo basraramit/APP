@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,7 +15,10 @@ import javax.swing.DefaultListModel;
  * @author yaomeng
  *
  */
-public class RiskListModel extends DefaultListModel implements Observer {
+public class RiskListModel extends DefaultListModel implements Observer , Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 
 	/** The i. */
 	public int i;

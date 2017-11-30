@@ -1,5 +1,7 @@
 package Model;
 import java.io.OutputStream;
+import java.io.Serializable;
+
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
@@ -10,7 +12,10 @@ import javax.swing.SwingUtilities;
  * @author yaomeng
  *
  */
-public class TextAreaOutputStream extends OutputStream {
+public class TextAreaOutputStream extends OutputStream implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 
     /** The text area. */
     public JTextArea textArea;

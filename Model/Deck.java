@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -9,7 +10,10 @@ import java.util.Collections;
  * @author yaomeng
  *
  */
-public class Deck {
+public class Deck implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 	
 	/** The i. */
 	public int i;

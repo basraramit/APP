@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
@@ -10,7 +11,10 @@ import javax.swing.JLabel;
 /**
  * The Class PlayerLabel.
  */
-public class PlayerLabel extends JLabel implements Observer{
+public class PlayerLabel extends JLabel implements Observer, Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 	
 	/** The name. */
 	public String name;

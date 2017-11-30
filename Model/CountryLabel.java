@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,7 +15,9 @@ import javax.swing.JLabel;
  * @author yaomeng
  *
  */
-public class CountryLabel extends JLabel implements Observer {
+public class CountryLabel extends JLabel implements Observer, Serializable {
+	
+	private static final long serialVersionUID = 5l;
 	
 	/** The name. */
 	public String name;

@@ -10,15 +10,13 @@ import java.util.Scanner;
 
 // TODO: Auto-generated Javadoc
 /**
- * 
- * Create new map class
- *
+ * Create new map class.
  */
 public class NewMap {
 
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public void createNewMap(){
 		try{

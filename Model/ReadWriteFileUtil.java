@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,10 @@ import java.util.List;
 /**
  * Read and write file util.
  */
- public class ReadWriteFileUtil {
+ public class ReadWriteFileUtil implements Serializable {
+		
+		/** The Constant serialVersionUID. */
+		private static final long serialVersionUID = 5l;
 	/**
 	 * Hide the constructor.
 	 */

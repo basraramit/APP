@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
@@ -8,7 +9,10 @@ import java.util.ArrayList;
  * @author yaomeng
  *
  */
-public class Hand {
+public class Hand implements Serializable {
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 5l;
 	
 	/** The condition. */
 	public boolean condition;
