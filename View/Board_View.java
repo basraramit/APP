@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -231,6 +232,58 @@ public class Board_View extends JDialog implements Observer{
 		pack();
 	}
 	
+	public Board_View(Risk_Model model) throws IOException {
+		setTitle("Java-Risk-Tournament Mode");
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setResizable(false);
+		
+		//  GridBagLayout allows a flexible sizing of components
+		mainLayout = new GridBagLayout();
+		setLayout(mainLayout);
+		
+		c = new GridBagConstraints();
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.LINE_START;
+		c.insets = new Insets(5, 5, 5, 5);
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		c.gridx = 0;
+		c.gridy = 0;
+		add(messagePanel());
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.CENTER;
+		c.insets = new Insets(5, 5, 5, 5);
+		c.weightx = 8;
+		c.weighty = 0.5;
+		c.gridx = 1;
+		c.gridy = 0;
+		add(mapPanel());
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.LINE_END;
+		c.insets = new Insets(5, 5, 5, 5);
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		c.gridx = 2;
+		c.gridy = 0;
+		add(actionPanel());
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.LINE_END;
+		c.insets = new Insets(5, 5, 5, 5);
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		c.gridx = 2;
+		c.gridy = 0;
+		add(countryInfoPanel(model.getBoard()));
+		
+		setLocationRelativeTo(null);
+		
+		pack();
+	}
+
 	/**
 	 * The panel for the card display and turn-in button.
 	 *
@@ -562,18 +615,24 @@ public class Board_View extends JDialog implements Observer{
              if(state.equals("TurnInCards")){
             	 this.cardsList.setVisible(true);
             	 this.turnInBtn.setVisible(true);
-            	 this.reinforceBtn.setVisible(true);
+            	 this.countryAList.setVisible(false);
+            	 this.countryBList.setVisible(false);
+            	 this.reinforceBtn.setVisible(false);
             	 this.attackBtn.setVisible(false);
             	 this.skipAttackBtn.setVisible(false);
             	 this.fortifyBtn.setVisible(false);
              }else if(state.equals("Place Army")){
             	 this.cardsList.setVisible(false);
             	 this.turnInBtn.setVisible(false);
+            	 this.countryAList.setVisible(true);
+            	 this.countryBList.setVisible(true);
             	 this.reinforceBtn.setVisible(true);
             	 this.attackBtn.setVisible(false);
             	 this.skipAttackBtn.setVisible(false);
             	 this.fortifyBtn.setVisible(false);
              }else if(state.equals("Attack")){
+            	 this.countryAList.setVisible(true);
+            	 this.countryBList.setVisible(true);
             	 this.attackBtn.setVisible(true);
             	 this.skipAttackBtn.setVisible(true);
             	 this.fortifyBtn.setVisible(false);
@@ -581,12 +640,24 @@ public class Board_View extends JDialog implements Observer{
             	 this.turnInBtn.setVisible(false);
             	 this.reinforceBtn.setVisible(false);
              }else if(state.equals("Fortify")){
+            	 this.countryAList.setVisible(true);
+            	 this.countryBList.setVisible(true);
             	 this.attackBtn.setVisible(false);
             	 this.skipAttackBtn.setVisible(false);
             	 this.fortifyBtn.setVisible(true);
             	 this.cardsList.setVisible(false);
             	 this.turnInBtn.setVisible(false);
             	 this.reinforceBtn.setVisible(false);
+             }else if(state.equals("endGame")){
+            	 this.countryAList.setVisible(false);
+            	 this.countryBList.setVisible(false);
+            	 this.attackBtn.setVisible(false);
+            	 this.skipAttackBtn.setVisible(false);
+            	 this.fortifyBtn.setVisible(false);
+            	 this.cardsList.setVisible(false);
+            	 this.turnInBtn.setVisible(false);
+            	 this.reinforceBtn.setVisible(false);
+            	 System.out.println("This Risk Game is Over ! The Winner is " + model.currentPlayer.getName());
              }
 		}
 	}

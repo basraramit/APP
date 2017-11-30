@@ -40,6 +40,8 @@ public class RiskStart_View extends JFrame{
 	
 	/** The quit button. */
 	private JButton quitButton;
+	
+	/** The load saved button. */
 	private JButton loadSavedButton;
 	
 	/**
@@ -61,11 +63,11 @@ public class RiskStart_View extends JFrame{
 		newGameButton = new JButton("New Game");
 		newGameButton.setPreferredSize(new Dimension(150,40));
 		buttonPanel.add(newGameButton);
-		buttonPanel.add( Box.createRigidArea(new Dimension(10,0)));
-		loadSavedButton=new JButton("Load saved Game");
+		
+		loadSavedButton = new JButton("Load Saved Game");
 		loadSavedButton.setPreferredSize(new Dimension(150,40));
 		buttonPanel.add(loadSavedButton);
-		buttonPanel.add( Box.createRigidArea(new Dimension(10,0)));
+		
 		
 		editMapButton = new JButton("Edit Map");
 		editMapButton.setPreferredSize(new Dimension(150,40));
@@ -81,10 +83,10 @@ public class RiskStart_View extends JFrame{
 		
 		// Sets button commands
 		newGameButton.setActionCommand("newGameBtn");
+		loadSavedButton.setActionCommand("loadSavedBtn");
 		editMapButton.setActionCommand("editMapBtn");
 		tournamentButton.setActionCommand("tournamentBtn");
 		quitButton.setActionCommand("quitBtn");
-		loadSavedButton.setActionCommand("loadSavedBtn");
 
 		add(buttonPanel,BorderLayout.SOUTH);
 		add(imageComponent,BorderLayout.CENTER);
@@ -99,10 +101,10 @@ public class RiskStart_View extends JFrame{
 	public void addActionListeners(ActionListener evt)
 	{
 		newGameButton.addActionListener(evt);
+		loadSavedButton.addActionListener(evt);
 		editMapButton.addActionListener(evt);
 		tournamentButton.addActionListener(evt);
 		quitButton.addActionListener(evt);
-		loadSavedButton.addActionListener(evt);
 	}
 	
 }
