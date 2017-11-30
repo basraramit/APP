@@ -1,6 +1,8 @@
-Kala,6,Forgoth,Rove,Jer,Ssag,Fali,Unbecom,Spora
-	Enevim,3,Lurd,Evor,Evim,Valinor
-	Nova,5,Eritus,Obar,Arvi,Inve,Polaris,Aqualia
-	Barak Los,2,Pierco,San Funander,Marakas,Tocko
-	Neimaach,7,Lankia,Asturmina,Teor,Nurta,Engel,Kasten,Friedartika,Kalthausen,Unterkan,Horkan,Clokan,Larkan
-	Barba Moya,6,Lo,Kinsha,Farla,Blanki Vista,Mittenmoth,Esgarpok,Batan,Bilon,Har
+Berga,4,Barron,Banyan,Bella,Bordon,Bot,Byland,japan
+	Centre Metro,7,Martello,Menthyl,Metroville,Metron,Mastic,Mylon,Moonbay,Marrian
+	Craterland,5,Cyan,Coron,Cannon,Cylac,Cirius,Cill,Ceed
+	Great Horn Island,2,Gray,Grand Bank
+	Greenwood Island,3,Gras,Galyn,Gilead,Gorshen
+	Polar Island,1,Polaris
+	Queensbasin,5,Queensryche,Quell,Quay,Quandry,Quail,Quintess,Quot,Quag,Queew
+	Republic of Cranberra,4,Relish,Rhone,Riviera,Rand,Rufus

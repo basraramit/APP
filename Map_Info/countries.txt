@@ -1,43 +1,44 @@
-Forgoth
-	Rove
-	Jer
-	Ssag
-	Fali
-	Unbecom
-	Spora
-	Lurd
-	Evor
-	Evim
-	Valinor
-	Eritus
-	Obar
-	Arvi
-	Inve
+Barron
+	Banyan
+	Bella
+	Bordon
+	Bot
+	Byland
+	Martello
+	Menthyl
+	Metroville
+	Metron
+	Mastic
+	Mylon
+	Moonbay
+	Marrian
+	Cyan
+	Coron
+	Cannon
+	Cylac
+	Cirius
+	Cill
+	Ceed
+	Gray
+	Grand Bank
+	Gras
+	Galyn
+	Gilead
+	Gorshen
 	Polaris
-	Aqualia
-	Pierco
-	San Funander
-	Marakas
-	Tocko
-	Lo
-	Kinsha
-	Farla
-	Blanki Vista
-	Mittenmoth
-	Esgarpok
-	Batan
-	Bilon
-	Har
-	Lankia
-	Asturmina
-	Teor
-	Nurta
-	Engel
-	Kasten
-	Friedartika
-	Kalthausen
-	Unterkan
-	Horkan
-	Clokan
-	Larkan
+	Queensryche
+	Quell
+	Quay
+	Quandry
+	Quail
+	Quintess
+	Quot
+	Quag
+	Queew
+	Relish
+	Rhone
+	Riviera
+	Rand
+	Rufus
+	japan
 	

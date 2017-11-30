@@ -1,0 +1,11 @@
+[Map]
+author=Iceworm72
+
+[Continents]
+Asia=2
+Africa=5
+
+[Territories]
+Canada,400,450,Africa,India,Iran
+India,550,400,Asia,Iran
+Iran,650,600,Asia,Canada

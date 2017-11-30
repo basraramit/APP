@@ -1,43 +1,44 @@
-Forgoth,Rove,Spora
-	Rove,Jer,Spora,Forgoth,Polaris
-	Jer,Ssag,Fali,Unbecom,Spora,Rove
-	Ssag,Lurd,Fali,Jer
-	Fali,Ssag,Jer,Unbecom
-	Unbecom,Lankia,Fali,Farla,Kinsha,Spora,Jer
-	Spora,Forgoth,Rove,Jer,Unbecom,Kinsha
-	Lurd,Evor,Ssag
-	Evor,Valinor,Evim,Lurd
-	Evim,Valinor,Eritus,Evor
-	Valinor,Evor,Evim
-	Eritus,Evim,Lankia,Obar
-	Obar,Arvi,Inve,Eritus
-	Arvi,Polaris,Inve,Obar
-	Inve,Arvi,Obar,Aqualia
-	Polaris,Arvi,Rove
-	Aqualia,Inve,Larkan,Pierco
-	Pierco,Aqualia,San Funander,Marakas,Tocko
-	San Funander,Pierco,Marakas
-	Marakas,Pierco,San Funander,Tocko
-	Tocko,Pierco,Marakas,Blanki Vista
-	Lo,Kinsha,Blanki Vista
-	Kinsha,Spora,Unbecom,Lo,Blanki Vista,Mittenmoth,Farla
-	Farla,Kinsha,Unbecom,Asturmina,Teor,Nurta,Esgarpok,Mittenmoth
-	Blanki Vista,Lo,Kinsha,Mittenmoth,Bilon,Batan,Tocko
-	Mittenmoth,Kinsha,Farla,Esgarpok,Har,Bilon,Blanki Vista
-	Esgarpok,Farla,Mittenmoth,Har
-	Batan,Blanki Vista,Bilon
-	Bilon,Batan,Blanki Vista,Mittenmoth,Har
-	Har,Bilon,Mittenmoth,Esgarpok,Friedartika
-	Lankia,Eritus,Asturmina,Unbecom
-	Asturmina,Lankia,Clokan,Teor,Farla
-	Teor,Asturmina,Farla,Nurta,Engel
-	Nurta,Farla,Teor,Engel,Kasten
-	Engel,Teor,Nurta,Kasten,Kalthausen
-	Kasten,Friedartika,Nurta,Engel,Kalthausen,Unterkan
-	Friedartika,Har,Kasten
-	Kalthausen,Engel,Clokan,Kasten,Unterkan,Horkan
-	Unterkan,Kasten,Kalthausen,Horkan
-	Horkan,Kalthausen,Unterkan
-	Clokan,Asturmina,Kalthausen,Larkan
-	Larkan,Clokan,Aqualia
+Barron,Grand Bank,Metroville,Banyan,Bella,Byland
+	Banyan,Barron,Bella,Metroville,Mastic,Riviera
+	Bella,Barron,Banyan,Bordon,Bot,Byland,Riviera
+	Bordon,Bella,Bot,Byland
+	Bot,Bella,Bordon,Byland,Riviera,Rand
+	Byland,Barron,Bella,Bordon,Bot,Rand
+	Martello,Coron,Cannon,Cill,Menthyl,Metroville,Gray
+	Menthyl,Cill,Ceed,Martello,Metroville,Metron,Mastic
+	Metroville,Martello,Menthyl,Mastic,Barron,Banyan,Gray
+	Metron,Ceed,Menthyl,Mastic,Mylon,Moonbay,Marrian
+	Mastic,Menthyl,Metroville,Metron,Marrian,Banyan,Rhone,Riviera
+	Mylon,Quell,Quandry,Ceed,Metron,Moonbay,Gras
+	Moonbay,Metron,Mylon,Marrian,Polaris
+	Marrian,Metron,Mastic,Moonbay,Relish,Rhone
+	Cyan,Coron,Cannon,Cylac
+	Coron,Cyan,Cannon,Cylac,Cirius,Cill,Martello
+	Cannon,Cyan,Coron,Martello
+	Cylac,Cyan,Coron,Cirius,Queensryche
+	Cirius,Coron,Cylac,Cill,Ceed,Queensryche,Quell
+	Cill,Coron,Cirius,Ceed,Martello,Menthyl
+	Ceed,Cirius,Cill,Quell,Menthyl,Metron,Mylon
+	Gray,Grand Bank,Martello,Metroville
+	Grand Bank,Gray,Barron
+	Gras,Galyn,Gilead,Quag,Mylon
+	Galyn,Gras,Gilead,Gorshen
+	Gilead,Gras,Galyn,Gorshen,Queew
+	Gorshen,Galyn,Gilead,Polaris,Rufus
+	Polaris,Moonbay,Gorshen,Rand
+	Queensryche,Cylac,Cirius,Quell,Quay,Quandry
+	Quell,Cirius,Ceed,Queensryche,Quandry,Mylon
+	Quay,Queensryche,Quandry,Quintess
+	Quandry,Queensryche,Quell,Quay,Quintess,Mylon
+	Quail,Quintess,Quot
+	Quintess,Quay,Quandry,Quail,Quot,Quag
+	Quot,Quail,Quintess,Quag,Queew
+	Quag,Quintess,Quot,Queew,Gras
+	Queew,Quot,Quag,Gilead
+	Relish,Rhone,Rand,Marrian
+	Rhone,Relish,Riviera,Rand,Mastic,Marrian
+	Riviera,Rhone,Rand,Mastic,Banyan,Bella,Bot
+	Rand,Relish,Rhone,Riviera,Rufus,Bot,Byland,Polaris
+	Rufus,Rand,Gorshen
+	japan,Barron
 	
