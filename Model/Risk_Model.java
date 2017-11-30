@@ -123,6 +123,7 @@ public class Risk_Model extends Observable {
 	
 	/** The players. */
 	public ArrayList<Player> players;
+	public ArrayList<Player> players2;
 	
 	/** The string builder. */
 	public StringBuilder stringBuilder;
@@ -268,7 +269,44 @@ public class Risk_Model extends Observable {
     public void executeFortification(String country1, String country2, Risk_Model model) {
         this.strategy.fortify(country1, country2, model);
     }
+	List classPlayers= new ArrayList(); 
+	public void SavePlayerList()throws IOException{
+		
+		FileOutputStream fileOut = new FileOutputStream("Save.ser");
+
+		 ObjectOutputStream objOut;
+		objOut= new ObjectOutputStream(fileOut);
+		
+		
+		for(int i=0; i<players.size();i++){
+		classPlayers.add(player);
+		}
+		 objOut.writeObject(classPlayers);
+		 
+        objOut.writeObject(players);
+	    objOut.close();
+	    JOptionPane.showMessageDialog(null, "Game saved Successfully");
+		
+	}
 	
+	public void loadPlayerList() throws IOException, ClassNotFoundException {
+	    ObjectInputStream restore = null;
+	    try {
+	       FileInputStream saveFile = new FileInputStream("Save.ser");
+	       restore = new ObjectInputStream(saveFile);
+	     classPlayers=(List) restore.readObject();
+	       players2 = new ArrayList<Player>();
+	       players2= (ArrayList<Player>) restore.readObject();
+	       for(int i=0; i<players2.size();i++){
+	       System.out.println(players2.get(i).getName());
+	       //(Arrays.asList((Player[])restore.readObject()));
+	       }
+	     
+	    } catch (java.io.FileNotFoundException ex) {
+	       System.out.println("File not found");
+	    }
+	       
+	    }
 	/**
 	 * Sets up the Risk game.
 	 *
