@@ -9,12 +9,12 @@ import org.junit.Test;
 import Model.AdjacencyMatrixConnectedGraph;
 import junit.framework.TestCase;
 
-public class AdjacencyMatrixConnectedGraphTest extends TestCase{
+public class AdjacencyMatrixConnectedContinentTest extends TestCase{
 	
-	File file= new File("MatrixFileTest.txt");
+	File file= new File("MatrixFile.txt");
 	//CountryMap cMap=new CountryMap();
 			
-	AdjacencyMatrixConnectedGraph adjMatrix;
+	AdjacencyMatrixConnectedContinent adjMatrix;
 	
 	protected void setUp (){
 		
@@ -24,7 +24,7 @@ public class AdjacencyMatrixConnectedGraphTest extends TestCase{
 	
 	public void testCheckAdjacency(){
 		//cMap.makeMatrixFile();
-		AdjacencyMatrixConnectedGraph adjMatrix = new AdjacencyMatrixConnectedGraph();
+		AdjacencyMatrixConnectedContinent adjMatrix = new AdjacencyMatrixConnectedContinent();
 		assertTrue(adjMatrix.checkAdjacency());
 	}
 
