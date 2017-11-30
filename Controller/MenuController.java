@@ -43,7 +43,7 @@ public class MenuController implements ActionListener {
 			view.dispose();	
 			else if (actionEvent.equals("saveBtn")) {
 			try {
-				board.saveBoard();
+				
 				model.SavePlayerList();
 				
 			} catch (IOException e) {
