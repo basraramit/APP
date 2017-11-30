@@ -1,5 +1,6 @@
 package Controller;
 
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -20,6 +21,7 @@ public class RiskListController implements ListSelectionListener {
 	
 	/** The view. */
 	private Board_View view;
+
 	
 	/**
 	 * Instantiates a new risk list controller.
@@ -36,14 +38,14 @@ public class RiskListController implements ListSelectionListener {
 	 * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
 	 */
 	public void valueChanged(ListSelectionEvent evt) {
-	
-		if (evt.getValueIsAdjusting() == true) {
 			
-			if (view.getCountryAIndex() == -1) {
-			
-			} else {
-				model.setCountryASelection(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""));
+			if (evt.getValueIsAdjusting() == false) {
+				
+				if (view.getCountryAIndex() == -1) {
+				
+				} else {
+					model.setCountryASelection(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""));
+				}
 			}
 		}
-	}
 }

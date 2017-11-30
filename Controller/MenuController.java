@@ -2,6 +2,8 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import Model.Risk_Model;
 import View.MenuView;
 
@@ -41,18 +43,12 @@ public class MenuController implements ActionListener {
 	
 		if (actionEvent.equals("returnBtn")) {
 			view.dispose();	
-			else if (actionEvent.equals("saveBtn")) {
-			try {
-				
+		} else if (actionEvent.equals("saveBtn")) {
+			try{
 				model.SavePlayerList();
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			}catch(IOException e){
 				e.printStackTrace();
 			}
-		
-		} else if (actionEvent.equals("saveBtn")) {
-		
 		} else if (actionEvent.equals("quitBtn")) {
 			model.quitGame();
 		}else {

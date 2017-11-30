@@ -2,11 +2,13 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import Model.Risk_Model;
 import View.LoadMap_View;
 import View.MapEdit_View;
 import View.RiskStart_View;
+import View.TournamentSetting_View;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -24,6 +26,9 @@ public class StartViewController implements ActionListener {
 	
 	/** The Load map dialog. */
 	private LoadMap_View LoadMapDialog;
+	
+	/** The tournament setting dialog. */
+	private TournamentSetting_View tournamentSettingDialog;
 	
 	/**
 	 * Instantiates a new start view controller.
@@ -55,22 +60,27 @@ public class StartViewController implements ActionListener {
 			//Opens the playerCountDialog
 			LoadMapDialog = new LoadMap_View(view, true);
 			LoadMapDialog.addActionListeners(new LoadMapController(model, LoadMapDialog));
-			LoadMapDialog.setVisible(true);}
-			else if (actionEvent.equals("loadSavedBtn")) {
-			try {
-				model.loadPlayerList();
-				board.loadBoard();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			LoadMapDialog.setVisible(true);
 		
 		}else if (actionEvent.equals("editMapBtn")) {
 			MapEdit_View v= new MapEdit_View();
 			v.setVisible(true);
 			//a.setSize(500,500);
 			v.setBounds(250, 250, 400,400);
+		}else if (actionEvent.equals("loadSavedBtn")) {
+			try{
+				model.loadPlayerList();
+			}catch(ClassNotFoundException e){
+				e.printStackTrace();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		else if (actionEvent.equals("tournamentBtn")) {
+			System.out.println("Loading PlayerCountDialog...");
+			tournamentSettingDialog = new TournamentSetting_View(view, true);
+			tournamentSettingDialog.addActionListeners(new TournamentSettingController(tournamentSettingDialog));
+			tournamentSettingDialog.setVisible(true);
 		}else if (actionEvent.equals("quitBtn")) {
 			model.quitGame();
 		} else {

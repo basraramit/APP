@@ -3,6 +3,8 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import Model.Risk_Model;
 import View.Board_View;
 import View.MenuView;
@@ -56,20 +58,26 @@ public class BoardViewController implements ActionListener {
 			view.update(model, model.state);
 		} else if (actionEvent.equals("reinforceBtn")) {
 			//System.out.println("User pressed reinforceButton.");view.getSelectedComboBox();
+			//int army = Integer.parseInt(JOptionPane.showInputDialog("How many armies u want to sent to reinforce ?"));
+			//model.setArmy(army);
 			model.reinforce(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""));
 			view.update(model, model.state);
 		} else if (actionEvent.equals("attackBtn")) {
+			//int aDice = Integer.parseInt(JOptionPane.showInputDialog("Owner of " + view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", "") + " are attacking ! How many dice will you roll?"));
+			//int dDice = Integer.parseInt(JOptionPane.showInputDialog("Owner of " + view.getCountryB().replaceAll("[0-9]", "").replaceAll("\\-", "") + " you are attacked ! How many dice will you roll?"));
+			//model.setAttackDice(aDice);
+			//model.setDefenderDice(dDice);
 			model.attack(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""), view.getCountryB().replaceAll("[0-9]", "").replaceAll("\\-", ""));
 			view.update(model, model.state);
-			
 		} else if (actionEvent.equals("fortifyBtn")) {
 			//System.out.println("User pressed fortifyButton.");
+			//int army = Integer.parseInt(JOptionPane.showInputDialog("How many armies u want to fortify ?"));
+			//model.setArmy(army);
 			model.fortify(view.getCountryA().replaceAll("[0-9]", "").replaceAll("\\-", ""), view.getCountryB().replaceAll("[0-9]", "").replaceAll("\\-", ""));
 			view.update(model, model.state);
 		} else if (actionEvent.equals("endTurnBtn")) {
 			model.nextPlayer();
 			view.update(model, model.state);
-		
 		}else if(actionEvent.equals("skipAttackBtn")){
 			model.skipAttack();
 			view.update(model, model.state);

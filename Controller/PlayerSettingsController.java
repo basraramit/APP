@@ -22,6 +22,9 @@ public class PlayerSettingsController implements ActionListener {
 	/** The player names. */
 	private ArrayList<String> playerNames;
 	
+	/** The player types. */
+	private ArrayList<String> playerTypes;
+	
 	/** The model. */
 	private Risk_Model model;
 	
@@ -47,32 +50,39 @@ public class PlayerSettingsController implements ActionListener {
 	public void actionPerformed(ActionEvent evt) {
 		String actionEvent = evt.getActionCommand();
 		playerNames = new ArrayList<String>();
+		playerTypes = new ArrayList<String>();
 		
 		if (actionEvent.equals("startBtn")) {
 		
-			System.out.println("Setting up player names and teams...");
+			System.out.println("Setting up player names and types...");
 			
 			playerNames.add(view.getPlayerTextField(1));
 			playerNames.add(view.getPlayerTextField(2));
+			playerTypes.add(view.getPlayerComboBox(1));
+			playerTypes.add(view.getPlayerComboBox(2));
 			
 			//Gets player names based on playerCount
 			if (model.getPlayerCount() > 2) {
 				playerNames.add(view.getPlayerTextField(3));
+				playerTypes.add(view.getPlayerComboBox(3));
 			}
 			if (model.getPlayerCount() > 3) {
 				playerNames.add(view.getPlayerTextField(4));
+				playerTypes.add(view.getPlayerComboBox(4));
 			}
 			if (model.getPlayerCount() > 4) {
 				playerNames.add(view.getPlayerTextField(5));
+				playerTypes.add(view.getPlayerComboBox(5));
 			}if (model.getPlayerCount() > 5) {
 				playerNames.add(view.getPlayerTextField(6));
+				playerTypes.add(view.getPlayerComboBox(6));
 			}
 	
 			System.out.println("Initializing game...");
 			
 			//Initializes values for a new game
 			try {
-				isLoaded = model.initializeGame(playerNames);
+				isLoaded = model.initializeGame(playerNames, playerTypes);
 			} catch (FileNotFoundException error) {
 				System.out.println(error.getMessage());
 			}
