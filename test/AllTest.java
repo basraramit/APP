@@ -3,8 +3,17 @@ package Test;
 import junit.framework.Test; 
 import junit.framework.TestSuite; 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AllTest.
+ */
 public class AllTest { 
 
+        /**
+         * Suite.
+         *
+         * @return the test
+         */
         public static Test suite() { 
                 TestSuite suite = new TestSuite("Junit Tests"); 
                  
@@ -22,6 +31,11 @@ public class AllTest {
                 return suite; 
         } 
 
+        /**
+         * The main method.
+         *
+         * @param args the arguments
+         */
         public static void main(String args[]) { 
                 junit.textui.TestRunner.run(suite()); 
         } 

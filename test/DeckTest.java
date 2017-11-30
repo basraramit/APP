@@ -7,17 +7,33 @@ import Model.Country;
 import Model.Deck;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DeckTest.
+ */
 public class DeckTest extends TestCase{
+	
+	/** The deck. */
 	// Objects to test
 	private Deck deck;
+	
+	/** The card 0. */
 	private Card card0;
+	
+	/** The card 1. */
 	private Card card1;
+	
+	/** The card 2. */
 	private Card card2;
+	
+	/** The card 3. */
 	private Card card3;
+	
+	/** The card 4. */
 	private Card card4;
 
 	/**
-	 * Setup
+	 * Setup.
 	 */
 	protected void setUp ()
 	{
@@ -39,6 +55,9 @@ public class DeckTest extends TestCase{
 	} 
 
 
+	/**
+	 * Test draw.
+	 */
 	public void testDraw(){
 		assertNotSame(card0, deck.draw());
 		

@@ -5,15 +5,22 @@ import java.util.Random;
 import Model.Dice;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DiceTest.
+ */
 public class DiceTest extends TestCase{
 	
+		/** The dice. */
 		//The objects to test
 		private Dice dice;
+		
+		/** The generator. */
 		//Random generator to test the class in general manner
 		private Random generator;
 		
 		/**
-		 * Setup
+		 * Setup.
 		 */
 		protected void setUp ()
 		{
@@ -21,6 +28,9 @@ public class DiceTest extends TestCase{
 			generator = new Random();
 		} 
 		
+		/**
+		 * Test roll.
+		 */
 		public void testRoll()
 		{
 			/**

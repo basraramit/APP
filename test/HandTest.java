@@ -7,16 +7,28 @@ import Model.Country;
 import Model.Hand;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HandTest.
+ */
 public class HandTest extends TestCase
 {
+	
+	/** The hand. */
 	// Objects to test
 	private	Hand hand;
+	
+	/** The card 0. */
 	private Card card0;
+	
+	/** The card 1. */
 	private Card card1;
+	
+	/** The card 2. */
 	private Card card2;
 
 	/**
-	 * Setup
+	 * Setup.
 	 */
 	protected void setUp ()
 	{
@@ -35,6 +47,9 @@ public class HandTest extends TestCase
 		
 	} 
 
+	/**
+	 * Test add cards.
+	 */
 	public void testAddCards()
 	{
 		
@@ -42,16 +57,25 @@ public class HandTest extends TestCase
 		
 	}
 	
+	/**
+	 * Test get cards.
+	 */
 	public void testGetCards(){
 		assertSame(card0, hand.getCards().get(hand.getCards().size()-3));
 		assertSame(card1, hand.getCards().get(hand.getCards().size()-2));
 		assertSame(card2, hand.getCards().get(hand.getCards().size()-1));
 	}
 	
+	/**
+	 * Test must turn in cards.
+	 */
 	public void testMustTurnInCards(){
 		assertTrue(hand.mustTurnInCards() == false);
 	}
 	
+	/**
+	 * Test remove cards from hand.
+	 */
 	public void testRemoveCardsFromHand()
 	{
 		hand.removeCardsFromHand(0,1,2);

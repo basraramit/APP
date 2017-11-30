@@ -4,13 +4,19 @@ import Model.Card;
 import Model.Country;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CardTest.
+ */
 public class CardTest extends TestCase{
+	
+	/** The regular card. */
 	// Objects to test
 	private Card regularCard;
 
 
 	/**
-	 * Setup
+	 * Setup.
 	 */
 	protected void setUp ()
 	{
@@ -18,9 +24,10 @@ public class CardTest extends TestCase{
 	}
 
 	/**
-	 * Method to be tested: getType()
-	 *@return the type(infantry, cavalry, artillery) of the card as a String
-	 *@interface: String getType();
+	 * Method to be tested: getType().
+	 *
+	 * @return the type(infantry, cavalry, artillery) of the card as a String
+	 * @interface: String getType();
 	 */
 	
 	public void testGetType()
@@ -29,9 +36,10 @@ public class CardTest extends TestCase{
 	}
 
 	/**
-	 * Method to be tested: getTerritoryName()
-	 *@return the name of the territory marked on the card as a String
-	 *@interface: String getTerritoryName();
+	 * Method to be tested: getTerritoryName().
+	 *
+	 * @return the name of the territory marked on the card as a String
+	 * @interface: String getTerritoryName();
 	 */
 	public void testgetTerritoryName()
 	{

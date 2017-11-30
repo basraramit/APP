@@ -8,24 +8,42 @@ import Model.Country;
 import Model.Player;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PlayerTest.
+ */
 public class PlayerTest extends TestCase{
 	
+	/** The player 1. */
 	private Player player1;
+	
+	/** The player 2. */
 	private Player player2;
+	
+	/** The china. */
 	private Country china;
+	
+	/** The england. */
 	private Country england;
+	
+	/** The asia. */
 	private Continent asia;
+	
+	/** The europe. */
 	private Continent europe;
 	
+	/** The asia country. */
 	private ArrayList<Country> asiaCountry;
+	
+	/** The europe country. */
 	private ArrayList<Country> europeCountry;
 	
 	/**
-	 * Setup
+	 * Setup.
 	 */
 	protected void setUp (){
-		player1 = new Player("XI", 0, 0);
-		player2 = new Player("LI", 5, 1);
+		player1 = new Player("XI", 0, 0, "human", false);
+		player2 = new Player("LI", 5, 1, "bot", true);
 		
 		asiaCountry = new ArrayList<Country>();
 		europeCountry = new ArrayList<Country>();
@@ -42,7 +60,7 @@ public class PlayerTest extends TestCase{
 	
 	/**
 	 * Method to be tested: String getName()
-	 * return the Player's name
+	 * return the Player's name.
 	 */
 	public void testGetName()
 	{
@@ -52,7 +70,7 @@ public class PlayerTest extends TestCase{
 	
 	/**
 	 * Method to be tested: int getNumArmies()
-	 * return: the number of armies to be placed
+	 * return: the number of armies to be placed.
 	 */
 	public void testGetArmies()
 	{
@@ -63,6 +81,9 @@ public class PlayerTest extends TestCase{
 
 	}
 	
+	/**
+	 * Test add country.
+	 */
 	public void testAddCountry(){
 		player1.addCountry(china);
 		player2.addCountry(england);
@@ -70,6 +91,9 @@ public class PlayerTest extends TestCase{
 		assertSame(england, player2.getOwnedCountries().get(0));
 	}
 	
+	/**
+	 * Test remove country.
+	 */
 	public void testRemoveCountry(){
 		player1.addCountry(china);
 		assertTrue( player1.getOwnedCountries().size() == 1 );
@@ -77,6 +101,9 @@ public class PlayerTest extends TestCase{
 		assertTrue( player1.getOwnedCountries().size() == 0 );
 	}
 	
+	/**
+	 * Test get owned countries.
+	 */
 	public void testGetOwnedCountries(){
 		player1.addCountry(china);
 		player2.addCountry(england);
@@ -86,6 +113,20 @@ public class PlayerTest extends TestCase{
 		assertTrue( player2.getOwnedCountries().containsAll(europeCountry));
 	}
 	
+	/**
+	 * Test get AI.
+	 */
+	public void testGetAI(){
+		assertTrue(player1.getAI() == false);
+		assertTrue(player2.getAI());
+	}
 	
+	/**
+	 * Test get player type.
+	 */
+	public void testGetPlayerType(){
+		assertSame(player1.getPlayerType(), "human");
+		assertSame(player2.getPlayerType(), "bot");
+	}
 
 }

@@ -5,13 +5,21 @@ import Model.Continent;
 import Model.Country;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ContinentTest.
+ */
 public class ContinentTest extends TestCase{
+	
+	/** The Africa. */
 	//The Continent Objects to test
 	private Continent Africa;
+	
+	/** The African territories. */
 	private ArrayList<Country> AfricanTerritories;
 	
 	/**
-	 * Setup
+	 * Setup.
 	 */
 	protected void setUp ()
 	{
@@ -27,7 +35,7 @@ public class ContinentTest extends TestCase{
 	} 
 
 	/**
-	 * Test method getName
+	 * Test method getName.
 	 */
 	public void testGetName()
 	{
@@ -35,7 +43,7 @@ public class ContinentTest extends TestCase{
 	}								
 
 	/**
-	 * Test method getNumBonusArmies
+	 * Test method getNumBonusArmies.
 	 */
 	public void testGetNumBonusArmies()
 	{
@@ -44,9 +52,10 @@ public class ContinentTest extends TestCase{
 
 
 	 /**
-	 * Test method getTerritoriesMap
-	 * @require the Continent have at least one territory 
-	 */
+ 	 * Test method getTerritoriesMap.
+ 	 *
+ 	 * @require the Continent have at least one territory
+ 	 */
 	public void testGetMemberCountries()
 	{
 		assertSame ( AfricanTerritories, Africa.getMemberCountries()); // should refer to the same object		

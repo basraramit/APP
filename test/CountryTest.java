@@ -7,15 +7,25 @@ import Model.Country;
 import Model.Player;
 import junit.framework.TestCase;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CountryTest.
+ */
 public class CountryTest extends TestCase
 {
+	
+	/** The Russia. */
 	//The Country Objects to test
 	private Country Russia; 
+	
+	/** The Australia. */
 	private Country Australia;
+	
+	/** The russia neighbors. */
 	private ArrayList<Country> russiaNeighbors;
 	
 	/**
-	 * Setup
+	 * Setup.
 	 */
 	protected void setUp ()
 	{
@@ -26,7 +36,7 @@ public class CountryTest extends TestCase
 	} 
 
 	/**
-	 * Test method getName
+	 * Test method getName.
 	 */
 	public void testGetName()
 	{
@@ -35,34 +45,34 @@ public class CountryTest extends TestCase
 	}
 
 	/**
-	 * Test method getOccupant
+	 * Test method getOccupant.
 	 */
 	public void testGetOccupant()
 	{
 		assertNull(Russia.getOccupant()); // should return null
 		
-		Player player1= new Player("player1", 0, 0);
+		Player player1= new Player("player1", 0, 0, "human", false);
 		Russia.setOccupant(player1);
 		assertSame(player1, Russia.getOccupant()); //should refer to the same object
 	}				
 
 	/**
-	 * Test method setOccupant
+	 * Test method setOccupant.
 	 */
 	public void testSetOccupant()
 	{
-		Player player2= new Player("player2", 0, 1);			// create a new object of Player to test
+		Player player2= new Player("player2", 0, 1, "human", false);			// create a new object of Player to test
 		Russia.setOccupant(player2);
 		assertSame (player2, Russia.getOccupant()); 	// these two references should refer to the same object
 		
-		Player player3= new Player("player3", 0, 2);			// create another object of Player to test
+		Player player3= new Player("player3", 0, 2, "human", false);			// create another object of Player to test
 		Russia.setOccupant(player3);
 		assertSame (player3, Russia.getOccupant());	// these two references should refer to the same object
 
 	}				
  
 	/**
-	 * Test method getNumArmies
+	 * Test method getNumArmies.
 	 */
 	public void testGetNumArmies()
 	{
@@ -72,13 +82,13 @@ public class CountryTest extends TestCase
 
 	/**
 	 * Test method updateNumArmies
-	 * Used to update the number of armies in a territory
-	 * @param numArmies the integer to add to or subtract from the number of armies in the terrtory
+	 * Used to update the number of armies in a territory.
+	 *
 	 * @modify: positive value : add / negative value : subtract
 	 */
 	public void testUpdateNumArmies()
 	{
-		Player player1= new Player("player1", 0, 0);
+		Player player1= new Player("player1", 0, 0, "human", false);
 		Russia.setOccupant(player1);
 		Russia.incrementArmies(10);			// test case: positive
 		assertTrue ( Russia.getArmies()== 10 );
@@ -89,7 +99,7 @@ public class CountryTest extends TestCase
 	}				
 	
 	/**
-	 * Test method getNeighbors
+	 * Test method getNeighbors.
 	 */	 
 	public void testGetNeighbors()
 	{
@@ -99,9 +109,12 @@ public class CountryTest extends TestCase
 	
 	}
 	
+	/**
+	 * Test has player.
+	 */
 	public void testHasPlayer(){
 		assertFalse(Russia.hasPlayer);
-		Player player1= new Player("player1", 0, 0);
+		Player player1= new Player("player1", 0, 0, "human", false);
 		Russia.setOccupant(player1);
 		assertTrue(Russia.hasPlayer);
 		
